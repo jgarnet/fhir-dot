@@ -54,7 +54,7 @@ public abstract class AbstractNode implements Node {
         return (Result) fields.get(field).apply(base);
     }
 
-    protected  <Base> Map<String, Function<Base, Object>> getFieldDefinitions(Base base) throws FhirPathException {
+    protected <Base> Map<String, Function<Base, Object>> getFieldDefinitions(Base base) throws FhirPathException {
         FhirDictionary<Base> dictionary = this.getDictionaryFactory().getDictionary(base);
         return dictionary.getBaseDefinitions(base);
     }
