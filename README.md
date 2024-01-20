@@ -123,7 +123,6 @@ Conditions can be evaluated using the following operators:
 In instances where a given data element contains nested collections, the `has` keyword can be used to ensure at least one item from a given nested collection matches a set of conditions.
 
 ```text
-
 Object {
     field: [
         {
@@ -170,7 +169,6 @@ Provides the `FhirDictionary` interface which contains mappings for each FHIR st
 `FhirDictionary` leverages an internal map which follows the structure:
 
 ```text
-
 Dictionary {
     Base {
         field: obj -> result
@@ -199,9 +197,9 @@ org.hl7.fhir.r4.model.ClaimResponse claimResponse;
 // factory creation can be expensive, so instantiation should be done sparingly
 FhirDictionaryFactory factory = new FhirDictionaryFactory();
 // we can get all defined FHIR structure definitions from the factory for the R4 FHIR specification
-FhirDictionary dictionary = factory.getDefinitions(claimResponse);
+FhirDictionary dictionary = factory.getDictionary(claimResponse);
 // and evaluate fields for the FHIR structure
-StringType id = definitions.getBaseDefinitions(claimResponse).get("id").apply(claimResponse);
+StringType id = dictionary.getBaseDefinitions(claimResponse).get("id").apply(claimResponse);
 ```
 
 The `Dictionary` annotation is used to register dictionaries with `FhirDictionaryFactory` by specifying the `Base` FHIR structure class the dictionary is associated with.
@@ -213,10 +211,8 @@ Contains extraction logic which will retrieve the desired data-element from a FH
 Extraction is done using a `FhirPathReader`.
 
 ```java
-
 FhirPathReader reader = new BaseFhirPathReader();
 String patientFirstName = reader.read(bundle, "$ClaimResponse.patientTarget.name.0.given.0");
-
 ```
 
 `FhirPathReader` can be configured using a `Rules` instance which contains common settings.
