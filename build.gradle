@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+group 'org.fhirpath'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    // test dependencies
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+
+    // log dependencies
+
+    implementation 'org.apache.logging.log4j:log4j-api:2.22.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.22.1'
+
+    // FHIR dependencies
+
+    def hapiVersion = '5.6.1'
+    implementation "ca.uhn.hapi.fhir:hapi-fhir-server:${hapiVersion}"
+    implementation "ca.uhn.hapi.fhir:hapi-fhir-base:${hapiVersion}"
+    implementation "ca.uhn.hapi.fhir:hapi-fhir-structures-dstu2.1:${hapiVersion}"
+    implementation "ca.uhn.hapi.fhir:hapi-fhir-structures-dstu3:${hapiVersion}"
+    implementation "ca.uhn.hapi.fhir:hapi-fhir-structures-r4:${hapiVersion}"
+    implementation "ca.uhn.hapi.fhir:hapi-fhir-structures-r5:${hapiVersion}"
+    implementation "ca.uhn.hapi.fhir:hapi-fhir-validation:${hapiVersion}"
+
+    // Spring dependencies
+    implementation 'org.springframework:spring-context:5.3.22'
+
+}
+
+test {
+    useJUnitPlatform()
+}
