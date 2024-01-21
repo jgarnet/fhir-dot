@@ -28,7 +28,7 @@ public abstract class AbstractConditionEvaluator implements ConditionEvaluator {
      */
     protected <Base> String resolveStringValue(Base base) {
         if (base instanceof Date) {
-            this.formatDate((Date) base);
+            return this.formatDate((Date) base);
         } else if (base instanceof org.hl7.fhir.r4.model.BaseDateTimeType) {
             return this.formatDate(((org.hl7.fhir.r4.model.BaseDateTimeType) base).getValue());
         } else if (base instanceof org.hl7.fhir.r5.model.BaseDateTimeType) {
@@ -60,7 +60,7 @@ public abstract class AbstractConditionEvaluator implements ConditionEvaluator {
 
     protected Date parseDate(String date) throws ParseException {
         String format = this.getRules().getDateFormat();
-        return new SimpleDateFormat(format).parse(date);
+        return FastDateFormat.getInstance(format).parse(date);
     }
 
 }

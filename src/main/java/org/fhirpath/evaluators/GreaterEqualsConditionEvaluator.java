@@ -24,6 +24,9 @@ public class GreaterEqualsConditionEvaluator extends AbstractConditionEvaluator 
             } catch (Exception ignored) {
                 return false;
             }
+        } else if (base instanceof Boolean) {
+            int comparison = ((Boolean) base).compareTo(Boolean.parseBoolean(value));
+            return comparison >= 0;
         }
         return value.compareTo(base.toString()) >= 0;
     };
