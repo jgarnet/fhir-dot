@@ -14,8 +14,8 @@ public class EqualityConditionEvaluatorTest {
     @Test
     public void testEqualityConditionEvaluatorPattern() {
         EqualityConditionEvaluator evaluator = new EqualityConditionEvaluator();
-        String operation = "x=y";
-        Assertions.assertTrue(evaluator.getPattern().matcher(operation).matches());
+        Assertions.assertTrue(evaluator.getPattern().matcher("x=y").matches());
+        Assertions.assertFalse(evaluator.getPattern().matcher("x!=y").matches());
     }
 
     @Test

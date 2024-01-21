@@ -12,14 +12,14 @@ import java.util.Date;
 public class LikeConditionEvaluatorTest {
 
     @Test
-    public void testEqualityConditionEvaluatorPattern() {
+    public void testLikeConditionEvaluatorPattern() {
         LikeConditionEvaluator evaluator = new LikeConditionEvaluator();
         Assertions.assertTrue(evaluator.getPattern().matcher("x%=y").matches());
         Assertions.assertFalse(evaluator.getPattern().matcher("x!%=y").matches());
     }
 
     @Test
-    public void testEqualityConditionEvaluator() {
+    public void testLikeConditionEvaluator() {
         Rules rules = new Rules();
         rules.setDateFormat("yyyy-MM-dd");
         ConditionEvaluator evaluator = new LikeConditionEvaluator().setRules(rules);
