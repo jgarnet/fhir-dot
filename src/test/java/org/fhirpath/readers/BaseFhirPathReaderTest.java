@@ -78,6 +78,16 @@ public class BaseFhirPathReaderTest {
     }
 
     @Test
+    public void testResourcePathAlias() {
+        try {
+            String claimResponse = this.fhirPathReader.read(this.bundle, "$ClaimResponse.id");
+            Assertions.assertEquals("ClaimResponse", claimResponse);
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate resource alias path");
+        }
+    }
+
+    @Test
     public void testExtensionAlias() {
         try {
             String nickname = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(nickname).0.value");
@@ -88,12 +98,44 @@ public class BaseFhirPathReaderTest {
     }
 
     @Test
+    public void testExtensionValueCastAlias() {
+        try {
+            String nickname = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(nickname).0.valueString");
+            String coverageType = this.fhirPathReader.read(this.bundle, "$ClaimResponse.contained(Coverage).0.extension(type).0.valueCodeableConcept.coding.0.code");
+            Assertions.assertEquals("Fake", nickname);
+            Assertions.assertEquals("Test Type", coverageType);
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate extension value cast path");
+        }
+    }
+
+    @Test
     public void testConditionalExtensionAlias() {
         try {
             String nickname = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(nickname){value=Fake2}.0.value");
             Assertions.assertEquals("Fake2", nickname);
         } catch (Exception e) {
-            Assertions.fail("Failed to evaluate extension alias path");
+            Assertions.fail("Failed to evaluate conditional extension alias path");
+        }
+    }
+
+    @Test
+    public void testContainedResourceAlias() {
+        try {
+            String subscriberId = this.fhirPathReader.read(this.bundle, "$ClaimResponse.contained(Coverage).0.subscriberId");
+            Assertions.assertEquals("Subscriber ID", subscriberId);
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate contained resource alias path");
+        }
+    }
+
+    @Test
+    public void testConditionalContainedResourceAlias() {
+        try {
+            String subscriberId = this.fhirPathReader.read(this.bundle, "$ClaimResponse.contained(Coverage){subscriberId=Subscriber ID}.0.subscriberId");
+            Assertions.assertEquals("Subscriber ID", subscriberId);
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate conditional contained resource alias path");
         }
     }
 
@@ -102,6 +144,7 @@ public class BaseFhirPathReaderTest {
         // ClaimResponse
         ClaimResponse claimResponse = new ClaimResponse();
         bundle.addEntry().setResource(claimResponse);
+        claimResponse.setId("ClaimResponse");
         claimResponse.addExtension().setUrl("someDate").setValue(new DateType("2024-01-01"));
         // Organization
         Organization organization = new Organization();
@@ -119,6 +162,14 @@ public class BaseFhirPathReaderTest {
                 .setValue("Test Patient 2")
                 .setSystem("TEST");
         patientId2.getType().addCoding().setCode("ID3");
+        // Coverage
+        Coverage coverage = new Coverage();
+        coverage.setBeneficiary((Reference) new Reference().setResource(patient));
+        coverage.setSubscriberId("Subscriber ID");
+        CodeableConcept coverageType = new CodeableConcept();
+        coverageType.addCoding().setCode("Test Type");
+        coverage.addExtension().setUrl("type").setValue(coverageType);
+        claimResponse.addContained(coverage);
         return bundle;
     }
 

@@ -17,7 +17,7 @@ public class ConditionalContainedResourcePathAlias implements PathAlias {
     private final Function<String, String> mutator = value -> {
         List<String> conditions = new ConditionParser().parse(value);
         String resource = value.replace("contained(", "");
-        int firstEndParenthesis = value.indexOf(")");
+        int firstEndParenthesis = resource.indexOf(")");
         resource = resource.substring(0, firstEndParenthesis);
         StringBuilder conditionsBuilder = new StringBuilder();
         conditions.forEach(condition -> {
