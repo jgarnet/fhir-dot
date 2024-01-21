@@ -24,8 +24,8 @@ public class EqualityConditionEvaluatorTest {
         rules.setDateFormat("yyyy-MM-dd");
         ConditionEvaluator evaluator = new EqualityConditionEvaluator().setRules(rules);
         // string equality
-        Assertions.assertTrue(evaluator.getEvaluator().apply("test", "test"));
-        Assertions.assertFalse(evaluator.getEvaluator().apply("test2", "test"));
+        Assertions.assertTrue(evaluator.getEvaluator().apply("a", "a"));
+        Assertions.assertFalse(evaluator.getEvaluator().apply("a", "b"));
         // int equality
         Assertions.assertTrue(evaluator.getEvaluator().apply(5, "5"));
         Assertions.assertFalse(evaluator.getEvaluator().apply(4, "5"));
@@ -39,8 +39,11 @@ public class EqualityConditionEvaluatorTest {
         Assertions.assertFalse(evaluator.getEvaluator().apply(BigDecimal.TEN, "1"));
         // date equality
         try {
-            Date date = new FhirPathUtils().parseDate("2024-01-01", "yyyy-MM-dd");
-            Assertions.assertTrue(evaluator.getEvaluator().apply(date, "2024-01-01"));
+            FhirPathUtils utils = new FhirPathUtils();
+            Date equal = utils.parseDate("2024-01-01", "yyyy-MM-dd");
+            Assertions.assertTrue(evaluator.getEvaluator().apply(equal, "2024-01-01"));
+            Date notEqual = utils.parseDate("2024-01-02", "yyyy-MM-dd");
+            Assertions.assertFalse(evaluator.getEvaluator().apply(notEqual, "2024-01-01"));
         } catch (Exception e) {
             Assertions.fail("Failed to check date operations");
         }
