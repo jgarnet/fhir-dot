@@ -16,7 +16,7 @@ public class ConditionalExtensionPathAlias implements PathAlias {
     private final Pattern pattern = Pattern.compile("extension\\(.+?\\)\\{.+?}");
     private final Function<String, String> mutator = value -> {
         String url = value.replace("extension(", "");
-        int firstEndParenthesis = value.indexOf(")");
+        int firstEndParenthesis = url.indexOf(")");
         url = url.substring(0, firstEndParenthesis);
         List<String> conditions = new ConditionParser().parse(value);
         StringBuilder conditionsBuilder = new StringBuilder();

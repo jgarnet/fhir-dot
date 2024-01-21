@@ -77,6 +77,26 @@ public class BaseFhirPathReaderTest {
         }
     }
 
+    @Test
+    public void testExtensionAlias() {
+        try {
+            String nickname = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(nickname).0.value");
+            Assertions.assertEquals("Fake", nickname);
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate extension alias path");
+        }
+    }
+
+    @Test
+    public void testConditionalExtensionAlias() {
+        try {
+            String nickname = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(nickname){value=Fake2}.0.value");
+            Assertions.assertEquals("Fake2", nickname);
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate extension alias path");
+        }
+    }
+
     private Bundle buildBundle() {
         Bundle bundle = new Bundle();
         // ClaimResponse
@@ -89,6 +109,8 @@ public class BaseFhirPathReaderTest {
         claimResponse.setInsurer((Reference) new Reference().setResource(organization));
         // Patient
         Patient patient = new Patient();
+        patient.addExtension().setUrl("nickname").setValue(new StringType("Fake"));
+        patient.addExtension().setUrl("nickname").setValue(new StringType("Fake2"));
         claimResponse.setPatient((Reference) new Reference().setResource(patient));
         Identifier patientId = patient.addIdentifier();
         patientId.setType(new CodeableConcept().addCoding(new Coding().setCode("ID"))).setValue("Test Patient");
