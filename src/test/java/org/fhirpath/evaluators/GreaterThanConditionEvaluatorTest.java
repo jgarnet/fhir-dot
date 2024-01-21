@@ -41,11 +41,12 @@ public class GreaterThanConditionEvaluatorTest {
         Assertions.assertFalse(evaluator.getEvaluator().apply(BigDecimal.ZERO, "1"));
         // date equality
         try {
-            Date equalDate = new FhirPathUtils().parseDate("2024-01-01", "yyyy-MM-dd");
+            FhirPathUtils utils = new FhirPathUtils();
+            Date equalDate = utils.parseDate("2024-01-01", "yyyy-MM-dd");
             Assertions.assertFalse(evaluator.getEvaluator().apply(equalDate, "2024-01-01"));
-            Date greaterDate = new FhirPathUtils().parseDate("2024-01-02", "yyyy-MM-dd");
+            Date greaterDate = utils.parseDate("2024-01-02", "yyyy-MM-dd");
             Assertions.assertTrue(evaluator.getEvaluator().apply(greaterDate, "2024-01-01"));
-            Date lesserDate = new FhirPathUtils().parseDate("2023-12-31", "yyyy-MM-dd");
+            Date lesserDate = utils.parseDate("2023-12-31", "yyyy-MM-dd");
             Assertions.assertFalse(evaluator.getEvaluator().apply(lesserDate, "2024-01-01"));
         } catch (Exception e) {
             Assertions.fail("Failed to check date operations");
@@ -53,4 +54,3 @@ public class GreaterThanConditionEvaluatorTest {
     }
 
 }
-

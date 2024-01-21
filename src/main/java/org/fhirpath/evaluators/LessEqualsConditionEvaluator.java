@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("unchecked")
 public class LessEqualsConditionEvaluator extends AbstractConditionEvaluator {
 
-    private final Pattern PATTERN = Pattern.compile("^.+<=.+$");
+    private final Pattern PATTERN = Pattern.compile("^.*<=.+$");
     private final BiFunction<?, String, Boolean> evaluator = (base, value) -> {
         if (base instanceof Integer) {
             return ((Integer) base) <= Integer.parseInt(value);
@@ -24,8 +24,11 @@ public class LessEqualsConditionEvaluator extends AbstractConditionEvaluator {
             } catch (Exception ignored) {
                 return false;
             }
+        } else if (base instanceof Boolean) {
+            int comparison = ((Boolean) base).compareTo(Boolean.parseBoolean(value));
+            return comparison <= 0;
         }
-        return value.compareTo(base.toString()) <= 0;
+        return base.toString().compareTo(value) <= 0;
     };
 
     @Override
