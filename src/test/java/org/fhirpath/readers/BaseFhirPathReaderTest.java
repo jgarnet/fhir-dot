@@ -5,6 +5,8 @@ import org.hl7.fhir.r4.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 public class BaseFhirPathReaderTest {
 
     private final FhirPathReader fhirPathReader;
@@ -14,6 +16,8 @@ public class BaseFhirPathReaderTest {
         this.fhirPathReader = new BaseFhirPathReader();
         this.bundle = this.buildBundle();
     }
+
+    /* Node Tests */
 
     @Test
     public void testExtractsField() {
@@ -77,11 +81,15 @@ public class BaseFhirPathReaderTest {
         }
     }
 
+    /* Alias Tests */
+
     @Test
     public void testResourcePathAlias() {
         try {
-            String claimResponse = this.fhirPathReader.read(this.bundle, "$ClaimResponse.id");
-            Assertions.assertEquals("ClaimResponse", claimResponse);
+            String claimResponseId = this.fhirPathReader.read(this.bundle, "$ClaimResponse.id");
+            ClaimResponse claimResponse = this.fhirPathReader.read(this.bundle, "$ClaimResponse");
+            Assertions.assertEquals("ClaimResponse", claimResponseId);
+            Assertions.assertNotNull(claimResponse);
         } catch (Exception e) {
             Assertions.fail("Failed to evaluate resource alias path");
         }
@@ -139,6 +147,92 @@ public class BaseFhirPathReaderTest {
         }
     }
 
+    /* Evaluator Tests */
+
+    @Test
+    public void testEqualityEvaluator() {
+        try {
+            HumanName name1 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{family=MCTEST}.0");
+            HumanName name2 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{family=TESTERSON}.0");
+            Assertions.assertNotNull(name1);
+            Assertions.assertNotNull(name2);
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate equality evaluator");
+        }
+    }
+
+    @Test
+    public void testNonEqualityEvaluator() {
+        try {
+            List<HumanName> name1 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{family!=MCTEST}");
+            List<HumanName> name2 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{family!=TESTERSON}");
+            Assertions.assertEquals(1, name1.size());
+            Assertions.assertEquals(1, name2.size());
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate non-equality evaluator");
+        }
+    }
+
+    @Test
+    public void testGreaterThanEvaluator() {
+        try {
+            List<Extension> dailyDoseOver1 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value>1}");
+            List<Extension> dailyDoseOver5 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value>5}");
+            Assertions.assertEquals(2, dailyDoseOver1.size());
+            Assertions.assertEquals(1, dailyDoseOver5.size());
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate greater than evaluator");
+        }
+    }
+
+    @Test
+    public void testGreaterThanEqualsEvaluator() {
+        try {
+            List<Extension> dailyDoseOver5 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value>=5}");
+            List<Extension> dailyDoseOver10 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value>=10}");
+            Assertions.assertEquals(2, dailyDoseOver5.size());
+            Assertions.assertEquals(1, dailyDoseOver10.size());
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate greater than or equals evaluator");
+        }
+    }
+
+    @Test
+    public void testLessThanEvaluator() {
+        try {
+            List<Extension> dailyDoseBelow10 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value<10}");
+            List<Extension> dailyDoseBelow5 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value<5}");
+            Assertions.assertEquals(1, dailyDoseBelow10.size());
+            Assertions.assertEquals(0, dailyDoseBelow5.size());
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate less than evaluator");
+        }
+    }
+
+    @Test
+    public void testLessThanEqualsEvaluator() {
+        try {
+            List<Extension> dailyDoseBelow10 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value<=10}");
+            List<Extension> dailyDoseBelow5 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value<=5}");
+            Assertions.assertEquals(2, dailyDoseBelow10.size());
+            Assertions.assertEquals(1, dailyDoseBelow5.size());
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate less than or equals evaluator");
+        }
+    }
+
+    @Test
+    public void testRegexEqualityEvaluator() {
+        try {
+            List<HumanName> name1 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{given%=TEST}");
+            List<HumanName> name2 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{given!%=TEST}");
+            Assertions.assertEquals(2, name1.size());
+            Assertions.assertEquals(0, name2.size());
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate regex equality evaluators");
+        }
+    }
+
     private Bundle buildBundle() {
         Bundle bundle = new Bundle();
         // ClaimResponse
@@ -154,6 +248,8 @@ public class BaseFhirPathReaderTest {
         Patient patient = new Patient();
         patient.addExtension().setUrl("nickname").setValue(new StringType("Fake"));
         patient.addExtension().setUrl("nickname").setValue(new StringType("Fake2"));
+        patient.addExtension().setUrl("dailyDose").setValue(new IntegerType(5));
+        patient.addExtension().setUrl("dailyDose").setValue(new IntegerType(10));
         claimResponse.setPatient((Reference) new Reference().setResource(patient));
         Identifier patientId = patient.addIdentifier();
         patientId.setType(new CodeableConcept().addCoding(new Coding().setCode("ID"))).setValue("Test Patient");
@@ -162,6 +258,8 @@ public class BaseFhirPathReaderTest {
                 .setValue("Test Patient 2")
                 .setSystem("TEST");
         patientId2.getType().addCoding().setCode("ID3");
+        patient.addName().setFamily("TESTERSON").addGiven("TEST");
+        patient.addName().setFamily("MCTEST").addGiven("TEST");
         // Coverage
         Coverage coverage = new Coverage();
         coverage.setBeneficiary((Reference) new Reference().setResource(patient));
