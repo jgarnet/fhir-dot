@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("unchecked")
 public class LikeConditionEvaluator extends AbstractConditionEvaluator {
 
-    private final Pattern PATTERN = Pattern.compile("^.+[^!]%=.+$");
+    private final Pattern PATTERN = Pattern.compile("^.*[^!]%=.*$");
     private final BiFunction<?, String, Boolean> evaluator = (base, value) -> {
         String targetStr = StringUtils.defaultString(this.resolveStringValue(base), "");
         return Pattern.compile(value).matcher(targetStr).find();
