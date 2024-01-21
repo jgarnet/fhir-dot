@@ -29,7 +29,9 @@ public class BaseFhirPathReaderTest {
     public void testConditions() {
         try {
             String patientId = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{type.codingFirstRep.code=ID}.0.value");
+            String patientIdCollectionIndex = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{type.coding.0.code=ID}.0.value");
             Assertions.assertEquals("Test Patient", patientId);
+            Assertions.assertEquals("Test Patient", patientIdCollectionIndex);
         } catch (Exception e) {
             Assertions.fail("Failed to evaluate conditions");
         }
@@ -42,6 +44,36 @@ public class BaseFhirPathReaderTest {
             Assertions.assertNotNull(dateExt);
         } catch (Exception e) {
             Assertions.fail("Failed to compare date in condition");
+        }
+    }
+
+    @Test
+    public void testAllConditions() {
+        try {
+            String patientIdentifier = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{type.codingFirstRep.code=ID2&&system=TEST}.0.value");
+            Assertions.assertEquals("Test Patient 2", patientIdentifier);
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate multiple conditions");
+        }
+    }
+
+    @Test
+    public void testAnyConditions() {
+        try {
+            String patientIdentifier = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{type.codingFirstRep.code=NA||system=TEST}.0.value");
+            Assertions.assertEquals("Test Patient 2", patientIdentifier);
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate multiple conditions");
+        }
+    }
+
+    @Test
+    public void testNestedPathConditions() {
+        try {
+            Coding patientIdentifier = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{system=TEST}.0.type.coding{code=ID3}.0");
+            Assertions.assertNotNull(patientIdentifier);
+        } catch (Exception e) {
+            Assertions.fail("Failed to evaluate nested path conditions");
         }
     }
 
@@ -60,6 +92,11 @@ public class BaseFhirPathReaderTest {
         claimResponse.setPatient((Reference) new Reference().setResource(patient));
         Identifier patientId = patient.addIdentifier();
         patientId.setType(new CodeableConcept().addCoding(new Coding().setCode("ID"))).setValue("Test Patient");
+        Identifier patientId2 = patient.addIdentifier();
+        patientId2.setType(new CodeableConcept().addCoding(new Coding().setCode("ID2")))
+                .setValue("Test Patient 2")
+                .setSystem("TEST");
+        patientId2.getType().addCoding().setCode("ID3");
         return bundle;
     }
 

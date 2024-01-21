@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class ConditionNode extends AbstractNode {
 
     private final Pattern PATTERN = Pattern.compile("\\w+\\{.*}");
+    private final Pattern DIGIT_PATTERN = Pattern.compile("^\\d+|[Nn]$");
     private final ConditionEvaluators evaluators = new ConditionEvaluators(this.getRules());
 
     @Override
@@ -32,20 +33,22 @@ public class ConditionNode extends AbstractNode {
 
     @Override
     public <Base, Result> Result evaluate(Base base, String path) throws FhirPathException {
+
+        String index = "";
+        if (path.matches("^.*\\{.*}\\[(\\d+|[Nn])]$")) {
+            int startBracketIndex = path.indexOf("[");
+            int endBracketIndex = path.indexOf("]");
+            index = path.substring(startBracketIndex + 1, endBracketIndex);
+            path = path.substring(0, startBracketIndex);
+        }
+        String field = path.substring(0, path.indexOf("{"));
+        String conditionsString = path.substring(path.indexOf("{") + 1, path.length() - 1);
+
         if (base instanceof List) {
             List<Base> parents = (List<Base>) base;
             List<Base> result = new ArrayList<>(parents.size());
             for (Base current : parents) {
-                String index = "";
-                if (path.matches("^.*\\{.*}\\[(\\d+|[Nn])]$")) {
-                    int startBracketIndex = path.indexOf("[");
-                    int endBracketIndex = path.indexOf("]");
-                    index = path.substring(startBracketIndex + 1, endBracketIndex);
-                    path = path.substring(0, startBracketIndex);
-                }
-                String field = path.substring(0, path.indexOf("{"));
                 current = this.getValue(current, field);
-                String conditionsString = path.substring(path.indexOf("{") + 1, path.length() - 1);
                 // apply conditions
                 current = (Base) ((List<Base>) current).stream()
                         .filter(item -> this.meetsConditions(item, conditionsString)).collect(Collectors.toList());
@@ -64,16 +67,7 @@ public class ConditionNode extends AbstractNode {
             return (Result) result;
         } else {
             Result result = (Result) base;
-            String index = "";
-            if (path.matches("^.*\\{.*}\\[(\\d+|[Nn])]$")) {
-                int startBracketIndex = path.indexOf("[");
-                int endBracketIndex = path.indexOf("]");
-                index = path.substring(startBracketIndex + 1, endBracketIndex);
-                path = path.substring(0, startBracketIndex);
-            }
-            String field = path.substring(0, path.indexOf("{"));
             result = this.getValue(result, field);
-            String conditionsString = path.substring(path.indexOf("{") + 1, path.length() - 1);
             // apply conditions
             result = (Result) ((List<Base>) result).stream()
                     .filter(item -> this.meetsConditions(item, conditionsString)).collect(Collectors.toList());
@@ -92,12 +86,12 @@ public class ConditionNode extends AbstractNode {
     private <Base> boolean meetsConditions(Base base, String node) {
         try {
             // evaluate conditions on the current target
-            String operator = node.contains("&&") ? "&&" : "||";
-            boolean isAll = "&&".equalsIgnoreCase(operator);
-            boolean isAny = "||".equalsIgnoreCase(operator);
+            String conditionType = node.contains("&&") ? "&&" : "||";
+            boolean isAll = "&&".equalsIgnoreCase(conditionType);
+            boolean isAny = "||".equalsIgnoreCase(conditionType);
             boolean matchesConditions = isAll;
             // get each root condition -- i.e. field1=test||field1=test2 -> [field1=test,field1=test1]
-            String[] conditions = node.split(Pattern.quote(operator));
+            String[] conditions = node.split(Pattern.quote(conditionType));
             for (String condition : conditions) {
                 // find the evaluator that matches this condition (i.e. field=value, field<value, etc.)
                 ConditionEvaluator evaluator = this.evaluators.getEvaluator(condition);
@@ -130,12 +124,10 @@ public class ConditionNode extends AbstractNode {
                 if (!matches) {
                     if (isAll) {
                         matchesConditions = false;
+                        break;
                     }
                 } else if (isAny) {
                     matchesConditions = true;
-                }
-                if (!matchesConditions) {
-                    break;
                 }
             }
             return matchesConditions;
@@ -149,8 +141,13 @@ public class ConditionNode extends AbstractNode {
         while (dotIndex != -1) {
             String currentField = fieldPath.substring(0, dotIndex);
             fieldPath = fieldPath.substring(dotIndex + 1);
-            // todo: account for collection items here
-            target = this.getValue(target, currentField);
+            // account for collection indexes on nested paths
+            if (target instanceof List && DIGIT_PATTERN.matcher(currentField).matches()) {
+                int index = "N".equalsIgnoreCase(currentField) ? ((List<Base>) target).size() - 1 : Integer.parseInt(currentField);
+                target = ((List<Base>) target).get(index);
+            } else {
+                target = this.getValue(target, currentField);
+            }
             dotIndex = fieldPath.indexOf(".");
         }
         Base targetValue = this.getValue(target, fieldPath);
