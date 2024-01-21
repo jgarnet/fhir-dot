@@ -23,7 +23,7 @@ public class ConditionalResourcePathAlias implements PathAlias {
             String conditionsStr = condition.substring(condition.indexOf("{") + 1, condition.length() - 1);
             conditionsBuilder.append(String.format("%s%s", "&&", conditionsStr));
         });
-        return String.format("entry{resource.resourceType=%s%s}.resource.0.", resource, conditionsBuilder);
+        return String.format("entry{resource.resourceType=%s%s}.0.resource", resource, conditionsBuilder);
     };
 
     @Override
