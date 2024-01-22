@@ -3,7 +3,6 @@ package org.fhirpath.utils;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @SuppressWarnings("unchecked, rawtypes")
@@ -18,8 +17,6 @@ public class FhirPathUtils {
             return (T) ((org.hl7.fhir.dstu3.model.PrimitiveType) obj).getValue();
         } else if (obj instanceof org.hl7.fhir.dstu2016may.model.PrimitiveType) {
             return (T) ((org.hl7.fhir.dstu2016may.model.PrimitiveType) obj).getValue();
-        } else if (obj instanceof org.hl7.fhir.dstu2.model.PrimitiveType) {
-            return (T) ((org.hl7.fhir.dstu2.model.PrimitiveType) obj).getValue();
         }
         return obj;
     }
@@ -29,7 +26,7 @@ public class FhirPathUtils {
     }
 
     public Date parseDate(String date, String format) throws ParseException {
-        return new SimpleDateFormat(format).parse(date);
+        return FastDateFormat.getInstance(format).parse(date);
     }
 
 }

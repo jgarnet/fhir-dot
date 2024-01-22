@@ -4,7 +4,6 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import org.fhirpath.framework.Rules;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @SuppressWarnings("rawtypes")
@@ -37,8 +36,6 @@ public abstract class AbstractConditionEvaluator implements ConditionEvaluator {
             return this.formatDate(((org.hl7.fhir.dstu3.model.BaseDateTimeType) base).getValue());
         } else if (base instanceof org.hl7.fhir.dstu2016may.model.BaseDateTimeType) {
             return this.formatDate(((org.hl7.fhir.dstu2016may.model.BaseDateTimeType) base).getValue());
-        } else if (base instanceof org.hl7.fhir.dstu2.model.BaseDateTimeType) {
-            return this.formatDate(((org.hl7.fhir.dstu2.model.BaseDateTimeType) base).getValue());
         } else if (base instanceof org.hl7.fhir.r4.model.PrimitiveType) {
             return ((org.hl7.fhir.r4.model.PrimitiveType) base).asStringValue();
         } else if (base instanceof org.hl7.fhir.r5.model.PrimitiveType) {
@@ -47,8 +44,6 @@ public abstract class AbstractConditionEvaluator implements ConditionEvaluator {
             return ((org.hl7.fhir.dstu3.model.PrimitiveType) base).asStringValue();
         } else if (base instanceof org.hl7.fhir.dstu2016may.model.PrimitiveType) {
             return ((org.hl7.fhir.dstu2016may.model.PrimitiveType) base).asStringValue();
-        } else if (base instanceof org.hl7.fhir.dstu2.model.PrimitiveType) {
-            return ((org.hl7.fhir.dstu2.model.PrimitiveType) base).asStringValue();
         }
         return base.toString();
     }

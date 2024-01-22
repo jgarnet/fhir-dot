@@ -144,7 +144,7 @@ The `has` keyword can be combined with other conditions using the `any` / `all` 
 Object.collection{has(nested.field.value>1)&&id!=test}
 ```
 
-<font color="#a83232">**Note:**</font> For performance reasons, the `has` keyword can (currently) only be used to evaluated nested items at the **first** nest-level.
+<font color="#a83232">**Note:**</font> For performance reasons, the `has` keyword can (currently) only be used to evaluate nested items at the **first** nest-level.
 
 ### Aliases
 
