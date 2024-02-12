@@ -14,6 +14,7 @@ public class ClaimResponseInsuranceComponentDefinitions extends AbstractDefiniti
         this.definitions.put("coverageTarget", arg -> ((ClaimResponse.InsuranceComponent) arg).getCoverage().getResource());
         this.definitions.put("businessArrangement", arg -> ((ClaimResponse.InsuranceComponent) arg).getBusinessArrangementElement());
         this.definitions.put("claimResponse", arg -> ((ClaimResponse.InsuranceComponent) arg).getClaimResponse());
+        this.definitions.put("claimResponseTarget", arg -> ((ClaimResponse.InsuranceComponent) arg).getClaimResponseTarget());
     }
 
     @Override

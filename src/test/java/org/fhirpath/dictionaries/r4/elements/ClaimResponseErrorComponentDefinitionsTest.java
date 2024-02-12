@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ClaimResponseErrorComponentDefinitionsTest extends BackboneElementDefinitionsTest {
-    private final ClaimResponseErrorComponentDefinitions claimResponseErrorComponentDefinitions =
-            new ClaimResponseErrorComponentDefinitions();
+    private final ClaimResponseErrorComponentDefinitions claimResponseErrorComponentDefinitions;
     private final ClaimResponse.ErrorComponent error;
 
     public ClaimResponseErrorComponentDefinitionsTest() {
+        this.claimResponseErrorComponentDefinitions = new ClaimResponseErrorComponentDefinitions();
         this.error = new ClaimResponse.ErrorComponent();
         this.error.setItemSequence(1);
         this.error.setDetailSequence(1);

@@ -12,11 +12,12 @@ import java.util.Date;
 import java.util.List;
 
 public class AddressDefinitionsTest extends ElementDefinitionsTest {
-    private final AddressDefinitions addressDefinitions = new AddressDefinitions();
+    private final AddressDefinitions addressDefinitions;
     private final Address address;
     private final Period period;
 
     public AddressDefinitionsTest() {
+        this.addressDefinitions = new AddressDefinitions();
         this.address = new Address();
         this.address.setUse(Address.AddressUse.HOME);
         this.address.addLine("Test Line 1");

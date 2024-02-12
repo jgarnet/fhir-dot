@@ -12,7 +12,11 @@ import java.util.List;
 
 public class BackboneElementDefinitionsTest extends ElementDefinitionsTest {
 
-    private final BackboneElementDefinitions backboneElementDefinitions = new BackboneElementDefinitions();
+    private final BackboneElementDefinitions backboneElementDefinitions;
+
+    public BackboneElementDefinitionsTest() {
+        this.backboneElementDefinitions = new BackboneElementDefinitions();
+    }
 
     @Test
     public void testSuppliesModifierExtension() {

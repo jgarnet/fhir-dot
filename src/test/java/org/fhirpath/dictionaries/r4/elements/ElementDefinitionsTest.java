@@ -13,7 +13,11 @@ import java.util.List;
 
 public class ElementDefinitionsTest extends AbstractR4DefinitionsTest {
 
-    private final ElementDefinitions elementDefinitions = new ElementDefinitions();
+    private final ElementDefinitions elementDefinitions;
+
+    public ElementDefinitionsTest() {
+        this.elementDefinitions = new ElementDefinitions();
+    }
 
     @Test
     public void testSuppliesId() {

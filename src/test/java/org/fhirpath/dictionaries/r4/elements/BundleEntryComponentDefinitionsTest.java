@@ -8,8 +8,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class BundleEntryComponentDefinitionsTest extends BackboneElementDefinitionsTest {
-    private final BundleEntryComponentDefinitions bundleEntryComponentDefinitions =
-            new BundleEntryComponentDefinitions();
+    private final BundleEntryComponentDefinitions bundleEntryComponentDefinitions;
+
+    public BundleEntryComponentDefinitionsTest() {
+        this.bundleEntryComponentDefinitions = new BundleEntryComponentDefinitions();
+    }
 
     @Test
     public void testSuppliesResource() {
