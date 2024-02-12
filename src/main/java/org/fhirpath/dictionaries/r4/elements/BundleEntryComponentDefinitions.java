@@ -4,7 +4,7 @@ import org.fhirpath.dictionaries.framework.AbstractDefinitions;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Bundle;
 
-public class BundleEntryComponent extends AbstractDefinitions<Base> {
+public class BundleEntryComponentDefinitions extends AbstractDefinitions<Base> {
     @Override
     protected void initialize() {
         this.definitions.putAll(new BackboneElementDefinitions().getDefinitions());
