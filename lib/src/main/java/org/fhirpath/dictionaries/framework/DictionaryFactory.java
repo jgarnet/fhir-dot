@@ -26,7 +26,7 @@ public class DictionaryFactory {
     }
 
     private void scanForDictionaries() {
-        // scan for classes annotated with @Dictionary
+        // scan for classes that implement Dictionary
         ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
         provider.addIncludeFilter(new AssignableTypeFilter(Dictionary.class));
         // search in dictionaries package
