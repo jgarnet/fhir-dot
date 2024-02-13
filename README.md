@@ -204,6 +204,45 @@ StringType id = dictionary.getBaseDefinitions(claimResponse).get("id").apply(cla
 
 The `Dictionary` annotation is used to register dictionaries with `FhirDictionaryFactory` by specifying the `Base` FHIR structure class the dictionary is associated with.
 
+`AbstractFhirDictionary` provides common functionality which will scan a given package for classes that implement `Definitions` and aggregate the results into one Map.
+
+New dictionaries can be added by extending `AbstractFhirDictionary`, annotating the class with `Dictionary` and supplying the package path for scanning:
+
+```java
+
+import org.hl7.fhir.r4.model.Base;
+
+@Dictionary(baseClass = Base.class)
+public class R4Dictionary extends AbstractFhirDictionary<Base> {
+    @Override
+    public String getPackage() {
+        return "org.fhirpath.dictionaries.r4";
+    }
+}
+```
+
+`Definitions` can be added to the target package while leveraging common functionality provided by `AbstractDefinitions`:
+
+```java
+
+import org.hl7.fhir.r4.model.Base;
+
+public class ResourceDefinition extends AbstractDefinitions<Base> {
+    @Override
+    protected void initialize() {
+      this.definitions.put("id", arg -> ((Resource) arg).getIdElement());
+      // ...
+    }
+    
+    @Override
+    public String getName() {
+        return "Resource";
+    }
+}
+```
+
+The `initialize()` method is used to provide all paths and their supplier functions, while `getName()` returns the Class name of the FHIR structure.
+
 ### readers
 
 Contains extraction logic which will retrieve the desired data-element from a FHIR structure when given a path.
