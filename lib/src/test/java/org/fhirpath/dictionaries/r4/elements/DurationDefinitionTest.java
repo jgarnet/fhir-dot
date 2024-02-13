@@ -1,6 +1,6 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 public class DurationDefinitionsTest extends ElementDefinitionsTest {
-    private final DurationDefinitions durationDefinitions;
+    private final DurationDefinition durationDefinitions;
     private final Duration duration;
 
     public DurationDefinitionsTest() {
-        this.durationDefinitions = new DurationDefinitions();
+        this.durationDefinitions = new DurationDefinition();
         this.duration = new Duration();
         this.duration.setUnit("Test Unit");
         this.duration.setValue(1);
@@ -31,7 +31,7 @@ public class DurationDefinitionsTest extends ElementDefinitionsTest {
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.durationDefinitions;
     }
 }

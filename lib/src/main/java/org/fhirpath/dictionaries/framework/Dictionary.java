@@ -1,12 +1,25 @@
 package org.fhirpath.dictionaries.framework;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.util.Map;
+import java.util.function.Function;
 
-@Target(value = {ElementType.TYPE})
-@Retention(value = RetentionPolicy.RUNTIME)
-public @interface Dictionary {
-    Class<?> baseClass();
+public interface FhirDictionary<Base> {
+    /**
+     * Defines all Resource, Element, and Type definitions for a given FHIR specification.
+     */
+    Map<String, Map<String, Function<Base, Object>>> getDefinitions();
+
+    /**
+     * Retrieves the definitions for a given FHIR data structure.
+     */
+    default Map<String, Function<Base, Object>> getBaseDefinitions(Base base) {
+        if (base == null) {
+            return null;
+        }
+        String baseClass = base.getClass().toString();
+        int lastDot = baseClass.lastIndexOf(".");
+        return this.getDefinitions().get(baseClass.substring(lastDot + 1));
+    }
+
+    Class<Base> getBaseClass();
 }

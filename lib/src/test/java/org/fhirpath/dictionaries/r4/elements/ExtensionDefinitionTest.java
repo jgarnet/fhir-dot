@@ -1,6 +1,6 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Extension;
 import org.hl7.fhir.r4.model.StringType;
@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ExtensionDefinitionsTest extends ElementDefinitionsTest {
-    private final ExtensionDefinitions extensionDefinitions;
+    private final ExtensionDefinition extensionDefinitions;
     private final Extension extension;
 
     public ExtensionDefinitionsTest() {
-        this.extensionDefinitions = new ExtensionDefinitions();
+        this.extensionDefinitions = new ExtensionDefinition();
         this.extension = new Extension();
         this.extension.setUrl("Test URL");
         this.extension.setValue(new StringType("Test Value"));
@@ -31,7 +31,7 @@ public class ExtensionDefinitionsTest extends ElementDefinitionsTest {
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.extensionDefinitions;
     }
 }

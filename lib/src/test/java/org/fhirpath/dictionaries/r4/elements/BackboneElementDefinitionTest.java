@@ -1,6 +1,6 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.BackboneElement;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Extension;
@@ -12,10 +12,10 @@ import java.util.List;
 
 public class BackboneElementDefinitionsTest extends ElementDefinitionsTest {
 
-    private final BackboneElementDefinitions backboneElementDefinitions;
+    private final BackboneElementDefinition backboneElementDefinitions;
 
     public BackboneElementDefinitionsTest() {
-        this.backboneElementDefinitions = new BackboneElementDefinitions();
+        this.backboneElementDefinitions = new BackboneElementDefinition();
     }
 
     @Test
@@ -33,7 +33,7 @@ public class BackboneElementDefinitionsTest extends ElementDefinitionsTest {
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.backboneElementDefinitions;
     }
 }

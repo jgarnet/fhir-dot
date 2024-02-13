@@ -1,6 +1,6 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 import org.hl7.fhir.r4.model.PositiveIntType;
@@ -11,11 +11,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class ClaimResponseItemComponentDefinitionsTest extends BackboneElementDefinitionsTest {
-    private final ClaimResponseItemComponentDefinitions claimResponseItemComponentDefinitions;
+    private final ClaimResponseItemComponentDefinition claimResponseItemComponentDefinitions;
     private final ClaimResponse.ItemComponent itemComponent;
 
     public ClaimResponseItemComponentDefinitionsTest() {
-        this.claimResponseItemComponentDefinitions = new ClaimResponseItemComponentDefinitions();
+        this.claimResponseItemComponentDefinitions = new ClaimResponseItemComponentDefinition();
         this.itemComponent = new ClaimResponse.ItemComponent();
         this.itemComponent.setItemSequence(1);
         this.itemComponent.addNoteNumber(1);
@@ -48,7 +48,7 @@ public class ClaimResponseItemComponentDefinitionsTest extends BackboneElementDe
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.claimResponseItemComponentDefinitions;
     }
 }

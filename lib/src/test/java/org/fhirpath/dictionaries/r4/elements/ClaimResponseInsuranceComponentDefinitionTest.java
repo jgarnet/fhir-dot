@@ -1,18 +1,18 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ClaimResponseInsuranceComponentDefinitionsTest extends BackboneElementDefinitionsTest {
-    private final ClaimResponseInsuranceComponentDefinitions claimResponseInsuranceComponentDefinitions;
+    private final ClaimResponseInsuranceComponentDefinition claimResponseInsuranceComponentDefinitions;
     private final ClaimResponse.InsuranceComponent insuranceComponent;
     private final Coverage coverage;
     private final ClaimResponse claimResponse;
 
     public ClaimResponseInsuranceComponentDefinitionsTest() {
-        this.claimResponseInsuranceComponentDefinitions = new ClaimResponseInsuranceComponentDefinitions();
+        this.claimResponseInsuranceComponentDefinitions = new ClaimResponseInsuranceComponentDefinition();
         this.coverage = new Coverage();
         this.claimResponse = new ClaimResponse();
         this.insuranceComponent = new ClaimResponse.InsuranceComponent();
@@ -72,7 +72,7 @@ public class ClaimResponseInsuranceComponentDefinitionsTest extends BackboneElem
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.claimResponseInsuranceComponentDefinitions;
     }
 }

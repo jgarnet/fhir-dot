@@ -1,6 +1,6 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.fhirpath.dictionaries.r4.AbstractR4DefinitionsTest;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Element;
@@ -13,10 +13,10 @@ import java.util.List;
 
 public class ElementDefinitionsTest extends AbstractR4DefinitionsTest {
 
-    private final ElementDefinitions elementDefinitions;
+    private final ElementDefinition elementDefinitions;
 
     public ElementDefinitionsTest() {
-        this.elementDefinitions = new ElementDefinitions();
+        this.elementDefinitions = new ElementDefinition();
     }
 
     @Test
@@ -47,7 +47,7 @@ public class ElementDefinitionsTest extends AbstractR4DefinitionsTest {
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.elementDefinitions;
     }
 }

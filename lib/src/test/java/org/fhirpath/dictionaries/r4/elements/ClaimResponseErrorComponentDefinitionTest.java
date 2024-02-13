@@ -1,6 +1,6 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 import org.hl7.fhir.r4.model.CodeableConcept;
@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ClaimResponseErrorComponentDefinitionsTest extends BackboneElementDefinitionsTest {
-    private final ClaimResponseErrorComponentDefinitions claimResponseErrorComponentDefinitions;
+    private final ClaimResponseErrorComponentDefinition claimResponseErrorComponentDefinitions;
     private final ClaimResponse.ErrorComponent error;
 
     public ClaimResponseErrorComponentDefinitionsTest() {
-        this.claimResponseErrorComponentDefinitions = new ClaimResponseErrorComponentDefinitions();
+        this.claimResponseErrorComponentDefinitions = new ClaimResponseErrorComponentDefinition();
         this.error = new ClaimResponse.ErrorComponent();
         this.error.setItemSequence(1);
         this.error.setDetailSequence(1);
@@ -48,7 +48,7 @@ public class ClaimResponseErrorComponentDefinitionsTest extends BackboneElementD
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.claimResponseErrorComponentDefinitions;
     }
 }

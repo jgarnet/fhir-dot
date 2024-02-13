@@ -1,6 +1,6 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 public class ClaimResponseAdjudicationComponentDefinitionsTest extends BackboneElementDefinitionsTest {
-    private final ClaimResponseAdjudicationComponentDefinitions claimResponseAdjudicationComponentDefinitions;
+    private final ClaimResponseAdjudicationComponentDefinition claimResponseAdjudicationComponentDefinitions;
     private final ClaimResponse.AdjudicationComponent claimResponseAdjudicationComponent;
 
     public ClaimResponseAdjudicationComponentDefinitionsTest() {
-        this.claimResponseAdjudicationComponentDefinitions = new ClaimResponseAdjudicationComponentDefinitions();
+        this.claimResponseAdjudicationComponentDefinitions = new ClaimResponseAdjudicationComponentDefinition();
         this.claimResponseAdjudicationComponent = new ClaimResponse.AdjudicationComponent();
         CodeableConcept category = new CodeableConcept();
         category.setText("Test Category");
@@ -49,7 +49,7 @@ public class ClaimResponseAdjudicationComponentDefinitionsTest extends BackboneE
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.claimResponseAdjudicationComponentDefinitions;
     }
 }

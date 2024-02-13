@@ -1,6 +1,6 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.Claim;
@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class BundleEntryComponentDefinitionsTest extends BackboneElementDefinitionsTest {
-    private final BundleEntryComponentDefinitions bundleEntryComponentDefinitions;
+    private final BundleEntryComponentDefinition bundleEntryComponentDefinitions;
 
     public BundleEntryComponentDefinitionsTest() {
-        this.bundleEntryComponentDefinitions = new BundleEntryComponentDefinitions();
+        this.bundleEntryComponentDefinitions = new BundleEntryComponentDefinition();
     }
 
     @Test
@@ -24,7 +24,7 @@ public class BundleEntryComponentDefinitionsTest extends BackboneElementDefiniti
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.bundleEntryComponentDefinitions;
     }
 }

@@ -1,6 +1,6 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ContactDetail;
 import org.hl7.fhir.r4.model.ContactPoint;
@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 public class ContactDetailDefinitionsTest extends ElementDefinitionsTest {
-    private final ContactDetailDefinitions contactDetailDefinitions;
+    private final ContactDetailDefinition contactDetailDefinitions;
     private final ContactDetail contactDetail;
 
     public ContactDetailDefinitionsTest() {
-        this.contactDetailDefinitions = new ContactDetailDefinitions();
+        this.contactDetailDefinitions = new ContactDetailDefinition();
         this.contactDetail = new ContactDetail();
         this.contactDetail.setName("Test Name");
         this.contactDetail.addTelecom().setValue("123-456-7890");
@@ -40,7 +40,7 @@ public class ContactDetailDefinitionsTest extends ElementDefinitionsTest {
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.contactDetailDefinitions;
     }
 }

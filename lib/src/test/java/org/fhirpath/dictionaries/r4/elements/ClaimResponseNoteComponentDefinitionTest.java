@@ -1,16 +1,16 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ClaimResponseNoteComponentDefinitionsTest extends BackboneElementDefinitionsTest {
-    private final ClaimResponseNoteComponentDefinitions claimResponseNoteComponentDefinitions;
+    private final ClaimResponseNoteComponentDefinition claimResponseNoteComponentDefinitions;
     private final ClaimResponse.NoteComponent note;
 
     public ClaimResponseNoteComponentDefinitionsTest() {
-        this.claimResponseNoteComponentDefinitions = new ClaimResponseNoteComponentDefinitions();
+        this.claimResponseNoteComponentDefinitions = new ClaimResponseNoteComponentDefinition();
         this.note = new ClaimResponse.NoteComponent();
         this.note.setNumber(1);
         this.note.setType(Enumerations.NoteType.DISPLAY);
@@ -45,7 +45,7 @@ public class ClaimResponseNoteComponentDefinitionsTest extends BackboneElementDe
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.claimResponseNoteComponentDefinitions;
     }
 }

@@ -1,6 +1,6 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.Address;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Period;
@@ -12,12 +12,12 @@ import java.util.Date;
 import java.util.List;
 
 public class AddressDefinitionsTest extends ElementDefinitionsTest {
-    private final AddressDefinitions addressDefinitions;
+    private final AddressDefinition addressDefinitions;
     private final Address address;
     private final Period period;
 
     public AddressDefinitionsTest() {
-        this.addressDefinitions = new AddressDefinitions();
+        this.addressDefinitions = new AddressDefinition();
         this.address = new Address();
         this.address.setUse(Address.AddressUse.HOME);
         this.address.addLine("Test Line 1");
@@ -95,7 +95,7 @@ public class AddressDefinitionsTest extends ElementDefinitionsTest {
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.addressDefinitions;
     }
 }

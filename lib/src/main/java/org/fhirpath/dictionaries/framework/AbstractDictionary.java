@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 @SuppressWarnings("unchecked")
-public abstract class AbstractFhirDictionary<Base> implements FhirDictionary<Base> {
+public abstract class AbstractFhirDictionary<Base> implements Dictionary<Base> {
     private final Logger log = LogManager.getLogger(this);
     private final Map<String, Map<String, Function<Base, Object>>> definitions;
 

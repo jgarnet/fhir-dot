@@ -1,6 +1,6 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.HumanName;
 import org.hl7.fhir.r4.model.Period;
@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 public class HumanNameDefinitionsTest extends ElementDefinitionsTest {
-    private final HumanNameDefinitions humanNameDefinitions;
+    private final HumanNameDefinition humanNameDefinitions;
     private final HumanName humanName;
     private final Period period;
 
     public HumanNameDefinitionsTest() {
-        this.humanNameDefinitions = new HumanNameDefinitions();
+        this.humanNameDefinitions = new HumanNameDefinition();
         this.period = new Period();
         this.humanName = new HumanName();
         this.humanName.setText("Test Text");
@@ -95,7 +95,7 @@ public class HumanNameDefinitionsTest extends ElementDefinitionsTest {
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.humanNameDefinitions;
     }
 }

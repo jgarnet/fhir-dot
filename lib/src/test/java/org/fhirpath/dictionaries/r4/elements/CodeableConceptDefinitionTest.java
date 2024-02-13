@@ -1,6 +1,6 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Coding;
@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 public class CodeableConceptDefinitionsTest extends ElementDefinitionsTest {
-    private final CodeableConceptDefinitions codeableConceptDefinitions;
+    private final CodeableConceptDefinition codeableConceptDefinitions;
     private final CodeableConcept codeableConcept;
 
     public CodeableConceptDefinitionsTest() {
-        this.codeableConceptDefinitions = new CodeableConceptDefinitions();
+        this.codeableConceptDefinitions = new CodeableConceptDefinition();
         this.codeableConcept = new CodeableConcept();
         this.codeableConcept.setText("Test Text");
         this.codeableConcept.addCoding().setCode("Test Code");
@@ -40,7 +40,7 @@ public class CodeableConceptDefinitionsTest extends ElementDefinitionsTest {
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.codeableConceptDefinitions;
     }
 }

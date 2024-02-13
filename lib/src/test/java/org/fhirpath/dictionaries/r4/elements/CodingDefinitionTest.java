@@ -1,16 +1,16 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class CodingDefinitionsTest extends ElementDefinitionsTest {
-    private final CodingDefinitions codingDefinitions;
+    private final CodingDefinition codingDefinitions;
     private final Coding coding;
 
     public CodingDefinitionsTest() {
-        this.codingDefinitions = new CodingDefinitions();
+        this.codingDefinitions = new CodingDefinition();
         this.coding = new Coding();
         this.coding.setSystem("Test System");
         this.coding.setCode("Test Code");
@@ -50,7 +50,7 @@ public class CodingDefinitionsTest extends ElementDefinitionsTest {
     }
 
     @Override
-    protected Definitions<Base> getDefinitions() {
+    protected Definition<Base> getDefinitions() {
         return this.codingDefinitions;
     }
 }

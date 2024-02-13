@@ -1,6 +1,6 @@
 package org.fhirpath.dictionaries.r4;
 
-import org.fhirpath.dictionaries.framework.Definitions;
+import org.fhirpath.dictionaries.framework.Definition;
 import org.hl7.fhir.r4.model.Base;
 
 @SuppressWarnings("unchecked")
@@ -10,5 +10,5 @@ public abstract class AbstractR4DefinitionsTest {
         return (T) this.getDefinitions().getDefinitions().get(field).apply(base);
     }
 
-    protected abstract Definitions<Base> getDefinitions();
+    protected abstract Definition<Base> getDefinitions();
 }
