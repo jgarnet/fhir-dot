@@ -1,19 +1,19 @@
 package org.fhirpath.readers;
 
-import org.fhirpath.readers.framework.FhirPathReader;
+import org.fhirpath.readers.framework.PathReader;
 import org.hl7.fhir.r4.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class BaseFhirPathReaderTest {
+public class BasePathReaderTest {
 
-    private final FhirPathReader fhirPathReader;
+    private final PathReader pathReader;
     private final Bundle bundle;
 
-    public BaseFhirPathReaderTest() {
-        this.fhirPathReader = new BaseFhirPathReader();
+    public BasePathReaderTest() {
+        this.pathReader = new BasePathReader();
         this.bundle = this.buildBundle();
     }
 
@@ -22,7 +22,7 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testExtractsField() {
         try {
-            String insurerId = this.fhirPathReader.read(this.bundle, "$ClaimResponse.insurer.resource.id");
+            String insurerId = this.pathReader.read(this.bundle, "$ClaimResponse.insurer.resource.id");
             Assertions.assertEquals("Test Organization", insurerId);
         } catch (Exception e) {
             Assertions.fail("Failed to extract field");
@@ -32,8 +32,8 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testConditions() {
         try {
-            String patientId = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{type.codingFirstRep.code=ID}.0.value");
-            String patientIdCollectionIndex = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{type.coding.0.code=ID}.0.value");
+            String patientId = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{type.codingFirstRep.code=ID}.0.value");
+            String patientIdCollectionIndex = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{type.coding.0.code=ID}.0.value");
             Assertions.assertEquals("Test Patient", patientId);
             Assertions.assertEquals("Test Patient", patientIdCollectionIndex);
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testConditionDateComparison() {
         try {
-            Extension dateExt = this.fhirPathReader.read(this.bundle, "$ClaimResponse.extension{url=someDate&&value>=2024-01-01}.0");
+            Extension dateExt = this.pathReader.read(this.bundle, "$ClaimResponse.extension{url=someDate&&value>=2024-01-01}.0");
             Assertions.assertNotNull(dateExt);
         } catch (Exception e) {
             Assertions.fail("Failed to compare date in condition");
@@ -54,7 +54,7 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testAllConditions() {
         try {
-            String patientIdentifier = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{type.codingFirstRep.code=ID2&&system=TEST}.0.value");
+            String patientIdentifier = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{type.codingFirstRep.code=ID2&&system=TEST}.0.value");
             Assertions.assertEquals("Test Patient 2", patientIdentifier);
         } catch (Exception e) {
             Assertions.fail("Failed to evaluate multiple conditions");
@@ -64,7 +64,7 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testAnyConditions() {
         try {
-            String patientIdentifier = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{type.codingFirstRep.code=NA||system=TEST}.0.value");
+            String patientIdentifier = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{type.codingFirstRep.code=NA||system=TEST}.0.value");
             Assertions.assertEquals("Test Patient 2", patientIdentifier);
         } catch (Exception e) {
             Assertions.fail("Failed to evaluate multiple conditions");
@@ -74,7 +74,7 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testNestedPathConditions() {
         try {
-            Coding patientIdentifier = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{system=TEST}.0.type.coding{code=ID3}.0");
+            Coding patientIdentifier = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.identifier{system=TEST}.0.type.coding{code=ID3}.0");
             Assertions.assertNotNull(patientIdentifier);
         } catch (Exception e) {
             Assertions.fail("Failed to evaluate nested path conditions");
@@ -86,8 +86,8 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testResourcePathAlias() {
         try {
-            String claimResponseId = this.fhirPathReader.read(this.bundle, "$ClaimResponse.id");
-            ClaimResponse claimResponse = this.fhirPathReader.read(this.bundle, "$ClaimResponse");
+            String claimResponseId = this.pathReader.read(this.bundle, "$ClaimResponse.id");
+            ClaimResponse claimResponse = this.pathReader.read(this.bundle, "$ClaimResponse");
             Assertions.assertEquals("ClaimResponse", claimResponseId);
             Assertions.assertNotNull(claimResponse);
         } catch (Exception e) {
@@ -98,7 +98,7 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testExtensionAlias() {
         try {
-            String nickname = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(nickname).0.value");
+            String nickname = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(nickname).0.value");
             Assertions.assertEquals("Fake", nickname);
         } catch (Exception e) {
             Assertions.fail("Failed to evaluate extension alias path");
@@ -108,8 +108,8 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testExtensionValueCastAlias() {
         try {
-            String nickname = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(nickname).0.valueString");
-            String coverageType = this.fhirPathReader.read(this.bundle, "$ClaimResponse.contained(Coverage).0.extension(type).0.valueCodeableConcept.coding.0.code");
+            String nickname = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(nickname).0.valueString");
+            String coverageType = this.pathReader.read(this.bundle, "$ClaimResponse.contained(Coverage).0.extension(type).0.valueCodeableConcept.coding.0.code");
             Assertions.assertEquals("Fake", nickname);
             Assertions.assertEquals("Test Type", coverageType);
         } catch (Exception e) {
@@ -120,7 +120,7 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testConditionalExtensionAlias() {
         try {
-            String nickname = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(nickname){value=Fake2}.0.value");
+            String nickname = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(nickname){value=Fake2}.0.value");
             Assertions.assertEquals("Fake2", nickname);
         } catch (Exception e) {
             Assertions.fail("Failed to evaluate conditional extension alias path");
@@ -130,7 +130,7 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testContainedResourceAlias() {
         try {
-            String subscriberId = this.fhirPathReader.read(this.bundle, "$ClaimResponse.contained(Coverage).0.subscriberId");
+            String subscriberId = this.pathReader.read(this.bundle, "$ClaimResponse.contained(Coverage).0.subscriberId");
             Assertions.assertEquals("Subscriber ID", subscriberId);
         } catch (Exception e) {
             Assertions.fail("Failed to evaluate contained resource alias path");
@@ -140,7 +140,7 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testConditionalContainedResourceAlias() {
         try {
-            String subscriberId = this.fhirPathReader.read(this.bundle, "$ClaimResponse.contained(Coverage){subscriberId=Subscriber ID}.0.subscriberId");
+            String subscriberId = this.pathReader.read(this.bundle, "$ClaimResponse.contained(Coverage){subscriberId=Subscriber ID}.0.subscriberId");
             Assertions.assertEquals("Subscriber ID", subscriberId);
         } catch (Exception e) {
             Assertions.fail("Failed to evaluate conditional contained resource alias path");
@@ -152,8 +152,8 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testEqualityEvaluator() {
         try {
-            HumanName name1 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{family=MCTEST}.0");
-            HumanName name2 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{family=TESTERSON}.0");
+            HumanName name1 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{family=MCTEST}.0");
+            HumanName name2 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{family=TESTERSON}.0");
             Assertions.assertNotNull(name1);
             Assertions.assertNotNull(name2);
         } catch (Exception e) {
@@ -164,8 +164,8 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testNonEqualityEvaluator() {
         try {
-            List<HumanName> name1 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{family!=MCTEST}");
-            List<HumanName> name2 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{family!=TESTERSON}");
+            List<HumanName> name1 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{family!=MCTEST}");
+            List<HumanName> name2 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{family!=TESTERSON}");
             Assertions.assertEquals(1, name1.size());
             Assertions.assertEquals(1, name2.size());
         } catch (Exception e) {
@@ -176,8 +176,8 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testGreaterThanEvaluator() {
         try {
-            List<Extension> dailyDoseOver1 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value>1}");
-            List<Extension> dailyDoseOver5 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value>5}");
+            List<Extension> dailyDoseOver1 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value>1}");
+            List<Extension> dailyDoseOver5 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value>5}");
             Assertions.assertEquals(2, dailyDoseOver1.size());
             Assertions.assertEquals(1, dailyDoseOver5.size());
         } catch (Exception e) {
@@ -188,8 +188,8 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testGreaterThanEqualsEvaluator() {
         try {
-            List<Extension> dailyDoseOver5 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value>=5}");
-            List<Extension> dailyDoseOver10 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value>=10}");
+            List<Extension> dailyDoseOver5 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value>=5}");
+            List<Extension> dailyDoseOver10 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value>=10}");
             Assertions.assertEquals(2, dailyDoseOver5.size());
             Assertions.assertEquals(1, dailyDoseOver10.size());
         } catch (Exception e) {
@@ -200,8 +200,8 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testLessThanEvaluator() {
         try {
-            List<Extension> dailyDoseBelow10 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value<10}");
-            List<Extension> dailyDoseBelow5 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value<5}");
+            List<Extension> dailyDoseBelow10 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value<10}");
+            List<Extension> dailyDoseBelow5 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value<5}");
             Assertions.assertEquals(1, dailyDoseBelow10.size());
             Assertions.assertEquals(0, dailyDoseBelow5.size());
         } catch (Exception e) {
@@ -212,8 +212,8 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testLessThanEqualsEvaluator() {
         try {
-            List<Extension> dailyDoseBelow10 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value<=10}");
-            List<Extension> dailyDoseBelow5 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value<=5}");
+            List<Extension> dailyDoseBelow10 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value<=10}");
+            List<Extension> dailyDoseBelow5 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.extension(dailyDose){value<=5}");
             Assertions.assertEquals(2, dailyDoseBelow10.size());
             Assertions.assertEquals(1, dailyDoseBelow5.size());
         } catch (Exception e) {
@@ -224,8 +224,8 @@ public class BaseFhirPathReaderTest {
     @Test
     public void testRegexEqualityEvaluator() {
         try {
-            List<HumanName> name1 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{given%=TEST}");
-            List<HumanName> name2 = this.fhirPathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{given!%=TEST}");
+            List<HumanName> name1 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{given%=TEST}");
+            List<HumanName> name2 = this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.name{given!%=TEST}");
             Assertions.assertEquals(2, name1.size());
             Assertions.assertEquals(0, name2.size());
         } catch (Exception e) {

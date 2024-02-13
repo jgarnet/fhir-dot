@@ -26,7 +26,7 @@ public class CollectionNode extends AbstractNode {
 
     @Override
     public <Base, Result> Result evaluate(Base base, String path) throws FhirPathException {
-        Map<String, Function<Base, Object>> fields = this.getFieldDefinitions(((List<Base>) base).get(0));
+        Map<String, Function<Base, Object>> fields = this.getPaths(((List<Base>) base).get(0));
         Function<Base, Object> mapper = fields.get(path);
         return (Result) ((List<Base>) base).stream().map(mapper).collect(Collectors.toList());
     }

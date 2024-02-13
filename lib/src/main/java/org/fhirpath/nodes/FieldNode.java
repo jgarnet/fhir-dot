@@ -17,6 +17,6 @@ public class FieldNode extends AbstractNode {
 
     @Override
     public <Base, Result> Result evaluate(Base base, String path) throws FhirPathException {
-        return this.getValue(base, path);
+        return this.evaluatePath(base, path);
     }
 }

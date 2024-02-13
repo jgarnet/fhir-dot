@@ -48,7 +48,7 @@ public class ConditionNode extends AbstractNode {
             List<Base> parents = (List<Base>) base;
             List<Base> result = new ArrayList<>(parents.size());
             for (Base current : parents) {
-                current = this.getValue(current, field);
+                current = this.evaluatePath(current, field);
                 // apply conditions
                 current = (Base) ((List<Base>) current).stream()
                         .filter(item -> this.meetsConditions(item, conditionsString)).collect(Collectors.toList());
@@ -67,7 +67,7 @@ public class ConditionNode extends AbstractNode {
             return (Result) result;
         } else {
             Result result = (Result) base;
-            result = this.getValue(result, field);
+            result = this.evaluatePath(result, field);
             // apply conditions
             result = (Result) ((List<Base>) result).stream()
                     .filter(item -> this.meetsConditions(item, conditionsString)).collect(Collectors.toList());
@@ -110,7 +110,7 @@ public class ConditionNode extends AbstractNode {
                     if (dotIndex != -1) {
                         String currentField = fieldPath.substring(0, dotIndex);
                         fieldPath = fieldPath.substring(dotIndex + 1);
-                        target = this.getValue(target, currentField);
+                        target = this.evaluatePath(target, currentField);
                     }
                     for (Base item : (List<Base>) target) {
                         matches = this.matchesCondition(evaluator, item, fieldPath, value);
@@ -146,11 +146,11 @@ public class ConditionNode extends AbstractNode {
                 int index = "N".equalsIgnoreCase(currentField) ? ((List<Base>) target).size() - 1 : Integer.parseInt(currentField);
                 target = ((List<Base>) target).get(index);
             } else {
-                target = this.getValue(target, currentField);
+                target = this.evaluatePath(target, currentField);
             }
             dotIndex = fieldPath.indexOf(".");
         }
-        Base targetValue = this.getValue(target, fieldPath);
+        Base targetValue = this.evaluatePath(target, fieldPath);
         Result fieldTarget = (Result) this.getUtils().unwrapPrimitiveType(targetValue);
         return evaluator.getEvaluator().apply(fieldTarget, value);
     }

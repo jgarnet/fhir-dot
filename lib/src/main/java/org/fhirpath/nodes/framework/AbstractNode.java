@@ -49,14 +49,14 @@ public abstract class AbstractNode implements Node {
         return this;
     }
 
-    protected <Base, Result> Result getValue(Base base, String field) throws FhirPathException {
-        Map<String, Function<Base, Object>> fields = this.getFieldDefinitions(base);
+    protected <Base, Result> Result evaluatePath(Base base, String field) throws FhirPathException {
+        Map<String, Function<Base, Object>> fields = this.getPaths(base);
         return (Result) fields.get(field).apply(base);
     }
 
-    protected <Base> Map<String, Function<Base, Object>> getFieldDefinitions(Base base) throws FhirPathException {
+    protected <Base> Map<String, Function<Base, Object>> getPaths(Base base) throws FhirPathException {
         Dictionary<Base> dictionary = this.getDictionaryFactory().getDictionary(base);
-        return dictionary.getBaseDefinitions(base);
+        return dictionary.getPaths(base);
     }
 
 }

@@ -12,7 +12,7 @@ public interface Dictionary<Base> {
     /**
      * Retrieves the definitions for a given FHIR data structure.
      */
-    default Map<String, Function<Base, Object>> getBaseDefinitions(Base base) {
+    default Map<String, Function<Base, Object>> getPaths(Base base) {
         if (base == null) {
             return null;
         }

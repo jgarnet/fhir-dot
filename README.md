@@ -7,8 +7,8 @@ The `fhirpath` package contains classes which allow for data elements to be extr
 Data elements can be extracted from a FHIR structure using a dot-notation-like syntax:
 
 ```java
-FhirPathReader reader = new BaseFhirPathReader();
-StringType adjudicationValue = reader.read(bundle, "$ClaimResponse.item.0.adjudication.value");
+PathReader reader = new BasePathReader();
+String adjudicationValue = reader.read(bundle, "$ClaimResponse.item.0.adjudication.value");
 ```
 
 ### Nodes
@@ -199,12 +199,12 @@ DictionaryFactory factory = new DictionaryFactory();
 // we can get all defined FHIR structure definitions from the factory for the R4 FHIR specification
 Dictionary dictionary = factory.getDictionary(claimResponse);
 // and evaluate fields for the FHIR structure
-StringType id = dictionary.getBaseDefinitions(claimResponse).get("id").apply(claimResponse);
+StringType id = dictionary.getPaths(claimResponse).get("id").apply(claimResponse);
 ```
 
 The `Dictionary` interface is used to register dictionaries with `DictionaryFactory` by specifying the `Base` FHIR structure class the dictionary is associated with.
 
-`AbstractDictionary` provides common functionality which will scan a given package for classes that implement `Definitions` and aggregate the results into one Map.
+`AbstractDictionary` provides common functionality which will scan a given package for classes that implement `Definition` and aggregate the results into one Map.
 
 New dictionaries can be added by extending `AbstractDictionary`, annotating the class with `Dictionary` and supplying the package path for scanning:
 
@@ -220,7 +220,7 @@ public class R4Dictionary extends AbstractDictionary<Base> {
     
     @Override
     public Class<Base> getBaseClass() {
-        return Base.class
+        return Base.class;
     }
 }
 ```
@@ -251,14 +251,14 @@ The `initialize()` method is used to provide all paths and their supplier functi
 
 Contains extraction logic which will retrieve the desired data-element from a FHIR structure when given a path.
 
-Extraction is done using a `FhirPathReader`.
+Extraction is done using a `PathReader`.
 
 ```java
-FhirPathReader reader = new BaseFhirPathReader();
+PathReader reader = new BasePathReader();
 String patientFirstName = reader.read(bundle, "$ClaimResponse.patientTarget.name.0.given.0");
 ```
 
-`FhirPathReader` can be configured using a `Rules` instance which contains common settings.
+`PathReader` can be configured using a `Rules` instance which contains common settings.
 
 ### evaluators
 

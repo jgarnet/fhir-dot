@@ -10,7 +10,7 @@ import org.fhirpath.nodes.CollectionNode;
 import org.fhirpath.nodes.ConditionNode;
 import org.fhirpath.nodes.FieldNode;
 import org.fhirpath.nodes.framework.Node;
-import org.fhirpath.readers.framework.FhirPathReader;
+import org.fhirpath.readers.framework.PathReader;
 import org.fhirpath.utils.FhirPathUtils;
 import org.fhirpath.utils.NodeParser;
 
@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 
 @SuppressWarnings("unchecked")
-public class BaseFhirPathReader implements FhirPathReader {
+public class BasePathReader implements PathReader {
 
     private final Set<Node> nodes;
     private final Map<Integer, Map<String, Object>> cache;
@@ -26,7 +26,7 @@ public class BaseFhirPathReader implements FhirPathReader {
     private final FhirPathUtils utils;
     private final Rules rules;
 
-    public BaseFhirPathReader() {
+    public BasePathReader() {
         DictionaryFactory factory = new DictionaryFactory();
         this.cache = new HashMap<>();
         this.rules = new Rules().setDateFormat("yyyy-MM-dd").setUnwrapPrimitives(true);
