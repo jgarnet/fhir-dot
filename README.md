@@ -1,6 +1,6 @@
-# FHIR Path Documentation
+# FHIR Dot Documentation
 
-The `fhirpath` package contains classes which allow for data elements to be extracted from FHIR structures using a dot-notation-like syntax.
+The `fhirdot` package contains classes which allow for data elements to be extracted from FHIR structures using a dot-notation-like syntax.
 
 ## Syntax and Usage
 
@@ -215,7 +215,7 @@ import org.hl7.fhir.r4.model.Base;
 public class R4Dictionary extends AbstractDictionary<Base> {
     @Override
     public String getPackage() {
-        return "org.fhirpath.dictionaries.r4";
+        return "org.fhirdot.dictionaries.r4";
     }
     
     @Override

@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
 }
 
-group 'org.fhirpath'
+group 'org.fhirdot'
 version '0.1.0'
 
 repositories {
