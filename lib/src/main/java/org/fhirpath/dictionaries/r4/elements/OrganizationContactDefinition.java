@@ -1,21 +1,21 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Organization;
 
-public class OrganizationContactDefinitions extends AbstractDefinitions<Base> {
+public class OrganizationContactDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new BackboneElementDefinitions().getDefinitions());
+        this.paths.putAll(new BackboneElementDefinition().getPaths());
         // purpose
-        this.definitions.put("purpose", arg -> ((Organization.OrganizationContactComponent) arg).getPurpose());
+        this.paths.put("purpose", arg -> ((Organization.OrganizationContactComponent) arg).getPurpose());
         // name
-        this.definitions.put("name", arg -> ((Organization.OrganizationContactComponent) arg).getName());
+        this.paths.put("name", arg -> ((Organization.OrganizationContactComponent) arg).getName());
         // telecom
-        this.definitions.put("telecom", arg -> ((Organization.OrganizationContactComponent) arg).getTelecom());
+        this.paths.put("telecom", arg -> ((Organization.OrganizationContactComponent) arg).getTelecom());
         // address
-        this.definitions.put("address", arg -> ((Organization.OrganizationContactComponent) arg).getAddress());
+        this.paths.put("address", arg -> ((Organization.OrganizationContactComponent) arg).getAddress());
     }
 
     @Override

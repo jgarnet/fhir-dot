@@ -1,18 +1,18 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Quantity;
 
-public class QuantityDefinitions extends AbstractDefinitions<Base> {
+public class QuantityDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new ElementDefinitions().getDefinitions());
-        this.definitions.put("value", arg -> ((Quantity) arg).getValueElement());
-        this.definitions.put("comparator", arg -> ((Quantity) arg).getComparator());
-        this.definitions.put("unit", arg -> ((Quantity) arg).getUnitElement());
-        this.definitions.put("system", arg -> ((Quantity) arg).getSystemElement());
-        this.definitions.put("code", arg -> ((Quantity) arg).getCodeElement());
+        this.paths.putAll(new ElementDefinition().getPaths());
+        this.paths.put("value", arg -> ((Quantity) arg).getValueElement());
+        this.paths.put("comparator", arg -> ((Quantity) arg).getComparator());
+        this.paths.put("unit", arg -> ((Quantity) arg).getUnitElement());
+        this.paths.put("system", arg -> ((Quantity) arg).getSystemElement());
+        this.paths.put("code", arg -> ((Quantity) arg).getCodeElement());
     }
 
     @Override

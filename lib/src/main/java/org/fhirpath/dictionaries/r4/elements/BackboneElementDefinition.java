@@ -1,14 +1,14 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.BackboneElement;
 import org.hl7.fhir.r4.model.Base;
 
-public class BackboneElementDefinitions extends AbstractDefinitions<Base> {
+public class BackboneElementDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new ElementDefinitions().getDefinitions());
-        this.definitions.put("modifierExtension", arg -> ((BackboneElement) arg).getModifierExtension());
+        this.paths.putAll(new ElementDefinition().getPaths());
+        this.paths.put("modifierExtension", arg -> ((BackboneElement) arg).getModifierExtension());
     }
 
     @Override

@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class HumanNameDefinitionsTest extends ElementDefinitionsTest {
+public class HumanNameDefinitionTest extends ElementDefinitionTest {
     private final HumanNameDefinition humanNameDefinitions;
     private final HumanName humanName;
     private final Period period;
 
-    public HumanNameDefinitionsTest() {
+    public HumanNameDefinitionTest() {
         this.humanNameDefinitions = new HumanNameDefinition();
         this.period = new Period();
         this.humanName = new HumanName();

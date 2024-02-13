@@ -5,11 +5,11 @@ import org.hl7.fhir.r4.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class CodingDefinitionsTest extends ElementDefinitionsTest {
+public class CodingDefinitionTest extends ElementDefinitionTest {
     private final CodingDefinition codingDefinitions;
     private final Coding coding;
 
-    public CodingDefinitionsTest() {
+    public CodingDefinitionTest() {
         this.codingDefinitions = new CodingDefinition();
         this.coding = new Coding();
         this.coding.setSystem("Test System");

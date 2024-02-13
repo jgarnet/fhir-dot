@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class ContactDetailDefinitionsTest extends ElementDefinitionsTest {
+public class ContactDetailDefinitionTest extends ElementDefinitionTest {
     private final ContactDetailDefinition contactDetailDefinitions;
     private final ContactDetail contactDetail;
 
-    public ContactDetailDefinitionsTest() {
+    public ContactDetailDefinitionTest() {
         this.contactDetailDefinitions = new ContactDetailDefinition();
         this.contactDetail = new ContactDetail();
         this.contactDetail.setName("Test Name");

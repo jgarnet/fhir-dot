@@ -5,11 +5,11 @@ import org.hl7.fhir.r4.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ClaimResponseNoteComponentDefinitionsTest extends BackboneElementDefinitionsTest {
+public class ClaimResponseNoteComponentDefinitionTest extends BackboneElementDefinitionTest {
     private final ClaimResponseNoteComponentDefinition claimResponseNoteComponentDefinitions;
     private final ClaimResponse.NoteComponent note;
 
-    public ClaimResponseNoteComponentDefinitionsTest() {
+    public ClaimResponseNoteComponentDefinitionTest() {
         this.claimResponseNoteComponentDefinitions = new ClaimResponseNoteComponentDefinition();
         this.note = new ClaimResponse.NoteComponent();
         this.note.setNumber(1);

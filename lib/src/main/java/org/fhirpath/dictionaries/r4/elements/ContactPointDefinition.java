@@ -1,23 +1,23 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ContactPoint;
 
-public class ContactPointDefinitions extends AbstractDefinitions<Base> {
+public class ContactPointDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new ElementDefinitions().getDefinitions());
+        this.paths.putAll(new ElementDefinition().getPaths());
         // system
-        this.definitions.put("system", arg -> ((ContactPoint) arg).getSystem());
+        this.paths.put("system", arg -> ((ContactPoint) arg).getSystem());
         // value
-        this.definitions.put("value", arg -> ((ContactPoint) arg).getValueElement());
+        this.paths.put("value", arg -> ((ContactPoint) arg).getValueElement());
         // use
-        this.definitions.put("use", arg -> ((ContactPoint) arg).getUse());
+        this.paths.put("use", arg -> ((ContactPoint) arg).getUse());
         // rank
-        this.definitions.put("rank", arg -> ((ContactPoint) arg).getRankElement());
+        this.paths.put("rank", arg -> ((ContactPoint) arg).getRankElement());
         // period
-        this.definitions.put("period", arg -> ((ContactPoint) arg).getPeriod());
+        this.paths.put("period", arg -> ((ContactPoint) arg).getPeriod());
     }
 
     @Override

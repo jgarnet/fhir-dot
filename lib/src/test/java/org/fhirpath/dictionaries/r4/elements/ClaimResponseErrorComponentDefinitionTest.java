@@ -8,11 +8,11 @@ import org.hl7.fhir.r4.model.PositiveIntType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ClaimResponseErrorComponentDefinitionsTest extends BackboneElementDefinitionsTest {
+public class ClaimResponseErrorComponentDefinitionTest extends BackboneElementDefinitionTest {
     private final ClaimResponseErrorComponentDefinition claimResponseErrorComponentDefinitions;
     private final ClaimResponse.ErrorComponent error;
 
-    public ClaimResponseErrorComponentDefinitionsTest() {
+    public ClaimResponseErrorComponentDefinitionTest() {
         this.claimResponseErrorComponentDefinitions = new ClaimResponseErrorComponentDefinition();
         this.error = new ClaimResponse.ErrorComponent();
         this.error.setItemSequence(1);

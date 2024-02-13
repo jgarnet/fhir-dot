@@ -4,20 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public abstract class AbstractDefinitions<Base> implements Definitions<Base> {
+public abstract class AbstractDefinition<Base> implements Definition<Base> {
 
-    protected final Map<String, Function<Base, Object>> definitions;
+    protected final Map<String, Function<Base, Object>> paths;
 
-    public AbstractDefinitions() {
-        this.definitions = new HashMap<>();
+    public AbstractDefinition() {
+        this.paths = new HashMap<>();
     }
 
     @Override
-    public Map<String, Function<Base, Object>> getDefinitions() {
-        if (this.definitions.isEmpty()) {
+    public Map<String, Function<Base, Object>> getPaths() {
+        if (this.paths.isEmpty()) {
             this.initialize();
         }
-        return definitions;
+        return paths;
     }
 
     protected abstract void initialize();

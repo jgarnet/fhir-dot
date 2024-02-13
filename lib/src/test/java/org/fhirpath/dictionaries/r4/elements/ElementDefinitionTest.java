@@ -1,7 +1,7 @@
 package org.fhirpath.dictionaries.r4.elements;
 
 import org.fhirpath.dictionaries.framework.Definition;
-import org.fhirpath.dictionaries.r4.AbstractR4DefinitionsTest;
+import org.fhirpath.dictionaries.r4.AbstractR4DefinitionTest;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Element;
 import org.hl7.fhir.r4.model.Extension;
@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class ElementDefinitionsTest extends AbstractR4DefinitionsTest {
+public class ElementDefinitionTest extends AbstractR4DefinitionTest {
 
     private final ElementDefinition elementDefinitions;
 
-    public ElementDefinitionsTest() {
+    public ElementDefinitionTest() {
         this.elementDefinitions = new ElementDefinition();
     }
 

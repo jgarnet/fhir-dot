@@ -1,23 +1,23 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Identifier;
 
-public class IdentifierDefinitions extends AbstractDefinitions<Base> {
+public class IdentifierDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new ElementDefinitions().getDefinitions());
+        this.paths.putAll(new ElementDefinition().getPaths());
         // use
-        this.definitions.put("use", arg -> ((Identifier) arg).getUse());
+        this.paths.put("use", arg -> ((Identifier) arg).getUse());
         // type
-        this.definitions.put("type", arg -> ((Identifier) arg).getType());
+        this.paths.put("type", arg -> ((Identifier) arg).getType());
         // system
-        this.definitions.put("system", arg -> ((Identifier) arg).getSystemElement());
+        this.paths.put("system", arg -> ((Identifier) arg).getSystemElement());
         // value
-        this.definitions.put("value", arg -> ((Identifier) arg).getValueElement());
+        this.paths.put("value", arg -> ((Identifier) arg).getValueElement());
         // period
-        this.definitions.put("period", arg -> ((Identifier) arg).getPeriod());
+        this.paths.put("period", arg -> ((Identifier) arg).getPeriod());
     }
 
     @Override

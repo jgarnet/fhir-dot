@@ -1,7 +1,7 @@
 package org.fhirpath.nodes.framework;
 
-import org.fhirpath.dictionaries.framework.FhirDictionary;
-import org.fhirpath.dictionaries.framework.FhirDictionaryFactory;
+import org.fhirpath.dictionaries.framework.Dictionary;
+import org.fhirpath.dictionaries.framework.DictionaryFactory;
 import org.fhirpath.exceptions.FhirPathException;
 import org.fhirpath.framework.Rules;
 import org.fhirpath.utils.FhirPathUtils;
@@ -14,7 +14,7 @@ public abstract class AbstractNode implements Node {
 
     private Rules rules;
     private FhirPathUtils utils;
-    private FhirDictionaryFactory dictionaryFactory;
+    private DictionaryFactory dictionaryFactory;
 
     @Override
     public Rules getRules() {
@@ -39,12 +39,12 @@ public abstract class AbstractNode implements Node {
     }
 
     @Override
-    public FhirDictionaryFactory getDictionaryFactory() {
+    public DictionaryFactory getDictionaryFactory() {
         return this.dictionaryFactory;
     }
 
     @Override
-    public Node setDictionaryFactory(FhirDictionaryFactory factory) {
+    public Node setDictionaryFactory(DictionaryFactory factory) {
         this.dictionaryFactory = factory;
         return this;
     }
@@ -55,7 +55,7 @@ public abstract class AbstractNode implements Node {
     }
 
     protected <Base> Map<String, Function<Base, Object>> getFieldDefinitions(Base base) throws FhirPathException {
-        FhirDictionary<Base> dictionary = this.getDictionaryFactory().getDictionary(base);
+        Dictionary<Base> dictionary = this.getDictionaryFactory().getDictionary(base);
         return dictionary.getBaseDefinitions(base);
     }
 

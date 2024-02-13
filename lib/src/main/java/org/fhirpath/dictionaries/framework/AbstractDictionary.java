@@ -13,11 +13,11 @@ import java.util.Set;
 import java.util.function.Function;
 
 @SuppressWarnings("unchecked")
-public abstract class AbstractFhirDictionary<Base> implements Dictionary<Base> {
+public abstract class AbstractDictionary<Base> implements Dictionary<Base> {
     private final Logger log = LogManager.getLogger(this);
     private final Map<String, Map<String, Function<Base, Object>>> definitions;
 
-    public AbstractFhirDictionary() {
+    public AbstractDictionary() {
         this.definitions = new HashMap<>();
     }
 
@@ -31,7 +31,7 @@ public abstract class AbstractFhirDictionary<Base> implements Dictionary<Base> {
 
     private void initialize() {
         ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
-        provider.addIncludeFilter(new AssignableTypeFilter(Definitions.class));
+        provider.addIncludeFilter(new AssignableTypeFilter(Definition.class));
         Set<BeanDefinition> beanDefinitions = provider.findCandidateComponents(this.getPackage());
         for (BeanDefinition beanDefinition : beanDefinitions) {
             if (beanDefinition.getBeanClassName() != null) {
@@ -40,8 +40,8 @@ public abstract class AbstractFhirDictionary<Base> implements Dictionary<Base> {
                         ClassUtils.getDefaultClassLoader()
                 );
                 try {
-                    Definitions<Base> definitions = (Definitions<Base>) dictionaryClass.newInstance();
-                    this.definitions.put(definitions.getName(), definitions.getDefinitions());
+                    Definition<Base> definitions = (Definition<Base>) dictionaryClass.newInstance();
+                    this.definitions.put(definitions.getName(), definitions.getPaths());
                 } catch (InstantiationException | IllegalAccessException e) {
                     this.log.error(e);
                 }

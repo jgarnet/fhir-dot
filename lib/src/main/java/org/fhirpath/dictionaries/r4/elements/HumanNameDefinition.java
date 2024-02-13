@@ -1,35 +1,35 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.HumanName;
 
-public class HumanNameDefinitions extends AbstractDefinitions<Base> {
+public class HumanNameDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new ElementDefinitions().getDefinitions());
+        this.paths.putAll(new ElementDefinition().getPaths());
         // use
-        this.definitions.put("use", arg -> ((HumanName) arg).getUse());
+        this.paths.put("use", arg -> ((HumanName) arg).getUse());
         // text
-        this.definitions.put("text", arg -> ((HumanName) arg).getTextElement());
+        this.paths.put("text", arg -> ((HumanName) arg).getTextElement());
         // family
-        this.definitions.put("family", arg -> ((HumanName) arg).getFamilyElement());
+        this.paths.put("family", arg -> ((HumanName) arg).getFamilyElement());
         // given
-        this.definitions.put("given", arg -> ((HumanName) arg).getGiven());
+        this.paths.put("given", arg -> ((HumanName) arg).getGiven());
         // prefix
-        this.definitions.put("prefix", arg -> ((HumanName) arg).getPrefix());
+        this.paths.put("prefix", arg -> ((HumanName) arg).getPrefix());
         // suffix
-        this.definitions.put("suffix", arg -> ((HumanName) arg).getSuffix());
+        this.paths.put("suffix", arg -> ((HumanName) arg).getSuffix());
         // period
-        this.definitions.put("period", arg -> ((HumanName) arg).getPeriod());
+        this.paths.put("period", arg -> ((HumanName) arg).getPeriod());
         // nameAsSingleString
-        this.definitions.put("nameAsSingleString", arg -> ((HumanName) arg).getNameAsSingleString());
+        this.paths.put("nameAsSingleString", arg -> ((HumanName) arg).getNameAsSingleString());
         // givenAsSingleString
-        this.definitions.put("givenAsSingleString", arg -> ((HumanName) arg).getGivenAsSingleString());
+        this.paths.put("givenAsSingleString", arg -> ((HumanName) arg).getGivenAsSingleString());
         // prefixAsSingleString
-        this.definitions.put("prefixAsSingleString", arg -> ((HumanName) arg).getPrefixAsSingleString());
+        this.paths.put("prefixAsSingleString", arg -> ((HumanName) arg).getPrefixAsSingleString());
         // suffixAsSingleString
-        this.definitions.put("suffixAsSingleString", arg -> ((HumanName) arg).getSuffixAsSingleString());
+        this.paths.put("suffixAsSingleString", arg -> ((HumanName) arg).getSuffixAsSingleString());
     }
 
     @Override

@@ -164,9 +164,9 @@ Aliases are provided for ease of use.
 
 Contains field definitions for all FHIR structures for each FHIR specification (DSTU3, R4, R5, etc.). This layer allows the FHIR specification to be abstracted so that data elements can be extracted and processed in a version-agnostic way.
 
-Provides the `FhirDictionary` interface which contains mappings for each FHIR structure and determines how each data element on a given FHIR structure should be retrieved.
+Provides the `Dictionary` interface which contains mappings for each FHIR structure and determines how each data element on a given FHIR structure should be retrieved.
 
-`FhirDictionary` leverages an internal map which follows the structure:
+`Dictionary` leverages an internal map which follows the structure:
 
 ```text
 Dictionary {
@@ -189,48 +189,52 @@ R4Dictionary {
 }
 ```
 
-`FhirDictionary` instances can be retrieved by passing a FHIR structure to the `FhirDictionaryFactory`, which will internally determine the applicable FHIR specification to provide definitions for.
+`Dictionary` instances can be retrieved by passing a FHIR structure to the `DictionaryFactory`, which will internally determine the applicable FHIR specification to provide definitions for.
 
 ```java
 // i.e. given a ClaimResponse
 org.hl7.fhir.r4.model.ClaimResponse claimResponse;
 // factory creation can be expensive, so instantiation should be done sparingly
-FhirDictionaryFactory factory = new FhirDictionaryFactory();
+DictionaryFactory factory = new DictionaryFactory();
 // we can get all defined FHIR structure definitions from the factory for the R4 FHIR specification
-FhirDictionary dictionary = factory.getDictionary(claimResponse);
+Dictionary dictionary = factory.getDictionary(claimResponse);
 // and evaluate fields for the FHIR structure
 StringType id = dictionary.getBaseDefinitions(claimResponse).get("id").apply(claimResponse);
 ```
 
-The `Dictionary` annotation is used to register dictionaries with `FhirDictionaryFactory` by specifying the `Base` FHIR structure class the dictionary is associated with.
+The `Dictionary` interface is used to register dictionaries with `DictionaryFactory` by specifying the `Base` FHIR structure class the dictionary is associated with.
 
-`AbstractFhirDictionary` provides common functionality which will scan a given package for classes that implement `Definitions` and aggregate the results into one Map.
+`AbstractDictionary` provides common functionality which will scan a given package for classes that implement `Definitions` and aggregate the results into one Map.
 
-New dictionaries can be added by extending `AbstractFhirDictionary`, annotating the class with `Dictionary` and supplying the package path for scanning:
+New dictionaries can be added by extending `AbstractDictionary`, annotating the class with `Dictionary` and supplying the package path for scanning:
 
 ```java
 
 import org.hl7.fhir.r4.model.Base;
 
-@Dictionary(baseClass = Base.class)
-public class R4Dictionary extends AbstractFhirDictionary<Base> {
+public class R4Dictionary extends AbstractDictionary<Base> {
     @Override
     public String getPackage() {
         return "org.fhirpath.dictionaries.r4";
     }
+    
+    @Override
+    public Class<Base> getBaseClass() {
+        return Base.class
+    }
 }
 ```
 
-`Definitions` can be added to the target package while leveraging common functionality provided by `AbstractDefinitions`:
+`Definition` providers can be added to the target package while leveraging common functionality provided by `AbstractDefinition`:
 
 ```java
 
 import org.hl7.fhir.r4.model.Base;
 
-public class ResourceDefinition extends AbstractDefinitions<Base> {
+public class ResourceDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-      this.definitions.put("id", arg -> ((Resource) arg).getIdElement());
+      this.paths.put("id", arg -> ((Resource) arg).getIdElement());
       // ...
     }
     

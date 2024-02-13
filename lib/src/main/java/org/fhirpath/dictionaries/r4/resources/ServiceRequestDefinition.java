@@ -1,15 +1,15 @@
 package org.fhirpath.dictionaries.r4.resources;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ServiceRequest;
 
-public class ServiceRequestDefinitions extends AbstractDefinitions<Base> {
+public class ServiceRequestDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new DomainResourceDefinitions().getDefinitions());
-        this.definitions.put("quantityQuantity", arg -> ((ServiceRequest) arg).getQuantityQuantity());
-        this.definitions.put("occurrenceTiming", arg -> ((ServiceRequest) arg).getOccurrenceTiming());
+        this.paths.putAll(new DomainResourceDefinition().getPaths());
+        this.paths.put("quantityQuantity", arg -> ((ServiceRequest) arg).getQuantityQuantity());
+        this.paths.put("occurrenceTiming", arg -> ((ServiceRequest) arg).getOccurrenceTiming());
     }
 
     @Override

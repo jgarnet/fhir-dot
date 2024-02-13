@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 import java.util.function.Function;
 
-public class AbstractFhirDictionaryTest {
+public class AbstractDictionaryTest {
 
     @Test
     public void testSuppliesDefinitions() {

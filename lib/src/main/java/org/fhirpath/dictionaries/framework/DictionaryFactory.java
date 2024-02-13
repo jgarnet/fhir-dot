@@ -13,13 +13,13 @@ import java.util.Map;
 import java.util.Set;
 
 @SuppressWarnings("rawtypes")
-public class FhirDictionaryFactory {
+public class DictionaryFactory {
 
     private final Map<Class<?>, Dictionary> dictionaries;
     private final Map<Class<?>, Dictionary> cache;
     private final Logger log = LogManager.getLogger(this);
 
-    public FhirDictionaryFactory() {
+    public DictionaryFactory() {
         this.dictionaries = new HashMap<>();
         this.cache = new HashMap<>();
         this.scanForDictionaries();

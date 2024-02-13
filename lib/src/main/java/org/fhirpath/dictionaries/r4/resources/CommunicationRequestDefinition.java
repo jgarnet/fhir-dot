@@ -1,19 +1,19 @@
 package org.fhirpath.dictionaries.r4.resources;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.CommunicationRequest;
 
-public class CommunicationRequestDefinitions extends AbstractDefinitions<Base> {
+public class CommunicationRequestDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new DomainResourceDefinitions().getDefinitions());
-        this.definitions.put("category", arg -> ((CommunicationRequest) arg).getCategory());
-        this.definitions.put("categoryFirstRep", arg -> ((CommunicationRequest) arg).getCategoryFirstRep());
-        this.definitions.put("identifier", arg -> ((CommunicationRequest) arg).getIdentifier());
-        this.definitions.put("identifierFirstRep", arg -> ((CommunicationRequest) arg).getIdentifierFirstRep());
-        this.definitions.put("medium", arg -> ((CommunicationRequest) arg).getMedium());
-        this.definitions.put("mediumFirstRep", arg -> ((CommunicationRequest) arg).getMediumFirstRep());
+        this.paths.putAll(new DomainResourceDefinition().getPaths());
+        this.paths.put("category", arg -> ((CommunicationRequest) arg).getCategory());
+        this.paths.put("categoryFirstRep", arg -> ((CommunicationRequest) arg).getCategoryFirstRep());
+        this.paths.put("identifier", arg -> ((CommunicationRequest) arg).getIdentifier());
+        this.paths.put("identifierFirstRep", arg -> ((CommunicationRequest) arg).getIdentifierFirstRep());
+        this.paths.put("medium", arg -> ((CommunicationRequest) arg).getMedium());
+        this.paths.put("mediumFirstRep", arg -> ((CommunicationRequest) arg).getMediumFirstRep());
     }
 
     @Override

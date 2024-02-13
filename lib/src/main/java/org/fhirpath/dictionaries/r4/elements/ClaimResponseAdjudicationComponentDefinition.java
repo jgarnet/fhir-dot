@@ -1,21 +1,21 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 
-public class ClaimResponseAdjudicationComponentDefinitions extends AbstractDefinitions<Base> {
+public class ClaimResponseAdjudicationComponentDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new BackboneElementDefinitions().getDefinitions());
+        this.paths.putAll(new BackboneElementDefinition().getPaths());
         // category
-        this.definitions.put("category", arg -> ((ClaimResponse.AdjudicationComponent) arg).getCategory());
+        this.paths.put("category", arg -> ((ClaimResponse.AdjudicationComponent) arg).getCategory());
         // reason
-        this.definitions.put("reason", arg -> ((ClaimResponse.AdjudicationComponent) arg).getReason());
+        this.paths.put("reason", arg -> ((ClaimResponse.AdjudicationComponent) arg).getReason());
         // amount
-        this.definitions.put("amount", arg -> ((ClaimResponse.AdjudicationComponent) arg).getAmount());
+        this.paths.put("amount", arg -> ((ClaimResponse.AdjudicationComponent) arg).getAmount());
         // value
-        this.definitions.put("value", arg -> ((ClaimResponse.AdjudicationComponent) arg).getValueElement());
+        this.paths.put("value", arg -> ((ClaimResponse.AdjudicationComponent) arg).getValueElement());
     }
 
     @Override

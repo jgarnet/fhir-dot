@@ -1,23 +1,23 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Coding;
 
-public class CodingDefinitions extends AbstractDefinitions<Base> {
+public class CodingDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new ElementDefinitions().getDefinitions());
+        this.paths.putAll(new ElementDefinition().getPaths());
         // system
-        this.definitions.put("system", arg -> ((Coding) arg).getSystemElement());
+        this.paths.put("system", arg -> ((Coding) arg).getSystemElement());
         // version
-        this.definitions.put("version", arg -> ((Coding) arg).getVersionElement());
+        this.paths.put("version", arg -> ((Coding) arg).getVersionElement());
         // code
-        this.definitions.put("code", arg -> ((Coding) arg).getCodeElement());
+        this.paths.put("code", arg -> ((Coding) arg).getCodeElement());
         // display
-        this.definitions.put("display", arg -> ((Coding) arg).getDisplayElement());
+        this.paths.put("display", arg -> ((Coding) arg).getDisplayElement());
         // userSelected
-        this.definitions.put("userSelected", arg -> ((Coding) arg).getUserSelectedElement());
+        this.paths.put("userSelected", arg -> ((Coding) arg).getUserSelectedElement());
     }
 
     @Override

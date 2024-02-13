@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class ClaimResponseItemComponentDefinitionsTest extends BackboneElementDefinitionsTest {
+public class ClaimResponseItemComponentDefinitionTest extends BackboneElementDefinitionTest {
     private final ClaimResponseItemComponentDefinition claimResponseItemComponentDefinitions;
     private final ClaimResponse.ItemComponent itemComponent;
 
-    public ClaimResponseItemComponentDefinitionsTest() {
+    public ClaimResponseItemComponentDefinitionTest() {
         this.claimResponseItemComponentDefinitions = new ClaimResponseItemComponentDefinition();
         this.itemComponent = new ClaimResponse.ItemComponent();
         this.itemComponent.setItemSequence(1);

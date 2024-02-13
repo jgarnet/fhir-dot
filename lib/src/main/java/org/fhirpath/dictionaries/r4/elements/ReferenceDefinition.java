@@ -1,23 +1,23 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Reference;
 
-public class ReferenceDefinitions extends AbstractDefinitions<Base> {
+public class ReferenceDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new ElementDefinitions().getDefinitions());
+        this.paths.putAll(new ElementDefinition().getPaths());
         // reference
-        this.definitions.put("reference", arg -> ((Reference) arg).getReferenceElement_());
+        this.paths.put("reference", arg -> ((Reference) arg).getReferenceElement_());
         // type
-        this.definitions.put("type", arg -> ((Reference) arg).getTypeElement());
+        this.paths.put("type", arg -> ((Reference) arg).getTypeElement());
         // identifier
-        this.definitions.put("identifier", arg -> ((Reference) arg).getIdentifier());
+        this.paths.put("identifier", arg -> ((Reference) arg).getIdentifier());
         // display
-        this.definitions.put("display", arg -> ((Reference) arg).getDisplayElement());
+        this.paths.put("display", arg -> ((Reference) arg).getDisplayElement());
         // resource
-        this.definitions.put("resource", arg -> ((Reference) arg).getResource());
+        this.paths.put("resource", arg -> ((Reference) arg).getResource());
     }
 
     @Override

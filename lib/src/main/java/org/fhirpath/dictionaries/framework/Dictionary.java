@@ -3,7 +3,7 @@ package org.fhirpath.dictionaries.framework;
 import java.util.Map;
 import java.util.function.Function;
 
-public interface FhirDictionary<Base> {
+public interface Dictionary<Base> {
     /**
      * Defines all Resource, Element, and Type definitions for a given FHIR specification.
      */

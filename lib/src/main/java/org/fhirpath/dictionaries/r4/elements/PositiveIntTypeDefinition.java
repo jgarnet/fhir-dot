@@ -1,12 +1,12 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 
-public class PositiveIntTypeDefinitions extends AbstractDefinitions<Base> {
+public class PositiveIntTypeDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new PrimitiveTypeDefinitions().getDefinitions());
+        this.paths.putAll(new PrimitiveTypeDefinition().getPaths());
     }
 
     @Override

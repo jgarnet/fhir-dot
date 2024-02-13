@@ -1,29 +1,29 @@
 package org.fhirpath.dictionaries.r4.resources;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Organization;
 
-public class OrganizationDefinitions extends AbstractDefinitions<Base> {
+public class OrganizationDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new DomainResourceDefinitions().getDefinitions());
+        this.paths.putAll(new DomainResourceDefinition().getPaths());
         // identifier
-        this.definitions.put("identifier", arg -> ((Organization) arg).getIdentifier());
+        this.paths.put("identifier", arg -> ((Organization) arg).getIdentifier());
         // active
-        this.definitions.put("active", arg -> ((Organization) arg).getActiveElement());
+        this.paths.put("active", arg -> ((Organization) arg).getActiveElement());
         // type
-        this.definitions.put("type", arg -> ((Organization) arg).getType());
+        this.paths.put("type", arg -> ((Organization) arg).getType());
         // name
-        this.definitions.put("name", arg -> ((Organization) arg).getNameElement());
+        this.paths.put("name", arg -> ((Organization) arg).getNameElement());
         // alias
-        this.definitions.put("alias", arg -> ((Organization) arg).getAlias());
+        this.paths.put("alias", arg -> ((Organization) arg).getAlias());
         // telecom
-        this.definitions.put("telecom", arg -> ((Organization) arg).getTelecom());
+        this.paths.put("telecom", arg -> ((Organization) arg).getTelecom());
         // address
-        this.definitions.put("address", arg -> ((Organization) arg).getAddress());
+        this.paths.put("address", arg -> ((Organization) arg).getAddress());
         // contact
-        this.definitions.put("contact", arg -> ((Organization) arg).getContact());
+        this.paths.put("contact", arg -> ((Organization) arg).getContact());
     }
 
     @Override

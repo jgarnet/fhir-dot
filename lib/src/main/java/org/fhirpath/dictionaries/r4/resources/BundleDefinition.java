@@ -1,27 +1,27 @@
 package org.fhirpath.dictionaries.r4.resources;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Bundle;
 
-public class BundleDefinitions extends AbstractDefinitions<Base> {
+public class BundleDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new DomainResourceDefinitions().getDefinitions());
+        this.paths.putAll(new DomainResourceDefinition().getPaths());
         // identifier
-        this.definitions.put("identifier", arg -> ((Bundle) arg).getIdentifier());
+        this.paths.put("identifier", arg -> ((Bundle) arg).getIdentifier());
         // type
-        this.definitions.put("type", arg -> ((Bundle) arg).getType());
+        this.paths.put("type", arg -> ((Bundle) arg).getType());
         // timestamp
-        this.definitions.put("timestamp", arg -> ((Bundle) arg).getTimestampElement());
+        this.paths.put("timestamp", arg -> ((Bundle) arg).getTimestampElement());
         // total
-        this.definitions.put("total", arg -> ((Bundle) arg).getTotalElement());
+        this.paths.put("total", arg -> ((Bundle) arg).getTotalElement());
         // link
-        this.definitions.put("link", arg -> ((Bundle) arg).getLink());
+        this.paths.put("link", arg -> ((Bundle) arg).getLink());
         // entry
-        this.definitions.put("entry", arg -> ((Bundle) arg).getEntry());
+        this.paths.put("entry", arg -> ((Bundle) arg).getEntry());
         // signature
-        this.definitions.put("signature", arg -> ((Bundle) arg).getSignature());
+        this.paths.put("signature", arg -> ((Bundle) arg).getSignature());
     }
 
     @Override

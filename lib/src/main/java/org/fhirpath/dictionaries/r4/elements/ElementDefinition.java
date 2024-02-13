@@ -1,16 +1,16 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Element;
 
-public class ElementDefinitions extends AbstractDefinitions<Base> {
+public class ElementDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
         // id
-        this.definitions.put("id", arg -> ((Element) arg).getIdElement());
+        this.paths.put("id", arg -> ((Element) arg).getIdElement());
         // extension
-        this.definitions.put("extension", arg -> ((Element) arg).getExtension());
+        this.paths.put("extension", arg -> ((Element) arg).getExtension());
     }
 
     @Override

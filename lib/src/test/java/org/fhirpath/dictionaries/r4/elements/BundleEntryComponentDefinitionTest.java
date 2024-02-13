@@ -7,10 +7,10 @@ import org.hl7.fhir.r4.model.Claim;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class BundleEntryComponentDefinitionsTest extends BackboneElementDefinitionsTest {
+public class BundleEntryComponentDefinitionTest extends BackboneElementDefinitionTest {
     private final BundleEntryComponentDefinition bundleEntryComponentDefinitions;
 
-    public BundleEntryComponentDefinitionsTest() {
+    public BundleEntryComponentDefinitionTest() {
         this.bundleEntryComponentDefinitions = new BundleEntryComponentDefinition();
     }
 

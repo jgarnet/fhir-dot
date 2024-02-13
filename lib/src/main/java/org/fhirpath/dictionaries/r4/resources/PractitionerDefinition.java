@@ -1,40 +1,40 @@
 package org.fhirpath.dictionaries.r4.resources;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Practitioner;
 
-public class PractitionerDefinitions extends AbstractDefinitions<Base> {
+public class PractitionerDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new DomainResourceDefinitions().getDefinitions());
+        this.paths.putAll(new DomainResourceDefinition().getPaths());
         // identifier
-        this.definitions.put("identifier", arg -> ((Practitioner) arg).getIdentifier());
-        this.definitions.put("identifierFirstRep", arg -> ((Practitioner) arg).getIdentifierFirstRep());
+        this.paths.put("identifier", arg -> ((Practitioner) arg).getIdentifier());
+        this.paths.put("identifierFirstRep", arg -> ((Practitioner) arg).getIdentifierFirstRep());
         // active
-        this.definitions.put("active", arg -> ((Practitioner) arg).getActiveElement());
+        this.paths.put("active", arg -> ((Practitioner) arg).getActiveElement());
         // name
-        this.definitions.put("name", arg -> ((Practitioner) arg).getName());
-        this.definitions.put("nameFirstRep", arg -> ((Practitioner) arg).getNameFirstRep());
+        this.paths.put("name", arg -> ((Practitioner) arg).getName());
+        this.paths.put("nameFirstRep", arg -> ((Practitioner) arg).getNameFirstRep());
         // telecom
-        this.definitions.put("telecom", arg -> ((Practitioner) arg).getTelecom());
-        this.definitions.put("telecomFirstRep", arg -> ((Practitioner) arg).getTelecomFirstRep());
+        this.paths.put("telecom", arg -> ((Practitioner) arg).getTelecom());
+        this.paths.put("telecomFirstRep", arg -> ((Practitioner) arg).getTelecomFirstRep());
         // address
-        this.definitions.put("address", arg -> ((Practitioner) arg).getAddress());
-        this.definitions.put("addressFirstRep", arg -> ((Practitioner) arg).getAddressFirstRep());
+        this.paths.put("address", arg -> ((Practitioner) arg).getAddress());
+        this.paths.put("addressFirstRep", arg -> ((Practitioner) arg).getAddressFirstRep());
         // gender
-        this.definitions.put("gender", arg -> ((Practitioner) arg).getGender());
+        this.paths.put("gender", arg -> ((Practitioner) arg).getGender());
         // birthDate
-        this.definitions.put("birthDate", arg -> ((Practitioner) arg).getBirthDateElement());
+        this.paths.put("birthDate", arg -> ((Practitioner) arg).getBirthDateElement());
         // photo
-        this.definitions.put("photo", arg -> ((Practitioner) arg).getPhoto());
-        this.definitions.put("photoFirstRep", arg -> ((Practitioner) arg).getPhotoFirstRep());
+        this.paths.put("photo", arg -> ((Practitioner) arg).getPhoto());
+        this.paths.put("photoFirstRep", arg -> ((Practitioner) arg).getPhotoFirstRep());
         // qualification
-        this.definitions.put("qualification", arg -> ((Practitioner) arg).getQualification());
-        this.definitions.put("qualificationFirstRep", arg -> ((Practitioner) arg).getQualificationFirstRep());
+        this.paths.put("qualification", arg -> ((Practitioner) arg).getQualification());
+        this.paths.put("qualificationFirstRep", arg -> ((Practitioner) arg).getQualificationFirstRep());
         // communication
-        this.definitions.put("communication", arg -> ((Practitioner) arg).getCommunication());
-        this.definitions.put("communicationFirstRep", arg -> ((Practitioner) arg).getCommunicationFirstRep());
+        this.paths.put("communication", arg -> ((Practitioner) arg).getCommunication());
+        this.paths.put("communicationFirstRep", arg -> ((Practitioner) arg).getCommunicationFirstRep());
     }
 
     @Override

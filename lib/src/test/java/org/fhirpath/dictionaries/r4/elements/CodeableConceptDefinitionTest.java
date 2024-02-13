@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class CodeableConceptDefinitionsTest extends ElementDefinitionsTest {
+public class CodeableConceptDefinitionTest extends ElementDefinitionTest {
     private final CodeableConceptDefinition codeableConceptDefinitions;
     private final CodeableConcept codeableConcept;
 
-    public CodeableConceptDefinitionsTest() {
+    public CodeableConceptDefinitionTest() {
         this.codeableConceptDefinitions = new CodeableConceptDefinition();
         this.codeableConcept = new CodeableConcept();
         this.codeableConcept.setText("Test Text");

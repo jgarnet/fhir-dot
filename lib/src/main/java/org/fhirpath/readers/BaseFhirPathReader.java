@@ -2,7 +2,7 @@ package org.fhirpath.readers;
 
 import org.fhirpath.aliases.PathAliases;
 import org.fhirpath.aliases.framework.PathAlias;
-import org.fhirpath.dictionaries.framework.FhirDictionaryFactory;
+import org.fhirpath.dictionaries.framework.DictionaryFactory;
 import org.fhirpath.exceptions.FhirPathException;
 import org.fhirpath.framework.Rules;
 import org.fhirpath.nodes.CollectionItemNode;
@@ -27,7 +27,7 @@ public class BaseFhirPathReader implements FhirPathReader {
     private final Rules rules;
 
     public BaseFhirPathReader() {
-        FhirDictionaryFactory factory = new FhirDictionaryFactory();
+        DictionaryFactory factory = new DictionaryFactory();
         this.cache = new HashMap<>();
         this.rules = new Rules().setDateFormat("yyyy-MM-dd").setUnwrapPrimitives(true);
         this.utils = new FhirPathUtils();

@@ -1,21 +1,21 @@
 package org.fhirpath.dictionaries.r4.elements;
 
-import org.fhirpath.dictionaries.framework.AbstractDefinitions;
+import org.fhirpath.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 
-public class ClaimResponseNoteComponentDefinitions extends AbstractDefinitions<Base> {
+public class ClaimResponseNoteComponentDefinition extends AbstractDefinition<Base> {
     @Override
     protected void initialize() {
-        this.definitions.putAll(new BackboneElementDefinitions().getDefinitions());
+        this.paths.putAll(new BackboneElementDefinition().getPaths());
         // number
-        this.definitions.put("number", arg -> ((ClaimResponse.NoteComponent) arg).getNumberElement());
+        this.paths.put("number", arg -> ((ClaimResponse.NoteComponent) arg).getNumberElement());
         // type
-        this.definitions.put("type", arg -> ((ClaimResponse.NoteComponent) arg).getType());
+        this.paths.put("type", arg -> ((ClaimResponse.NoteComponent) arg).getType());
         // text
-        this.definitions.put("text", arg -> ((ClaimResponse.NoteComponent) arg).getTextElement());
+        this.paths.put("text", arg -> ((ClaimResponse.NoteComponent) arg).getTextElement());
         // language
-        this.definitions.put("language", arg -> ((ClaimResponse.NoteComponent) arg).getLanguage());
+        this.paths.put("language", arg -> ((ClaimResponse.NoteComponent) arg).getLanguage());
     }
 
     @Override

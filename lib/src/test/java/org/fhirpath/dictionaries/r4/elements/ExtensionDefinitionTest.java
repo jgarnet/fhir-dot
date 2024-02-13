@@ -7,11 +7,11 @@ import org.hl7.fhir.r4.model.StringType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ExtensionDefinitionsTest extends ElementDefinitionsTest {
+public class ExtensionDefinitionTest extends ElementDefinitionTest {
     private final ExtensionDefinition extensionDefinitions;
     private final Extension extension;
 
-    public ExtensionDefinitionsTest() {
+    public ExtensionDefinitionTest() {
         this.extensionDefinitions = new ExtensionDefinition();
         this.extension = new Extension();
         this.extension.setUrl("Test URL");

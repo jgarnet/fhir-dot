@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-public class ClaimResponseAdjudicationComponentDefinitionsTest extends BackboneElementDefinitionsTest {
+public class ClaimResponseAdjudicationComponentDefinitionTest extends BackboneElementDefinitionTest {
     private final ClaimResponseAdjudicationComponentDefinition claimResponseAdjudicationComponentDefinitions;
     private final ClaimResponse.AdjudicationComponent claimResponseAdjudicationComponent;
 
-    public ClaimResponseAdjudicationComponentDefinitionsTest() {
+    public ClaimResponseAdjudicationComponentDefinitionTest() {
         this.claimResponseAdjudicationComponentDefinitions = new ClaimResponseAdjudicationComponentDefinition();
         this.claimResponseAdjudicationComponent = new ClaimResponse.AdjudicationComponent();
         CodeableConcept category = new CodeableConcept();

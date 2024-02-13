@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Test;
 import java.util.Date;
 import java.util.List;
 
-public class AddressDefinitionsTest extends ElementDefinitionsTest {
+public class AddressDefinitionTest extends ElementDefinitionTest {
     private final AddressDefinition addressDefinitions;
     private final Address address;
     private final Period period;
 
-    public AddressDefinitionsTest() {
+    public AddressDefinitionTest() {
         this.addressDefinitions = new AddressDefinition();
         this.address = new Address();
         this.address.setUse(Address.AddressUse.HOME);

@@ -5,13 +5,13 @@ import org.hl7.fhir.r4.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ClaimResponseInsuranceComponentDefinitionsTest extends BackboneElementDefinitionsTest {
+public class ClaimResponseInsuranceComponentDefinitionTest extends BackboneElementDefinitionTest {
     private final ClaimResponseInsuranceComponentDefinition claimResponseInsuranceComponentDefinitions;
     private final ClaimResponse.InsuranceComponent insuranceComponent;
     private final Coverage coverage;
     private final ClaimResponse claimResponse;
 
-    public ClaimResponseInsuranceComponentDefinitionsTest() {
+    public ClaimResponseInsuranceComponentDefinitionTest() {
         this.claimResponseInsuranceComponentDefinitions = new ClaimResponseInsuranceComponentDefinition();
         this.coverage = new Coverage();
         this.claimResponse = new ClaimResponse();

@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-public class DurationDefinitionsTest extends ElementDefinitionsTest {
+public class DurationDefinitionTest extends ElementDefinitionTest {
     private final DurationDefinition durationDefinitions;
     private final Duration duration;
 
-    public DurationDefinitionsTest() {
+    public DurationDefinitionTest() {
         this.durationDefinitions = new DurationDefinition();
         this.duration = new Duration();
         this.duration.setUnit("Test Unit");

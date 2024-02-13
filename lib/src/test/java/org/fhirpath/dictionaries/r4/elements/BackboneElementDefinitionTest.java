@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class BackboneElementDefinitionsTest extends ElementDefinitionsTest {
+public class BackboneElementDefinitionTest extends ElementDefinitionTest {
 
     private final BackboneElementDefinition backboneElementDefinitions;
 
-    public BackboneElementDefinitionsTest() {
+    public BackboneElementDefinitionTest() {
         this.backboneElementDefinitions = new BackboneElementDefinition();
     }
 
