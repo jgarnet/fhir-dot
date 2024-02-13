@@ -22,7 +22,8 @@ public class LikeConditionEvaluatorTest {
     public void testLikeConditionEvaluator() {
         Rules rules = new Rules();
         rules.setDateFormat("yyyy-MM-dd");
-        ConditionEvaluator evaluator = new LikeConditionEvaluator().setRules(rules);
+        FhirDotUtils utils = new FhirDotUtils();
+        ConditionEvaluator evaluator = new LikeConditionEvaluator().setRules(rules).setUtils(utils);
         // string equality
         Assertions.assertTrue(evaluator.getEvaluator().apply("a", "a"));
         Assertions.assertFalse(evaluator.getEvaluator().apply("a", "b"));
@@ -40,7 +41,6 @@ public class LikeConditionEvaluatorTest {
         Assertions.assertTrue(evaluator.getEvaluator().apply(BigDecimal.TEN, "1*"));
         // date equality
         try {
-            FhirDotUtils utils = new FhirDotUtils();
             Date equal = utils.parseDate("2024-01-01", "yyyy-MM-dd");
             Assertions.assertTrue(evaluator.getEvaluator().apply(equal, "2024-01-01"));
             Assertions.assertTrue(evaluator.getEvaluator().apply(equal, "\\d{4}-\\d{2}-\\d{2}"));

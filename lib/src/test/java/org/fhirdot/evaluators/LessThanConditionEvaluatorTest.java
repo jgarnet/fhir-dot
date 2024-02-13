@@ -22,7 +22,8 @@ public class LessThanConditionEvaluatorTest {
     public void testLessThanConditionEvaluator() {
         Rules rules = new Rules();
         rules.setDateFormat("yyyy-MM-dd");
-        ConditionEvaluator evaluator = new LessThanConditionEvaluator().setRules(rules);
+        FhirDotUtils utils = new FhirDotUtils();
+        ConditionEvaluator evaluator = new LessThanConditionEvaluator().setRules(rules).setUtils(utils);
         // string equality
         Assertions.assertTrue(evaluator.getEvaluator().apply("a", "b"));
         Assertions.assertFalse(evaluator.getEvaluator().apply("a", "a"));
@@ -42,7 +43,6 @@ public class LessThanConditionEvaluatorTest {
         Assertions.assertTrue(evaluator.getEvaluator().apply(BigDecimal.ZERO, "1"));
         // date equality
         try {
-            FhirDotUtils utils = new FhirDotUtils();
             Date equalDate = utils.parseDate("2024-01-01", "yyyy-MM-dd");
             Assertions.assertFalse(evaluator.getEvaluator().apply(equalDate, "2024-01-01"));
             Date greaterDate = utils.parseDate("2024-01-02", "yyyy-MM-dd");

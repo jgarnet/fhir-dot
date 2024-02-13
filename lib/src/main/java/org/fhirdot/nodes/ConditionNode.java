@@ -7,6 +7,7 @@ import org.fhirdot.exceptions.FhirDotException;
 import org.fhirdot.framework.Rules;
 import org.fhirdot.nodes.framework.AbstractNode;
 import org.fhirdot.nodes.framework.Node;
+import org.fhirdot.utils.FhirDotUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +19,18 @@ public class ConditionNode extends AbstractNode {
 
     private final Pattern PATTERN = Pattern.compile("\\w+\\{.*}");
     private final Pattern DIGIT_PATTERN = Pattern.compile("^\\d+|[Nn]$");
-    private final ConditionEvaluators evaluators = new ConditionEvaluators(this.getRules());
+    private final ConditionEvaluators evaluators = new ConditionEvaluators(this.getRules(), this.getUtils());
 
     @Override
     public Node setRules(Rules rules) {
         this.evaluators.setRules(rules);
         return super.setRules(rules);
+    }
+
+    @Override
+    public Node setUtils(FhirDotUtils utils) {
+        this.evaluators.setUtils(utils);
+        return super.setUtils(utils);
     }
 
     @Override

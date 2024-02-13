@@ -22,7 +22,8 @@ public class GreaterEqualsConditionEvaluatorTest {
     public void testGreaterEqualsConditionEvaluator() {
         Rules rules = new Rules();
         rules.setDateFormat("yyyy-MM-dd");
-        ConditionEvaluator evaluator = new GreaterEqualsConditionEvaluator().setRules(rules);
+        FhirDotUtils utils = new FhirDotUtils();
+        ConditionEvaluator evaluator = new GreaterEqualsConditionEvaluator().setRules(rules).setUtils(utils);
         // string equality
         Assertions.assertTrue(evaluator.getEvaluator().apply("b", "a"));
         Assertions.assertTrue(evaluator.getEvaluator().apply("b", "b"));
@@ -42,7 +43,6 @@ public class GreaterEqualsConditionEvaluatorTest {
         Assertions.assertFalse(evaluator.getEvaluator().apply(BigDecimal.ZERO, "1"));
         // date equality
         try {
-            FhirDotUtils utils = new FhirDotUtils();
             Date equalDate = utils.parseDate("2024-01-01", "yyyy-MM-dd");
             Assertions.assertTrue(evaluator.getEvaluator().apply(equalDate, "2024-01-01"));
             Date greaterDate = utils.parseDate("2024-01-02", "yyyy-MM-dd");

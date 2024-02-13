@@ -22,7 +22,8 @@ public class EqualityConditionEvaluatorTest {
     public void testEqualityConditionEvaluator() {
         Rules rules = new Rules();
         rules.setDateFormat("yyyy-MM-dd");
-        ConditionEvaluator evaluator = new EqualityConditionEvaluator().setRules(rules);
+        FhirDotUtils utils = new FhirDotUtils();
+        ConditionEvaluator evaluator = new EqualityConditionEvaluator().setRules(rules).setUtils(utils);
         // string equality
         Assertions.assertTrue(evaluator.getEvaluator().apply("a", "a"));
         Assertions.assertFalse(evaluator.getEvaluator().apply("a", "b"));
@@ -39,7 +40,6 @@ public class EqualityConditionEvaluatorTest {
         Assertions.assertFalse(evaluator.getEvaluator().apply(BigDecimal.TEN, "1"));
         // date equality
         try {
-            FhirDotUtils utils = new FhirDotUtils();
             Date equal = utils.parseDate("2024-01-01", "yyyy-MM-dd");
             Assertions.assertTrue(evaluator.getEvaluator().apply(equal, "2024-01-01"));
             Date notEqual = utils.parseDate("2024-01-02", "yyyy-MM-dd");

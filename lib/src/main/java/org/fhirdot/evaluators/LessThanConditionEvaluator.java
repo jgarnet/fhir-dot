@@ -19,7 +19,9 @@ public class LessThanConditionEvaluator extends AbstractConditionEvaluator {
             return comparison < 0;
         } else if (base instanceof Date) {
             try {
-                int comparison = ((Date) base).compareTo(this.parseDate(value));
+                int comparison = ((Date) base).compareTo(
+                        this.getUtils().parseDate(value, this.getRules().getDateFormat())
+                );
                 return comparison < 0;
             } catch (Exception ignored) {
                 return false;

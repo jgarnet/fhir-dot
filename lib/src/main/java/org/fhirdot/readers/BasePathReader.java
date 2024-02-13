@@ -5,10 +5,7 @@ import org.fhirdot.aliases.framework.PathAlias;
 import org.fhirdot.dictionaries.framework.DictionaryFactory;
 import org.fhirdot.exceptions.FhirDotException;
 import org.fhirdot.framework.Rules;
-import org.fhirdot.nodes.CollectionItemNode;
-import org.fhirdot.nodes.CollectionNode;
-import org.fhirdot.nodes.ConditionNode;
-import org.fhirdot.nodes.FieldNode;
+import org.fhirdot.nodes.*;
 import org.fhirdot.nodes.framework.Node;
 import org.fhirdot.readers.framework.PathReader;
 import org.fhirdot.utils.FhirDotUtils;
@@ -20,7 +17,7 @@ import java.util.regex.Matcher;
 @SuppressWarnings("unchecked")
 public class BasePathReader implements PathReader {
 
-    private final Set<Node> nodes;
+    private final Nodes nodes;
     private final Map<Integer, Map<String, Object>> cache;
     private final PathAliases pathAliases;
     private final FhirDotUtils utils;
@@ -31,11 +28,7 @@ public class BasePathReader implements PathReader {
         this.cache = new HashMap<>();
         this.rules = new Rules().setDateFormat("yyyy-MM-dd").setUnwrapPrimitives(true);
         this.utils = new FhirDotUtils();
-        this.nodes = new HashSet<>();
-        this.nodes.add(new FieldNode().setRules(rules).setDictionaryFactory(factory).setUtils(utils));
-        this.nodes.add(new CollectionItemNode().setRules(rules).setDictionaryFactory(factory).setUtils(utils));
-        this.nodes.add(new CollectionNode().setRules(rules).setDictionaryFactory(factory).setUtils(utils));
-        this.nodes.add(new ConditionNode().setRules(rules).setDictionaryFactory(factory).setUtils(utils));
+        this.nodes = new Nodes(rules, utils, factory);
         this.pathAliases = new PathAliases();
     }
 
@@ -71,7 +64,7 @@ public class BasePathReader implements PathReader {
                 target = (Base) nodeCacheResult;
                 continue;
             }
-            for (Node _node : this.nodes) {
+            for (Node _node : this.nodes.getNodes()) {
                 if (_node.matches(target, node)) {
                     target = _node.evaluate(target, node);
                     nodeCache.put(node, target);

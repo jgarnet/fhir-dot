@@ -22,7 +22,8 @@ public class GreaterThanConditionEvaluatorTest {
     public void testGreaterThanConditionEvaluator() {
         Rules rules = new Rules();
         rules.setDateFormat("yyyy-MM-dd");
-        ConditionEvaluator evaluator = new GreaterThanConditionEvaluator().setRules(rules);
+        FhirDotUtils utils = new FhirDotUtils();
+        ConditionEvaluator evaluator = new GreaterThanConditionEvaluator().setRules(rules).setUtils(utils);
         // string equality
         Assertions.assertFalse(evaluator.getEvaluator().apply("a", "b"));
         Assertions.assertTrue(evaluator.getEvaluator().apply("b", "a"));
@@ -41,7 +42,6 @@ public class GreaterThanConditionEvaluatorTest {
         Assertions.assertFalse(evaluator.getEvaluator().apply(BigDecimal.ZERO, "1"));
         // date equality
         try {
-            FhirDotUtils utils = new FhirDotUtils();
             Date equalDate = utils.parseDate("2024-01-01", "yyyy-MM-dd");
             Assertions.assertFalse(evaluator.getEvaluator().apply(equalDate, "2024-01-01"));
             Date greaterDate = utils.parseDate("2024-01-02", "yyyy-MM-dd");

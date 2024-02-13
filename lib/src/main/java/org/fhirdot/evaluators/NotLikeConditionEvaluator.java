@@ -11,7 +11,10 @@ public class NotLikeConditionEvaluator extends AbstractConditionEvaluator {
 
     private final Pattern PATTERN = Pattern.compile("^.+!%=.+$");
     private final BiFunction<?, String, Boolean> evaluator = (base, value) -> {
-        String targetStr = StringUtils.defaultString(this.resolveStringValue(base), "");
+        String targetStr = StringUtils.defaultString(
+                this.getUtils().resolveStringValue(base, this.getRules()),
+                ""
+        );
         return !Pattern.compile(value).matcher(targetStr).find();
     };
 
