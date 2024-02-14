@@ -9,6 +9,12 @@ import java.util.Date;
 @SuppressWarnings("unchecked, rawtypes")
 public class FhirDotUtils {
 
+    /**
+     * Retrieves underlying value from FHIR PrimitiveType wrapper
+     * @param obj Possible PrimitiveType object
+     * @param <T> Generic return result
+     * @return The unwrapped value
+     */
     public <T> T unwrapPrimitiveType(T obj) {
         if (obj instanceof org.hl7.fhir.r4.model.PrimitiveType) {
             return (T) ((org.hl7.fhir.r4.model.PrimitiveType) obj).getValue();

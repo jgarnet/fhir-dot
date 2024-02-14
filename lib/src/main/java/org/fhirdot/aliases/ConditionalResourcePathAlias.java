@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 
 /**
  * Conditional Resource Alias.
- * $Resource{condition=1...} -> entry{resource.resourceType=Resource&&condition1...}.resource.0
+ * Example Alias: $Resource{condition=1...}
+ * Example Output: entry{resource.resourceType=Resource&&condition1...}.resource.0
  */
 public class ConditionalResourcePathAlias implements PathAlias {
 

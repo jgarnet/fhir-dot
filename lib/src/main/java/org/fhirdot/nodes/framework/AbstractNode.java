@@ -49,11 +49,27 @@ public abstract class AbstractNode implements Node {
         return this;
     }
 
+    /**
+     * Evaluates an individual field path against a Base FHIR structure and returns the result
+     * @param base The Base FHIR structure being evaluated
+     * @param field The field being evaluated
+     * @param <Base> The Base FHIR structure class
+     * @param <Result> Generic result class
+     * @return Result containing evaluation determination
+     * @throws FhirDotException When errors occur reading from Dictionary or evaluating paths
+     */
     protected <Base, Result> Result evaluatePath(Base base, String field) throws FhirDotException {
         Map<String, Function<Base, Object>> fields = this.getPaths(base);
         return (Result) fields.get(field).apply(base);
     }
 
+    /**
+     * Provides all available paths for a given Base FHIR structure
+     * @param base The Base FHIR structure being evaluated
+     * @param <Base> The Base FHIR structure class
+     * @return All available Paths for a given FHIR structure
+     * @throws FhirDotException When errors occur retrieving Dictionary instance
+     */
     protected <Base> Map<String, Function<Base, Object>> getPaths(Base base) throws FhirDotException {
         Dictionary<Base> dictionary = this.getDictionaryFactory().getDictionary(base);
         return dictionary.getPaths(base);

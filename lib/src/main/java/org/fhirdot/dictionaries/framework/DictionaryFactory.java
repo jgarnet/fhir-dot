@@ -49,6 +49,13 @@ public class DictionaryFactory {
         }
     }
 
+    /**
+     * Provides a Dictionary which can be used to read paths on a FHIR structure
+     * @param base A FHIR structure which extends Base
+     * @param <Base> Class definition for Base FHIR structures
+     * @return Dictionary instance which matches the supplied Base FHIR structure
+     * @throws FhirDotException Thrown when Dictionary cannot be found or FHIR structure is invalid
+     */
     public <Base> Dictionary getDictionary(Base base) throws FhirDotException {
         if (base == null) {
             throw new FhirDotException("FHIR structure is null");
@@ -63,7 +70,7 @@ public class DictionaryFactory {
                 return entry.getValue();
             }
         }
-        throw new FhirDotException(String.format("Failed to find FHIR dictionary for %s", baseClass.toString()));
+        throw new FhirDotException(String.format("Failed to find Dictionary for %s", baseClass.toString()));
     }
 
 }

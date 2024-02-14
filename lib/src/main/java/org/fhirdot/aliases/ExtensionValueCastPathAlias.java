@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
 
 /**
  * Extension Value Cast Alias.
- * extension(url).valueX -> extension(url).value, extension.valueX -> extension.value, etc.
+ * Example Alias: extension(url).valueX, extension.valueX
+ * Example Output: extension(url).value, extension.value
  */
 public class ExtensionValueCastPathAlias implements PathAlias {
 

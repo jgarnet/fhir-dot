@@ -21,5 +21,9 @@ public interface Dictionary<Base> {
         return this.getDefinitions().get(baseClass.substring(lastDot + 1));
     }
 
+    /**
+     * Defines the Base FHIR structure which all structures must extend in the Dictionary
+     * @return Class definition for Base FHIR structures in the Dictionary
+     */
     Class<Base> getBaseClass();
 }

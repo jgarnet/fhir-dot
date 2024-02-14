@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 
 /**
  * Conditional Contained Resource Alias.
- * contained(Resource){conditon=1...} -> contained{resourceType=Resource&&condition=1...}
+ * Example Alias: contained(Resource){conditon=1...}
+ * Example Output: contained{resourceType=Resource&&condition=1...}
  */
 public class ConditionalContainedResourcePathAlias implements PathAlias {
 

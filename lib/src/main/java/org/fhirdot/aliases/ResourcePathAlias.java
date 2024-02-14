@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
 
 /**
  * Resource Alias.
- * $Resource -> entry{resource.resourceType=Resource}.resource.0
+ * Example Alias: $Resource
+ * Example Output: entry{resource.resourceType=Resource}.resource.0
  */
 public class ResourcePathAlias implements PathAlias {
 

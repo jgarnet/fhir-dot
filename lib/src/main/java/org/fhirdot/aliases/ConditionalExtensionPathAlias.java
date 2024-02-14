@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 
 /**
  * Conditional Extension Alias.
- * extension(someUrl){condition1=test...} -> extension{url=someUrl&&condition1=test...}
+ * Example Alias: extension(someUrl){condition1=test...} ->
+ * Example Output: extension{url=someUrl&&condition1=test...}
  */
 public class ConditionalExtensionPathAlias implements PathAlias {
 

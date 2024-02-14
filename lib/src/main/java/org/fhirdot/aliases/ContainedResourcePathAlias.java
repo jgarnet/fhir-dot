@@ -7,7 +7,8 @@ import java.util.regex.Pattern;
 
 /**
  * Contained Resource Alias
- * contained(Resource) -> contained{resourceType=Resource}
+ * Example Alias: contained(Resource)
+ * Example Output: contained{resourceType=Resource}
  */
 public class ContainedResourcePathAlias implements PathAlias {
 

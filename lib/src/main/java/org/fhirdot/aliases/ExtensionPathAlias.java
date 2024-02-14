@@ -7,7 +7,8 @@ import java.util.regex.Pattern;
 
 /**
  * Extension Path Alias.
- * extension(someUrl) -> extension{url=someUrl}
+ * Example Alias: extension(someUrl)
+ * Example Output: extension{url=someUrl}
  */
 public class ExtensionPathAlias implements PathAlias {
 
