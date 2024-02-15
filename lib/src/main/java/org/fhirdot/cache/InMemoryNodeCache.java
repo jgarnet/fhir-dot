@@ -5,11 +5,11 @@ import org.fhirdot.cache.framework.NodeCache;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BaseNodeCache implements NodeCache {
+public class InMemoryNodeCache implements NodeCache {
 
     private final Map<Integer, Map<String, Object>> cache;
 
-    public BaseNodeCache() {
+    public InMemoryNodeCache() {
         this.cache = new HashMap<>();
     }
 

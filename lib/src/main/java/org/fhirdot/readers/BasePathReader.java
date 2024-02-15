@@ -2,7 +2,7 @@ package org.fhirdot.readers;
 
 import org.fhirdot.aliases.PathAliases;
 import org.fhirdot.aliases.framework.PathAlias;
-import org.fhirdot.cache.BaseNodeCache;
+import org.fhirdot.cache.InMemoryNodeCache;
 import org.fhirdot.cache.framework.NodeCache;
 import org.fhirdot.dictionaries.framework.DictionaryFactory;
 import org.fhirdot.exceptions.FhirDotException;
@@ -27,7 +27,7 @@ public class BasePathReader implements PathReader {
 
     public BasePathReader() {
         DictionaryFactory factory = new DictionaryFactory();
-        this.cache = new BaseNodeCache();
+        this.cache = new InMemoryNodeCache();
         this.rules = new Rules().setDateFormat("yyyy-MM-dd").setUnwrapPrimitives(true);
         this.utils = new FhirDotUtils();
         this.nodes = new Nodes(rules, utils, factory);

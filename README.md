@@ -206,7 +206,7 @@ The `Dictionary` interface is used to register dictionaries with `DictionaryFact
 
 `AbstractDictionary` provides common functionality which will scan a given package for classes that implement `Definition` and aggregate the results into one Map.
 
-New dictionaries can be added by extending `AbstractDictionary`, annotating the class with `Dictionary` and supplying the package path for scanning:
+New dictionaries can be added by extending `AbstractDictionary`:
 
 ```java
 
@@ -260,35 +260,93 @@ String patientFirstName = reader.read(bundle, "$ClaimResponse.patientTarget.name
 
 `PathReader` can be configured using a `Rules` instance which contains common settings.
 
+### cache
+
+Provides cache capabilities to optimize Node evaluation when reading FHIR structures.
+
+Each Node in a path is associated to its parent FHIR structure (via `Object.hashCode()`) and cached.
+
+All Node paths on a given FHIR structure are internally associated to that Object&apos;s `hashCode()`.
+
+Additionally, the entire path at the end of evaluation is cached.
+
+For example, given:
+
+```text
+// Patient Object structure:
+Patient {
+    name: [
+        {
+            given: ["Test"],
+            family: "Test"
+        }
+    ]
+}
+
+PathReader reader = ...;
+reader.read(patient, "nameFirstRep.given.0");
+reader.read(patient, "nameFirstRep.family");
+```
+
+The following cache entries will be stored:
+
+```text
+Cache {
+    Patient@1.hashCode(): {
+        "nameFirstRep": HumanName@1, // nameFirstRep Node
+        "nameFirstRep.given.0": StringType@1, // first path result
+        "nameFirstRep.family": StringType@2 // second path result
+    },
+    HumanName@1.hashCode(): {
+        "given": ArrayList@1, // given Node
+        "family": StringType@2 // family Node
+    },
+    ArrayList@1.hashCode(): {
+        "0": StringType@1 // first item Node
+    }
+}
+```
+
+Using this convention, all Nodes in a path for a given structure are evaluated only once during the lifetime of a PathReader.
+
+Cache implementations include:
+
+- `InMemoryNodeCache`
+  - Leverages an in-memory cache when caching Node evaluation results
+
 ### evaluators
 
 Contains logic related to evaluating conditions for a node.
 
-- ConditionEvaluator
+- `ConditionEvaluator`
+  - used to evaluate conditions for a given path node on a FHIR structure
   - provides common interface for evaluation operations
-- ConditionEvaluators
+- `ConditionEvaluators`
   - aggregates and provides all available `ConditionEvaluator` instances
 
 ### aliases
 
 Contains common logic for providing aliases.
 
-- PathAliases
+- `PathAlias`
+  - allows short-hand aliases to be substituted in a path
+- `PathAliases`
   - aggregates and provides all available `PathAlias` instances
+
+### framework
+
+Contains common framework classes used by all packages.
+
+- `Rules`
+  - provides common settings used to extract data elements
 
 ### utils
 
 Contains various helper classes.
 
-- ConditionEvaluator
-  - used to evaluate conditions for a given path node on a FHIR structure
-- PathAlias
-  - allows short-hand aliases to be substituted in a path
-- Rules
-  - provides common settings used to extract data elements
-- ConditionParser
+- `ConditionParser`
   - extracts conditional nodes from a path (i.e. `field{conditions}`)
-- NodeParser
+- `NodeParser`
   - extracts the outermost nodes from a path
 
 ### nodes

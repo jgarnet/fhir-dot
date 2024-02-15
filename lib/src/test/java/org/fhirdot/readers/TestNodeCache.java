@@ -1,11 +1,11 @@
 package org.fhirdot.readers;
 
-import org.fhirdot.cache.BaseNodeCache;
+import org.fhirdot.cache.InMemoryNodeCache;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestNodeCache extends BaseNodeCache {
+public class TestNodeCache extends InMemoryNodeCache {
     private final List<String> cacheKeys;
 
     public TestNodeCache() {
