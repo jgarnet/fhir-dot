@@ -8,12 +8,6 @@ import org.fhirdot.framework.Rules;
  */
 public interface PathReader {
     /**
-     * Provides an instance of global Rules used for configuration
-     * @return Rules used for configuration
-     */
-    Rules getRules();
-
-    /**
      * Evaluates a path against a Base FHIR structure to retrieve some desired value
      * @param base The Base FHIR structure being evaluated
      * @param path The path being evaluated

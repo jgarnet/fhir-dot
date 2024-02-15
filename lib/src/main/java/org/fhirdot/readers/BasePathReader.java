@@ -2,6 +2,8 @@ package org.fhirdot.readers;
 
 import org.fhirdot.aliases.PathAliases;
 import org.fhirdot.aliases.framework.PathAlias;
+import org.fhirdot.cache.BaseNodeCache;
+import org.fhirdot.cache.framework.NodeCache;
 import org.fhirdot.dictionaries.framework.DictionaryFactory;
 import org.fhirdot.exceptions.FhirDotException;
 import org.fhirdot.framework.Rules;
@@ -17,30 +19,32 @@ import java.util.regex.Matcher;
 @SuppressWarnings("unchecked")
 public class BasePathReader implements PathReader {
 
-    private final Nodes nodes;
-    private final Map<Integer, Map<String, Object>> cache;
-    private final PathAliases pathAliases;
-    private final FhirDotUtils utils;
-    private final Rules rules;
+    private Nodes nodes;
+    private NodeCache cache;
+    private PathAliases pathAliases;
+    private FhirDotUtils utils;
+    private Rules rules;
 
     public BasePathReader() {
         DictionaryFactory factory = new DictionaryFactory();
-        this.cache = new HashMap<>();
+        this.cache = new BaseNodeCache();
         this.rules = new Rules().setDateFormat("yyyy-MM-dd").setUnwrapPrimitives(true);
         this.utils = new FhirDotUtils();
         this.nodes = new Nodes(rules, utils, factory);
         this.pathAliases = new PathAliases();
     }
 
-    @Override
-    public Rules getRules() {
-        return this.rules;
+    public BasePathReader(Nodes nodes, NodeCache cache, PathAliases pathAliases, FhirDotUtils utils, Rules rules) {
+        this.nodes = nodes;
+        this.cache = cache;
+        this.pathAliases = pathAliases;
+        this.utils = utils;
+        this.rules = rules;
     }
 
     @Override
     public <Base, Result> Result read(Base base, String path) throws FhirDotException {
-        Map<String, Object> pathCache = this.getNodeCache(base);
-        Object cacheResult = pathCache.get(path);
+        Object cacheResult = this.cache.get(base, path);
         if (cacheResult != null) {
             return (Result) cacheResult;
         }
@@ -58,29 +62,45 @@ public class BasePathReader implements PathReader {
         // retrieve target
         Base target = base;
         for (String node : _nodes) {
-            Map<String, Object> nodeCache = this.getNodeCache(target);
-            Object nodeCacheResult = nodeCache.get(node);
+            Object nodeCacheResult = this.cache.get(target, node);
             if (nodeCacheResult != null) {
                 target = (Base) nodeCacheResult;
                 continue;
             }
             for (Node _node : this.nodes.getNodes()) {
                 if (_node.matches(target, node)) {
+                    Base current = target;
                     target = _node.evaluate(target, node);
-                    nodeCache.put(node, target);
+                    this.cache.put(current, node, target);
                     break;
                 }
             }
         }
         Result result = (Result) target;
-        if (this.getRules().shouldUnwrapPrimitives()) {
+        if (this.rules.shouldUnwrapPrimitives()) {
             result = this.utils.unwrapPrimitiveType(result);
         }
-        pathCache.put(path, result);
+        this.cache.put(base, path, result);
         return result;
     }
 
-    protected <Base> Map<String, Object> getNodeCache(Base base) {
-        return this.cache.computeIfAbsent(base.hashCode(), k -> new HashMap<>());
+    public void setNodes(Nodes nodes) {
+        this.nodes = nodes;
+    }
+
+    public void setCache(NodeCache cache) {
+        this.cache = cache;
+    }
+
+    public void setPathAliases(PathAliases pathAliases) {
+        this.pathAliases = pathAliases;
+    }
+
+    public void setUtils(FhirDotUtils utils) {
+        this.utils = utils;
+    }
+
+    public void setRules(Rules rules) {
+        this.rules = rules;
     }
 }

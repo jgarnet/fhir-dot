@@ -233,6 +233,38 @@ public class BasePathReaderTest {
         }
     }
 
+    /* Cache Tests */
+
+    @Test
+    public void testCachesResults() {
+        TestNodeCache cache = new TestNodeCache();
+        ((BasePathReader) this.pathReader).setCache(cache);
+        try {
+            this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.nameFirstRep.given.0");
+            this.pathReader.read(this.bundle, "$ClaimResponse.patient.resource.nameFirstRep.family");
+            // the cache should have been populated in order of node evaluations
+            List<String> cacheKeys = cache.getCacheKeys();
+            String[] expectedKeys = {
+                    "entry{resource.resourceType=ClaimResponse}", // 0 - Bundle entry alias
+                    "0", // 1 - First bundle entry condition result (BundleEntryComponent)
+                    "resource", // 2 - Bundle entry resource (ClaimResponse)
+                    "patient", // 3 - ClaimResponse patient reference (Reference)
+                    "resource", // 4 - ClaimResponse patient reference resource (Patient)
+                    "nameFirstRep", // 5 - Patient.nameFirstRep (HumanName)
+                    "given", // 6 - Patient.nameFirstRep.given (ArrayList<StringType>)
+                    "0", // 7 - Patient.nameFirstRep.given.0 (StringType)
+                    "$ClaimResponse.patient.resource.nameFirstRep.given.0", // 8 - full path after evaluation
+                    "family", // 9 - family (StringType) (nodes 0 - 5 are already in cache, so only family is computed)
+                    "$ClaimResponse.patient.resource.nameFirstRep.family" // 10 - full path after evaluation
+            };
+            for (int i = 0; i < expectedKeys.length; i++) {
+                Assertions.assertEquals(expectedKeys[i], cacheKeys.get(i));
+            }
+        } catch (Exception e) {
+            Assertions.fail("Failed to verify cache results");
+        }
+    }
+
     private Bundle buildBundle() {
         Bundle bundle = new Bundle();
         // ClaimResponse
