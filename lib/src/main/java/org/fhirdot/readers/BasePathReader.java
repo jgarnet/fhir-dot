@@ -44,9 +44,9 @@ public class BasePathReader implements PathReader {
 
     @Override
     public <Base, Result> Result read(Base base, String path) throws FhirDotException {
-        Object cacheResult = this.cache.get(base, path);
+        Result cacheResult = this.cache.get(base, path);
         if (cacheResult != null) {
-            return (Result) cacheResult;
+            return cacheResult;
         }
         // replace aliases in path before evaluating nodes
         String mutatedPath = path;
@@ -62,9 +62,9 @@ public class BasePathReader implements PathReader {
         // retrieve target
         Base target = base;
         for (String node : _nodes) {
-            Object nodeCacheResult = this.cache.get(target, node);
+            Base nodeCacheResult = this.cache.get(target, node);
             if (nodeCacheResult != null) {
-                target = (Base) nodeCacheResult;
+                target = nodeCacheResult;
                 continue;
             }
             for (Node _node : this.nodes.getNodes()) {

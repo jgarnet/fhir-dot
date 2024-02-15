@@ -60,7 +60,14 @@ public abstract class AbstractNode implements Node {
      */
     protected <Base, Result> Result evaluatePath(Base base, String field) throws FhirDotException {
         Map<String, Function<Base, Object>> fields = this.getPaths(base);
-        return (Result) fields.get(field).apply(base);
+        if (fields == null) {
+            throw new FhirDotException(String.format("Paths are not defined for %s", base.getClass().getName()));
+        }
+        Function<Base, Object> evaluator = fields.get(field);
+        if (evaluator == null) {
+            throw new FhirDotException(String.format("Path %s is not defined for %s", field, base.getClass().getName()));
+        }
+        return (Result) evaluator.apply(base);
     }
 
     /**
