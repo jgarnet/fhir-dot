@@ -34,6 +34,34 @@ public class ConditionNodeTest extends AbstractNodeTest {
         }
     }
 
+    @Test
+    public void testOrderOfOperations() {
+        try {
+            CodeableConcept codeableConcept = new CodeableConcept();
+            codeableConcept.addCoding().setCode("CODE1").setSystem("TEST1");
+            codeableConcept.addCoding().setCode("CODE2").setSystem("TEST1");
+            codeableConcept.addCoding().setCode("CODE3").setSystem("TEST2");
+            // AND, then OR should be evaluated first from left to right
+            List<Coding> output = conditionNode.evaluate(codeableConcept, "coding{system=TEST1&&code=CODE1||code=CODE2}");
+            Assertions.assertEquals(2, output.size());
+            Assertions.assertEquals("CODE1", output.get(0).getCode());
+            Assertions.assertEquals("CODE2", output.get(1).getCode());
+            // OR, then AND should be evaluated first from left to right
+            output = conditionNode.evaluate(codeableConcept, "coding{code=CODE1||code=CODE2&&system=TEST}");
+            Assertions.assertEquals(1, output.size());
+            Assertions.assertEquals("CODE1", output.get(0).getCode());
+            // AND should be evaluated from left to right
+            output = conditionNode.evaluate(codeableConcept, "coding{code=CODE1&&code=CODE2&&system=TEST}");
+            Assertions.assertEquals(0, output.size());
+            // AND should be evaluated from left to right
+            output = conditionNode.evaluate(codeableConcept, "coding{code=CODE4||code=CODE5||code=CODE1}");
+            Assertions.assertEquals(1, output.size());
+            Assertions.assertEquals("CODE1", output.get(0).getCode());
+        } catch (FhirDotException e) {
+            Assertions.fail("Failed to evaluate path using ConditionNode");
+        }
+    }
+
     @Override
     protected Node getNode() {
         if (conditionNode == null) {
