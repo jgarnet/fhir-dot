@@ -79,19 +79,49 @@ Object.collection{id>1} -> [ { id: '2', value: 'test2' }, { id: '3', value: 'tes
 
 Conditions are used to filter items in a collection.
 
+#### Syntax
+
 Conditions can be defined using the following syntax:
 
 ```text
 field{condition}
 field{condition1&&condition2&&condition3...}
 field{condition1||condition2||condition3...}
-field{has(nestedCollectionCondition)}
+field{condition1&&condition2||condition3...}
 ```
 
-The `&&` operation defines that **all** conditions on a node must be met.<br />
-The `||` operation defines that **any (at least one)** conditions on a node must be met.
+#### Order of Operations
 
-Currently, a node can contain conditions using **only** one operation (i.e. any **OR** all -- **not** both).
+The `&&` operator represents an `AND` `Condition` relationship.<br />
+The `||` operator represents an `OR` `Condition` relationship.
+
+The order of operations for `Conditions` is executed from left-to-right, where each successive operation is contingent upon its predecessor's result and operator.
+
+For example, below are some `Condition` operations and their results:
+
+```text
+A AND B OR C AND D --> A AND (B OR (C AND D))
+
+T     F    T     T
+A AND B OR C AND D --> T
+
+T     T    F     F
+A AND B OR C AND D --> T
+
+T     F    F     T
+A AND B OR C AND D --> F
+```
+
+Internally, `Conditions` are represented using a 'linked-node' structure, where each node contains its operation (i.e. some.field=1), its operator (AND,OR) and a reference to its 'child' `Condition` (the next `Condition` in the global operation chain).
+
+The same operation from the example above could be visually represented as such:
+
+```text
+  AND   OR    AND
+A --> B --> C --> D
+```
+
+#### Evaluation Resutls
 
 Conditional nodes will always return a collection of items which match the conditions; if only one item matches, the return value will be a singleton collection containing that item.
 
@@ -107,6 +137,8 @@ Object {
 Object.field{id=1} -> [{ id: 1, ... }]
 ```
 
+#### Evaluators
+
 Conditions can be evaluated using the following operators:
 
 - =
@@ -119,32 +151,6 @@ Conditions can be evaluated using the following operators:
 - \<
 - \>=
 - \<=
-
-In instances where a given data element contains nested collections, the `has` keyword can be used to ensure at least one item from a given nested collection matches a set of conditions.
-
-```text
-Object {
-    field: [
-        {
-            nestedField: [
-                {
-                    url: 'testExtension'
-                }
-            ]
-        }
-    ]
-}
-
-Object.field{has(nestedField.url%=testExtension)} -> [ { field: [ { nestedField: ... } ] } ]
-```
-
-The `has` keyword can be combined with other conditions using the `any` / `all` operations.
-
-```text
-Object.collection{has(nested.field.value>1)&&id!=test}
-```
-
-<font color="#a83232">**Note:**</font> For performance reasons, the `has` keyword can (currently) only be used to evaluate nested items at the **first** nest-level.
 
 ### Aliases
 
