@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Parses dot-notation String to find all outermost conditions.
+ * Parses dot-notation String to find all Nodes with conditions Strings.
  */
-public class ConditionParser {
-
+public class ConditionsStringParser {
     public List<String> parse(String path) {
         List<String> conditionalFields = new ArrayList<>();
         int firstBrace;

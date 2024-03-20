@@ -1,5 +1,7 @@
-package org.fhirdot.nodes.helpers;
+package org.fhirdot.utils;
 
+import org.fhirdot.utils.Condition;
+import org.fhirdot.utils.ConditionBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

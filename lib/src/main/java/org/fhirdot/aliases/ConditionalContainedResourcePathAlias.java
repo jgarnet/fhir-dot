@@ -1,7 +1,7 @@
 package org.fhirdot.aliases;
 
 import org.fhirdot.aliases.framework.PathAlias;
-import org.fhirdot.utils.ConditionParser;
+import org.fhirdot.utils.ConditionsStringParser;
 
 import java.util.List;
 import java.util.function.Function;
@@ -16,7 +16,7 @@ public class ConditionalContainedResourcePathAlias implements PathAlias {
 
     private final Pattern pattern = Pattern.compile("contained\\(.+?\\)\\{.+?}");
     private final Function<String, String> mutator = value -> {
-        List<String> conditions = new ConditionParser().parse(value);
+        List<String> conditions = new ConditionsStringParser().parse(value);
         String resource = value.replace("contained(", "");
         int firstEndParenthesis = resource.indexOf(")");
         resource = resource.substring(0, firstEndParenthesis);

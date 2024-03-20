@@ -6,8 +6,8 @@ import org.fhirdot.exceptions.FhirDotException;
 import org.fhirdot.framework.Rules;
 import org.fhirdot.nodes.framework.AbstractNode;
 import org.fhirdot.nodes.framework.Node;
-import org.fhirdot.nodes.helpers.Condition;
-import org.fhirdot.nodes.helpers.ConditionBuilder;
+import org.fhirdot.utils.Condition;
+import org.fhirdot.utils.ConditionBuilder;
 import org.fhirdot.utils.FhirDotUtils;
 
 import java.util.ArrayList;
@@ -40,7 +40,6 @@ public class ConditionNode extends AbstractNode {
 
     @Override
     public <Base, Result> Result evaluate(Base base, String path) throws FhirDotException {
-        // todo: implement caching for path evaluation, condition evaluation
         String field = path.substring(0, path.indexOf("{"));
         String conditionsString = path.substring(path.indexOf("{") + 1, path.length() - 1);
         Condition condition = new ConditionBuilder(conditionsString).build();

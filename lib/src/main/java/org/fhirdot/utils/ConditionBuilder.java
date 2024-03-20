@@ -1,4 +1,4 @@
-package org.fhirdot.nodes.helpers;
+package org.fhirdot.utils;
 
 import org.apache.commons.lang3.StringUtils;
 

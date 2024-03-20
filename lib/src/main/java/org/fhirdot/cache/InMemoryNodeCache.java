@@ -25,11 +25,15 @@ public class InMemoryNodeCache implements NodeCache {
     }
 
     private <Base> Map<String, Object> getInternalCache(Base base) {
-        return this.cache.computeIfAbsent(base.hashCode(), k -> new HashMap<>());
+        return this.getCache().computeIfAbsent(base.hashCode(), k -> new HashMap<>());
     }
 
     @Override
     public int size() {
-        return this.cache.size();
+        return this.getCache().size();
+    }
+
+    protected Map<Integer, Map<String, Object>> getCache() {
+        return this.cache;
     }
 }

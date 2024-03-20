@@ -1,4 +1,4 @@
-package org.fhirdot.nodes.helpers;
+package org.fhirdot.utils;
 
 public class Condition {
     private String operation;
