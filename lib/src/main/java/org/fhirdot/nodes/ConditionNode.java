@@ -84,7 +84,7 @@ public class ConditionNode extends AbstractNode {
     private <Base> boolean evaluateCondition(Base target, Condition condition) {
         try {
             // determine if the current Condition resolves to true or false
-            boolean result = this.evaluateOperation(target, condition);
+            boolean result = this.evaluateOperation(target, condition.getOperation());
             Condition child = condition.getChild();
             if (result) {
                 if (child != null && "AND".equalsIgnoreCase(condition.getOperator())) {
@@ -103,23 +103,19 @@ public class ConditionNode extends AbstractNode {
     }
 
     /**
-     * Evaluates whether a Condition is applicable for a target Object.
+     * Evaluates whether a Condition operation is applicable for a target Object.
      * Extracts the operation from the Condition, and determines the appropriate Evaluator to evaluate the operation.
-     * @param base The target Base Object which the Condition is being evaluated against
-     * @param condition The Condition being evaluated
+     * @param target The target Base Object which the Condition is being evaluated against
+     * @param operation The operation being evaluated
      * @return Boolean value indicating whether the Condition applies to the target
      * @param <Base> The generic Base FHIR structure
      * @throws FhirDotException If errors occur during evaluation
      */
-    private <Base> boolean evaluateOperation(Base base, Condition condition) throws FhirDotException {
-        String operation = condition.getOperation();
-        ConditionEvaluator evaluator = this.evaluators.getEvaluator(condition.getOperation());
+    private <Base, Result> boolean evaluateOperation(Base target, String operation) throws FhirDotException {
+        ConditionEvaluator evaluator = this.evaluators.getEvaluator(operation);
         String[] conditionParts = operation.split(evaluator.getOperator());
         String fieldPath = conditionParts[0];
         String value = conditionParts[1];
-        return this.matchesCondition(evaluator, base, fieldPath, value);
-    }
-    private <Base, Result> boolean matchesCondition(ConditionEvaluator evaluator, Base target, String fieldPath, String value) throws FhirDotException {
         // if condition operation contains nested field path, extract the field
         // i.e. object{some.nested.field=1}
         int dotIndex = fieldPath.indexOf(".");
@@ -135,8 +131,7 @@ public class ConditionNode extends AbstractNode {
             }
             dotIndex = fieldPath.indexOf(".");
         }
-        Base targetValue = this.evaluatePath(target, fieldPath);
-        Result fieldTarget = (Result) this.getUtils().unwrapPrimitiveType(targetValue);
-        return evaluator.getEvaluator().apply(fieldTarget, value);
+        Result targetValue = this.getUtils().unwrapPrimitiveType(this.evaluatePath(target, fieldPath));
+        return evaluator.getEvaluator().apply(targetValue, value);
     }
 }
