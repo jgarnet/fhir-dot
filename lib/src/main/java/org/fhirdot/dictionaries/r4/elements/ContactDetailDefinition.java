@@ -4,13 +4,13 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ContactDetail;
 
-public class ContactDetailDefinition extends AbstractDefinition<Base> {
+public class ContactDetailDefinition extends AbstractDefinition<Base, ContactDetail> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new ElementDefinition().getPaths());
-        this.paths.put("name", arg -> ((ContactDetail) arg).getNameElement());
-        this.paths.put("telecom", arg -> ((ContactDetail) arg).getTelecom());
-        this.paths.put("telecomFirstRep", arg -> ((ContactDetail) arg).getTelecomFirstRep());
+        this.putAllPaths(new ElementDefinition().getPaths());
+        this.putPath("name", ContactDetail::getNameElement);
+        this.putPath("telecom", ContactDetail::getTelecom);
+        this.putPath("telecomFirstRep", ContactDetail::getTelecomFirstRep);
     }
 
     @Override

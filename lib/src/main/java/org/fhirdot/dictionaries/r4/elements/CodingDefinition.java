@@ -4,20 +4,20 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Coding;
 
-public class CodingDefinition extends AbstractDefinition<Base> {
+public class CodingDefinition extends AbstractDefinition<Base, Coding> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new ElementDefinition().getPaths());
+        this.putAllPaths(new ElementDefinition().getPaths());
         // system
-        this.paths.put("system", arg -> ((Coding) arg).getSystemElement());
+        this.putPath("system", Coding::getSystemElement);
         // version
-        this.paths.put("version", arg -> ((Coding) arg).getVersionElement());
+        this.putPath("version", Coding::getVersionElement);
         // code
-        this.paths.put("code", arg -> ((Coding) arg).getCodeElement());
+        this.putPath("code", Coding::getCodeElement);
         // display
-        this.paths.put("display", arg -> ((Coding) arg).getDisplayElement());
+        this.putPath("display", Coding::getDisplayElement);
         // userSelected
-        this.paths.put("userSelected", arg -> ((Coding) arg).getUserSelectedElement());
+        this.putPath("userSelected", Coding::getUserSelectedElement);
     }
 
     @Override

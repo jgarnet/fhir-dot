@@ -4,15 +4,15 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Quantity;
 
-public class QuantityDefinition extends AbstractDefinition<Base> {
+public class QuantityDefinition extends AbstractDefinition<Base, Quantity> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new ElementDefinition().getPaths());
-        this.paths.put("value", arg -> ((Quantity) arg).getValueElement());
-        this.paths.put("comparator", arg -> ((Quantity) arg).getComparator());
-        this.paths.put("unit", arg -> ((Quantity) arg).getUnitElement());
-        this.paths.put("system", arg -> ((Quantity) arg).getSystemElement());
-        this.paths.put("code", arg -> ((Quantity) arg).getCodeElement());
+        this.putAllPaths(new ElementDefinition().getPaths());
+        this.putPath("value", Quantity::getValueElement);
+        this.putPath("comparator", Quantity::getComparator);
+        this.putPath("unit", Quantity::getUnitElement);
+        this.putPath("system", Quantity::getSystemElement);
+        this.putPath("code", Quantity::getCodeElement);
     }
 
     @Override

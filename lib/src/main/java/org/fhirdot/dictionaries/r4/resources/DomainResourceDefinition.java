@@ -4,18 +4,18 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.DomainResource;
 
-public class DomainResourceDefinition extends AbstractDefinition<Base> {
+public class DomainResourceDefinition extends AbstractDefinition<Base, DomainResource> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new ResourceDefinition().getPaths());
+        this.putAllPaths(new ResourceDefinition().getPaths());
         // text
-        this.paths.put("text", arg -> ((DomainResource) arg).getText());
+        this.putPath("text", DomainResource::getText);
         // contained
-        this.paths.put("contained", arg -> ((DomainResource) arg).getContained());
+        this.putPath("contained", DomainResource::getContained);
         // extension
-        this.paths.put("extension", arg -> ((DomainResource) arg).getExtension());
+        this.putPath("extension", DomainResource::getExtension);
         // modifierExtension
-        this.paths.put("modifierExtension", arg -> ((DomainResource) arg).getModifierExtension());
+        this.putPath("modifierExtension", DomainResource::getModifierExtension);
     }
 
     @Override

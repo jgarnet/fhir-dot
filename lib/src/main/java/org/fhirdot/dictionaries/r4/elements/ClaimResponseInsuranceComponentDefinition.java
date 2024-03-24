@@ -4,17 +4,17 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 
-public class ClaimResponseInsuranceComponentDefinition extends AbstractDefinition<Base> {
+public class ClaimResponseInsuranceComponentDefinition extends AbstractDefinition<Base, ClaimResponse.InsuranceComponent> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new BackboneElementDefinition().getPaths());
-        this.paths.put("sequence", arg -> ((ClaimResponse.InsuranceComponent) arg).getSequenceElement());
-        this.paths.put("focal", arg -> ((ClaimResponse.InsuranceComponent) arg).getFocalElement());
-        this.paths.put("coverage", arg -> ((ClaimResponse.InsuranceComponent) arg).getCoverage());
-        this.paths.put("coverageTarget", arg -> ((ClaimResponse.InsuranceComponent) arg).getCoverage().getResource());
-        this.paths.put("businessArrangement", arg -> ((ClaimResponse.InsuranceComponent) arg).getBusinessArrangementElement());
-        this.paths.put("claimResponse", arg -> ((ClaimResponse.InsuranceComponent) arg).getClaimResponse());
-        this.paths.put("claimResponseTarget", arg -> ((ClaimResponse.InsuranceComponent) arg).getClaimResponseTarget());
+        this.putAllPaths(new BackboneElementDefinition().getPaths());
+        this.putPath("sequence", ClaimResponse.InsuranceComponent::getSequenceElement);
+        this.putPath("focal", ClaimResponse.InsuranceComponent::getFocalElement);
+        this.putPath("coverage", ClaimResponse.InsuranceComponent::getCoverage);
+        this.putPath("coverageTarget", arg -> arg.getCoverage().getResource());
+        this.putPath("businessArrangement", ClaimResponse.InsuranceComponent::getBusinessArrangementElement);
+        this.putPath("claimResponse", ClaimResponse.InsuranceComponent::getClaimResponse);
+        this.putPath("claimResponseTarget", ClaimResponse.InsuranceComponent::getClaimResponseTarget);
     }
 
     @Override

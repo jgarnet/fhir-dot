@@ -4,26 +4,26 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Organization;
 
-public class OrganizationDefinition extends AbstractDefinition<Base> {
+public class OrganizationDefinition extends AbstractDefinition<Base, Organization> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new DomainResourceDefinition().getPaths());
+        this.putAllPaths(new DomainResourceDefinition().getPaths());
         // identifier
-        this.paths.put("identifier", arg -> ((Organization) arg).getIdentifier());
+        this.putPath("identifier", Organization::getIdentifier);
         // active
-        this.paths.put("active", arg -> ((Organization) arg).getActiveElement());
+        this.putPath("active", Organization::getActiveElement);
         // type
-        this.paths.put("type", arg -> ((Organization) arg).getType());
+        this.putPath("type", Organization::getType);
         // name
-        this.paths.put("name", arg -> ((Organization) arg).getNameElement());
+        this.putPath("name", Organization::getNameElement);
         // alias
-        this.paths.put("alias", arg -> ((Organization) arg).getAlias());
+        this.putPath("alias", Organization::getAlias);
         // telecom
-        this.paths.put("telecom", arg -> ((Organization) arg).getTelecom());
+        this.putPath("telecom", Organization::getTelecom);
         // address
-        this.paths.put("address", arg -> ((Organization) arg).getAddress());
+        this.putPath("address", Organization::getAddress);
         // contact
-        this.paths.put("contact", arg -> ((Organization) arg).getContact());
+        this.putPath("contact", Organization::getContact);
     }
 
     @Override

@@ -4,75 +4,75 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 
-public class ClaimResponseDefinition extends AbstractDefinition<Base> {
+public class ClaimResponseDefinition extends AbstractDefinition<Base, ClaimResponse> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new DomainResourceDefinition().getPaths());
+        this.putAllPaths(new DomainResourceDefinition().getPaths());
         // identifier
-        this.paths.put("identifier", arg -> ((ClaimResponse) arg).getIdentifier());
+        this.putPath("identifier", ClaimResponse::getIdentifier);
         // status
-        this.paths.put("status", arg -> ((ClaimResponse) arg).getStatusElement());
+        this.putPath("status", ClaimResponse::getStatusElement);
         // type
-        this.paths.put("type", arg -> ((ClaimResponse) arg).getType());
+        this.putPath("type", ClaimResponse::getType);
         // subType
-        this.paths.put("subType", arg -> ((ClaimResponse) arg).getSubType());
+        this.putPath("subType", ClaimResponse::getSubType);
         // use
-        this.paths.put("use", arg -> ((ClaimResponse) arg).getUseElement());
+        this.putPath("use", ClaimResponse::getUseElement);
         // patient
-        this.paths.put("patient", arg -> ((ClaimResponse) arg).getPatient());
-        this.paths.put("patientTarget", arg -> ((ClaimResponse) arg).getPatient().getResource());
+        this.putPath("patient", ClaimResponse::getPatient);
+        this.putPath("patientTarget", arg -> arg.getPatient().getResource());
         // created
-        this.paths.put("created", arg -> ((ClaimResponse) arg).getCreatedElement());
+        this.putPath("created", ClaimResponse::getCreatedElement);
         // insurer
-        this.paths.put("insurer", arg -> ((ClaimResponse) arg).getInsurer());
-        this.paths.put("insurerTarget", arg -> ((ClaimResponse) arg).getInsurer().getResource());
+        this.putPath("insurer", ClaimResponse::getInsurer);
+        this.putPath("insurerTarget", arg -> arg.getInsurer().getResource());
         // requestor
-        this.paths.put("requestor", arg -> ((ClaimResponse) arg).getRequestor());
-        this.paths.put("requestorTarget", arg -> ((ClaimResponse) arg).getRequestor().getResource());
+        this.putPath("requestor", ClaimResponse::getRequestor);
+        this.putPath("requestorTarget", arg -> arg.getRequestor().getResource());
         // request
-        this.paths.put("request", arg -> ((ClaimResponse) arg).getRequest());
-        this.paths.put("requestTarget", arg -> ((ClaimResponse) arg).getRequest().getResource());
+        this.putPath("request", ClaimResponse::getRequest);
+        this.putPath("requestTarget", arg -> arg.getRequest().getResource());
         // outcome
-        this.paths.put("outcome", arg -> ((ClaimResponse) arg).getOutcome());
+        this.putPath("outcome", ClaimResponse::getOutcome);
         // disposition
-        this.paths.put("disposition", arg -> ((ClaimResponse) arg).getDispositionElement());
+        this.putPath("disposition", ClaimResponse::getDispositionElement);
         // preAuthRef
-        this.paths.put("preAuthRef", arg -> ((ClaimResponse) arg).getPreAuthRefElement());
+        this.putPath("preAuthRef", ClaimResponse::getPreAuthRefElement);
         // preAuthPeriod
-        this.paths.put("preAuthPeriod", arg -> ((ClaimResponse) arg).getPreAuthPeriod());
+        this.putPath("preAuthPeriod", ClaimResponse::getPreAuthPeriod);
         // payeeType
-        this.paths.put("payeeType", arg -> ((ClaimResponse) arg).getPayeeType());
+        this.putPath("payeeType", ClaimResponse::getPayeeType);
         // item
-        this.paths.put("item", arg -> ((ClaimResponse) arg).getItem());
-        this.paths.put("itemFirstRep", arg -> ((ClaimResponse) arg).getItemFirstRep());
+        this.putPath("item", ClaimResponse::getItem);
+        this.putPath("itemFirstRep", ClaimResponse::getItemFirstRep);
         // addItem
-        this.paths.put("addItem", arg -> ((ClaimResponse) arg).getAddItem());
-        this.paths.put("addItemFirstRep", arg -> ((ClaimResponse) arg).getAddItemFirstRep());
+        this.putPath("addItem", ClaimResponse::getAddItem);
+        this.putPath("addItemFirstRep", ClaimResponse::getAddItemFirstRep);
         // adjudication
-        this.paths.put("adjudication", arg -> ((ClaimResponse) arg).getAdjudication());
-        this.paths.put("adjudicationFirstRep", arg -> ((ClaimResponse) arg).getAdjudicationFirstRep());
+        this.putPath("adjudication", ClaimResponse::getAdjudication);
+        this.putPath("adjudicationFirstRep", ClaimResponse::getAdjudicationFirstRep);
         // total
-        this.paths.put("total", arg -> ((ClaimResponse) arg).getTotal());
+        this.putPath("total", ClaimResponse::getTotal);
         // payment
-        this.paths.put("payment", arg -> ((ClaimResponse) arg).getPayment());
+        this.putPath("payment", ClaimResponse::getPayment);
         // fundsReserve
-        this.paths.put("fundsReserve", arg -> ((ClaimResponse) arg).getFundsReserve());
+        this.putPath("fundsReserve", ClaimResponse::getFundsReserve);
         // formCode
-        this.paths.put("formCode", arg -> ((ClaimResponse) arg).getFormCode());
+        this.putPath("formCode", ClaimResponse::getFormCode);
         // form
-        this.paths.put("form", arg -> ((ClaimResponse) arg).getForm());
+        this.putPath("form", ClaimResponse::getForm);
         // processNote
-        this.paths.put("processNote", arg -> ((ClaimResponse) arg).getProcessNote());
-        this.paths.put("processNoteFirstRep", arg -> ((ClaimResponse) arg).getProcessNoteFirstRep());
+        this.putPath("processNote", ClaimResponse::getProcessNote);
+        this.putPath("processNoteFirstRep", ClaimResponse::getProcessNoteFirstRep);
         // communicationRequest
-        this.paths.put("communicationRequest", arg -> ((ClaimResponse) arg).getCommunicationRequest());
-        this.paths.put("communicationRequestFirstRep", arg -> ((ClaimResponse) arg).getCommunicationRequestFirstRep());
+        this.putPath("communicationRequest", ClaimResponse::getCommunicationRequest);
+        this.putPath("communicationRequestFirstRep", ClaimResponse::getCommunicationRequestFirstRep);
         // insurance
-        this.paths.put("insurance", arg -> ((ClaimResponse) arg).getInsurance());
-        this.paths.put("insuranceFirstRep", arg -> ((ClaimResponse) arg).getInsuranceFirstRep());
+        this.putPath("insurance", ClaimResponse::getInsurance);
+        this.putPath("insuranceFirstRep", ClaimResponse::getInsuranceFirstRep);
         // error
-        this.paths.put("error", arg -> ((ClaimResponse) arg).getError());
-        this.paths.put("errorFirstRep", arg -> ((ClaimResponse) arg).getErrorFirstRep());
+        this.putPath("error", ClaimResponse::getError);
+        this.putPath("errorFirstRep", ClaimResponse::getErrorFirstRep);
     }
 
     @Override

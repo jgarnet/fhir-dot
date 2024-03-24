@@ -4,32 +4,32 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.HumanName;
 
-public class HumanNameDefinition extends AbstractDefinition<Base> {
+public class HumanNameDefinition extends AbstractDefinition<Base, HumanName> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new ElementDefinition().getPaths());
+        this.putAllPaths(new ElementDefinition().getPaths());
         // use
-        this.paths.put("use", arg -> ((HumanName) arg).getUse());
+        this.putPath("use", HumanName::getUse);
         // text
-        this.paths.put("text", arg -> ((HumanName) arg).getTextElement());
+        this.putPath("text", HumanName::getTextElement);
         // family
-        this.paths.put("family", arg -> ((HumanName) arg).getFamilyElement());
+        this.putPath("family", HumanName::getFamilyElement);
         // given
-        this.paths.put("given", arg -> ((HumanName) arg).getGiven());
+        this.putPath("given", HumanName::getGiven);
         // prefix
-        this.paths.put("prefix", arg -> ((HumanName) arg).getPrefix());
+        this.putPath("prefix", HumanName::getPrefix);
         // suffix
-        this.paths.put("suffix", arg -> ((HumanName) arg).getSuffix());
+        this.putPath("suffix", HumanName::getSuffix);
         // period
-        this.paths.put("period", arg -> ((HumanName) arg).getPeriod());
+        this.putPath("period", HumanName::getPeriod);
         // nameAsSingleString
-        this.paths.put("nameAsSingleString", arg -> ((HumanName) arg).getNameAsSingleString());
+        this.putPath("nameAsSingleString", HumanName::getNameAsSingleString);
         // givenAsSingleString
-        this.paths.put("givenAsSingleString", arg -> ((HumanName) arg).getGivenAsSingleString());
+        this.putPath("givenAsSingleString", HumanName::getGivenAsSingleString);
         // prefixAsSingleString
-        this.paths.put("prefixAsSingleString", arg -> ((HumanName) arg).getPrefixAsSingleString());
+        this.putPath("prefixAsSingleString", HumanName::getPrefixAsSingleString);
         // suffixAsSingleString
-        this.paths.put("suffixAsSingleString", arg -> ((HumanName) arg).getSuffixAsSingleString());
+        this.putPath("suffixAsSingleString", HumanName::getSuffixAsSingleString);
     }
 
     @Override

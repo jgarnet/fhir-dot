@@ -4,29 +4,29 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.RelatedPerson;
 
-public class RelatedPersonDefinition extends AbstractDefinition<Base> {
+public class RelatedPersonDefinition extends AbstractDefinition<Base, RelatedPerson> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new DomainResourceDefinition().getPaths());
-        this.paths.put("identifier", arg -> ((RelatedPerson) arg).getIdentifier());
-        this.paths.put("identifierFirstRep", arg -> ((RelatedPerson) arg).getIdentifierFirstRep());
-        this.paths.put("active", arg -> ((RelatedPerson) arg).getActiveElement());
-        this.paths.put("patient", arg -> ((RelatedPerson) arg).getPatient());
-        this.paths.put("relationship", arg -> ((RelatedPerson) arg).getRelationship());
-        this.paths.put("relationshipFirstRep", arg -> ((RelatedPerson) arg).getRelationshipFirstRep());
-        this.paths.put("name", arg -> ((RelatedPerson) arg).getName());
-        this.paths.put("nameFirstRep", arg -> ((RelatedPerson) arg).getNameFirstRep());
-        this.paths.put("telecom", arg -> ((RelatedPerson) arg).getTelecom());
-        this.paths.put("telecomFirstRep", arg -> ((RelatedPerson) arg).getTelecomFirstRep());
-        this.paths.put("gender", arg -> ((RelatedPerson) arg).getGender());
-        this.paths.put("birthDate", arg -> ((RelatedPerson) arg).getBirthDateElement());
-        this.paths.put("address", arg -> ((RelatedPerson) arg).getAddress());
-        this.paths.put("addressFirstRep", arg -> ((RelatedPerson) arg).getAddressFirstRep());
-        this.paths.put("photo", arg -> ((RelatedPerson) arg).getPhoto());
-        this.paths.put("photoFirstRep", arg -> ((RelatedPerson) arg).getPhotoFirstRep());
-        this.paths.put("period", arg -> ((RelatedPerson) arg).getPeriod());
-        this.paths.put("communication", arg -> ((RelatedPerson) arg).getCommunication());
-        this.paths.put("communicationFirstRep", arg -> ((RelatedPerson) arg).getCommunicationFirstRep());
+        this.putAllPaths(new DomainResourceDefinition().getPaths());
+        this.putPath("identifier", RelatedPerson::getIdentifier);
+        this.putPath("identifierFirstRep", RelatedPerson::getIdentifierFirstRep);
+        this.putPath("active", RelatedPerson::getActiveElement);
+        this.putPath("patient", RelatedPerson::getPatient);
+        this.putPath("relationship", RelatedPerson::getRelationship);
+        this.putPath("relationshipFirstRep", RelatedPerson::getRelationshipFirstRep);
+        this.putPath("name", RelatedPerson::getName);
+        this.putPath("nameFirstRep", RelatedPerson::getNameFirstRep);
+        this.putPath("telecom", RelatedPerson::getTelecom);
+        this.putPath("telecomFirstRep", RelatedPerson::getTelecomFirstRep);
+        this.putPath("gender", RelatedPerson::getGender);
+        this.putPath("birthDate", RelatedPerson::getBirthDateElement);
+        this.putPath("address", RelatedPerson::getAddress);
+        this.putPath("addressFirstRep", RelatedPerson::getAddressFirstRep);
+        this.putPath("photo", RelatedPerson::getPhoto);
+        this.putPath("photoFirstRep", RelatedPerson::getPhotoFirstRep);
+        this.putPath("period", RelatedPerson::getPeriod);
+        this.putPath("communication", RelatedPerson::getCommunication);
+        this.putPath("communicationFirstRep", RelatedPerson::getCommunicationFirstRep);
     }
 
     @Override

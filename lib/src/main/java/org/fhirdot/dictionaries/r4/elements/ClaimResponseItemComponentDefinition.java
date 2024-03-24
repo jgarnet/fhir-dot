@@ -4,20 +4,20 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 
-public class ClaimResponseItemComponentDefinition extends AbstractDefinition<Base> {
+public class ClaimResponseItemComponentDefinition extends AbstractDefinition<Base, ClaimResponse.ItemComponent> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new BackboneElementDefinition().getPaths());
+        this.putAllPaths(new BackboneElementDefinition().getPaths());
         // itemSequence
-        this.paths.put("itemSequence", arg -> ((ClaimResponse.ItemComponent) arg).getItemSequenceElement());
+        this.putPath("itemSequence", ClaimResponse.ItemComponent::getItemSequenceElement);
         // noteNumber
-        this.paths.put("noteNumber", arg -> ((ClaimResponse.ItemComponent) arg).getNoteNumber());
+        this.putPath("noteNumber", ClaimResponse.ItemComponent::getNoteNumber);
         // adjudication
-        this.paths.put("adjudication", arg -> ((ClaimResponse.ItemComponent) arg).getAdjudication());
-        this.paths.put("adjudicationFirstRep", arg -> ((ClaimResponse.ItemComponent) arg).getAdjudicationFirstRep());
+        this.putPath("adjudication", ClaimResponse.ItemComponent::getAdjudication);
+        this.putPath("adjudicationFirstRep", ClaimResponse.ItemComponent::getAdjudicationFirstRep);
         // detail
-        this.paths.put("detail", arg -> ((ClaimResponse.ItemComponent) arg).getDetail());
-        this.paths.put("detailFirstRep", arg -> ((ClaimResponse.ItemComponent) arg).getDetailFirstRep());
+        this.putPath("detail", ClaimResponse.ItemComponent::getDetail);
+        this.putPath("detailFirstRep", ClaimResponse.ItemComponent::getDetailFirstRep);
     }
 
     @Override

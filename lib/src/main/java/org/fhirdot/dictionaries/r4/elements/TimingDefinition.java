@@ -4,11 +4,11 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Timing;
 
-public class TimingDefinition extends AbstractDefinition<Base> {
+public class TimingDefinition extends AbstractDefinition<Base, Timing> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new ElementDefinition().getPaths());
-        this.paths.put("repeat", arg -> ((Timing) arg).getRepeat());
+        this.putAllPaths(new ElementDefinition().getPaths());
+        this.putPath("repeat", Timing::getRepeat);
     }
 
     @Override

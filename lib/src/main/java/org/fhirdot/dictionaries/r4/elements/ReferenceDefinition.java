@@ -2,22 +2,23 @@ package org.fhirdot.dictionaries.r4.elements;
 
 import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
+import org.hl7.fhir.r4.model.BaseReference;
 import org.hl7.fhir.r4.model.Reference;
 
-public class ReferenceDefinition extends AbstractDefinition<Base> {
+public class ReferenceDefinition extends AbstractDefinition<Base, Reference> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new ElementDefinition().getPaths());
+        this.putAllPaths(new ElementDefinition().getPaths());
         // reference
-        this.paths.put("reference", arg -> ((Reference) arg).getReferenceElement_());
+        this.putPath("reference", Reference::getReferenceElement_);
         // type
-        this.paths.put("type", arg -> ((Reference) arg).getTypeElement());
+        this.putPath("type", Reference::getTypeElement);
         // identifier
-        this.paths.put("identifier", arg -> ((Reference) arg).getIdentifier());
+        this.putPath("identifier", Reference::getIdentifier);
         // display
-        this.paths.put("display", arg -> ((Reference) arg).getDisplayElement());
+        this.putPath("display", Reference::getDisplayElement);
         // resource
-        this.paths.put("resource", arg -> ((Reference) arg).getResource());
+        this.putPath("resource", BaseReference::getResource);
     }
 
     @Override

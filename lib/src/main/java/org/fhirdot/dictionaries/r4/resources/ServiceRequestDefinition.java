@@ -4,12 +4,12 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ServiceRequest;
 
-public class ServiceRequestDefinition extends AbstractDefinition<Base> {
+public class ServiceRequestDefinition extends AbstractDefinition<Base, ServiceRequest> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new DomainResourceDefinition().getPaths());
-        this.paths.put("quantityQuantity", arg -> ((ServiceRequest) arg).getQuantityQuantity());
-        this.paths.put("occurrenceTiming", arg -> ((ServiceRequest) arg).getOccurrenceTiming());
+        this.putAllPaths(new DomainResourceDefinition().getPaths());
+        this.putPath("quantityQuantity", ServiceRequest::getQuantityQuantity);
+        this.putPath("occurrenceTiming", ServiceRequest::getOccurrenceTiming);
     }
 
     @Override

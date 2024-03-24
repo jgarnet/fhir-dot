@@ -4,13 +4,13 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Element;
 
-public class ElementDefinition extends AbstractDefinition<Base> {
+public class ElementDefinition extends AbstractDefinition<Base, Element> {
     @Override
     protected void initialize() {
         // id
-        this.paths.put("id", arg -> ((Element) arg).getIdElement());
+        this.putPath("id", Element::getIdElement);
         // extension
-        this.paths.put("extension", arg -> ((Element) arg).getExtension());
+        this.putPath("extension", Element::getExtension);
     }
 
     @Override

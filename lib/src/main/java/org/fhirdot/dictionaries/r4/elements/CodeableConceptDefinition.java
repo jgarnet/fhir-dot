@@ -4,16 +4,16 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.CodeableConcept;
 
-public class CodeableConceptDefinition extends AbstractDefinition<Base> {
+public class CodeableConceptDefinition extends AbstractDefinition<Base, CodeableConcept> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new ElementDefinition().getPaths());
+        this.putAllPaths(new ElementDefinition().getPaths());
         // coding
-        this.paths.put("coding", arg -> ((CodeableConcept) arg).getCoding());
+        this.putPath("coding", CodeableConcept::getCoding);
         // codingFirstRep
-        this.paths.put("codingFirstRep", arg -> ((CodeableConcept) arg).getCodingFirstRep());
+        this.putPath("codingFirstRep", CodeableConcept::getCodingFirstRep);
         // text
-        this.paths.put("text", arg -> ((CodeableConcept) arg).getTextElement());
+        this.putPath("text", CodeableConcept::getTextElement);
     }
 
     @Override

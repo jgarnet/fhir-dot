@@ -4,18 +4,18 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 
-public class ClaimResponseNoteComponentDefinition extends AbstractDefinition<Base> {
+public class ClaimResponseNoteComponentDefinition extends AbstractDefinition<Base, ClaimResponse.NoteComponent> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new BackboneElementDefinition().getPaths());
+        this.putAllPaths(new BackboneElementDefinition().getPaths());
         // number
-        this.paths.put("number", arg -> ((ClaimResponse.NoteComponent) arg).getNumberElement());
+        this.putPath("number", ClaimResponse.NoteComponent::getNumberElement);
         // type
-        this.paths.put("type", arg -> ((ClaimResponse.NoteComponent) arg).getType());
+        this.putPath("type", ClaimResponse.NoteComponent::getType);
         // text
-        this.paths.put("text", arg -> ((ClaimResponse.NoteComponent) arg).getTextElement());
+        this.putPath("text", ClaimResponse.NoteComponent::getTextElement);
         // language
-        this.paths.put("language", arg -> ((ClaimResponse.NoteComponent) arg).getLanguage());
+        this.putPath("language", ClaimResponse.NoteComponent::getLanguage);
     }
 
     @Override

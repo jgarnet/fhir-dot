@@ -1,64 +1,65 @@
 package org.fhirdot.dictionaries.r4.elements;
 
 import org.fhirdot.dictionaries.framework.AbstractDefinition;
+import org.hl7.fhir.r4.model.BackboneElement;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 
-public class ClaimResponseAddedItemComponentDefinition extends AbstractDefinition<Base> {
+public class ClaimResponseAddedItemComponentDefinition extends AbstractDefinition<Base, ClaimResponse.AddedItemComponent> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new BackboneElementDefinition().getPaths());
+        this.putAllPaths(new BackboneElementDefinition().getPaths());
         // itemSequence
-        this.paths.put("itemSequence", arg -> ((ClaimResponse.AddedItemComponent) arg).getItemSequence());
+        this.putPath("itemSequence", ClaimResponse.AddedItemComponent::getItemSequence);
         // detailSequence
-        this.paths.put("detailSequence", arg -> ((ClaimResponse.AddedItemComponent) arg).getDetailSequence());
+        this.putPath("detailSequence", ClaimResponse.AddedItemComponent::getDetailSequence);
         // subdetailSequence
-        this.paths.put("subdetailSequence", arg -> ((ClaimResponse.AddedItemComponent) arg).getSubdetailSequence());
+        this.putPath("subdetailSequence", ClaimResponse.AddedItemComponent::getSubdetailSequence);
         // provider
-        this.paths.put("provider", arg -> ((ClaimResponse.AddedItemComponent) arg).getProvider());
-        this.paths.put("providerFirstRep", arg -> ((ClaimResponse.AddedItemComponent) arg).getProviderFirstRep());
+        this.putPath("provider", ClaimResponse.AddedItemComponent::getProvider);
+        this.putPath("providerFirstRep", ClaimResponse.AddedItemComponent::getProviderFirstRep);
         // productOrService
-        this.paths.put("productOrService", arg -> ((ClaimResponse.AddedItemComponent) arg).getProductOrService());
+        this.putPath("productOrService", ClaimResponse.AddedItemComponent::getProductOrService);
         // modifier
-        this.paths.put("modifier", arg -> ((ClaimResponse.AddedItemComponent) arg).getModifier());
-        this.paths.put("modifierFirstRep", arg -> ((ClaimResponse.AddedItemComponent) arg).getModifierFirstRep());
+        this.putPath("modifier", ClaimResponse.AddedItemComponent::getModifier);
+        this.putPath("modifierFirstRep", ClaimResponse.AddedItemComponent::getModifierFirstRep);
         // modifierExtension
-        this.paths.put("modifierExtension", arg -> ((ClaimResponse.AddedItemComponent) arg).getModifierExtension());
-        this.paths.put("modifierExtensionFirstRep", arg -> ((ClaimResponse.AddedItemComponent) arg).getModifierExtensionFirstRep());
+        this.putPath("modifierExtension", BackboneElement::getModifierExtension);
+        this.putPath("modifierExtensionFirstRep", BackboneElement::getModifierExtensionFirstRep);
         // programCode
-        this.paths.put("programCode", arg -> ((ClaimResponse.AddedItemComponent) arg).getProgramCode());
-        this.paths.put("programCodeFirstRep", arg -> ((ClaimResponse.AddedItemComponent) arg).getProgramCodeFirstRep());
+        this.putPath("programCode", ClaimResponse.AddedItemComponent::getProgramCode);
+        this.putPath("programCodeFirstRep", ClaimResponse.AddedItemComponent::getProgramCodeFirstRep);
         // serviced
-        this.paths.put("serviced", arg -> ((ClaimResponse.AddedItemComponent) arg).getServiced());
-        this.paths.put("servicedDate", arg -> ((ClaimResponse.AddedItemComponent) arg).getServicedDateType());
-        this.paths.put("servicedPeriod", arg -> ((ClaimResponse.AddedItemComponent) arg).getServicedPeriod());
+        this.putPath("serviced", ClaimResponse.AddedItemComponent::getServiced);
+        this.putPath("servicedDate", ClaimResponse.AddedItemComponent::getServicedDateType);
+        this.putPath("servicedPeriod", ClaimResponse.AddedItemComponent::getServicedPeriod);
         // location
-        this.paths.put("location", arg -> ((ClaimResponse.AddedItemComponent) arg).getLocation());
-        this.paths.put("locationCodeableConcept", arg -> ((ClaimResponse.AddedItemComponent) arg).getLocationCodeableConcept());
-        this.paths.put("locationAddress", arg -> ((ClaimResponse.AddedItemComponent) arg).getLocationAddress());
-        this.paths.put("locationReference", arg -> ((ClaimResponse.AddedItemComponent) arg).getLocationReference());
-        this.paths.put("locationTarget", arg -> ((ClaimResponse.AddedItemComponent) arg).getLocationReference().getResource());
+        this.putPath("location", ClaimResponse.AddedItemComponent::getLocation);
+        this.putPath("locationCodeableConcept", ClaimResponse.AddedItemComponent::getLocationCodeableConcept);
+        this.putPath("locationAddress", ClaimResponse.AddedItemComponent::getLocationAddress);
+        this.putPath("locationReference", ClaimResponse.AddedItemComponent::getLocationReference);
+        this.putPath("locationTarget", arg -> arg.getLocationReference().getResource());
         // quantity
-        this.paths.put("quantity", arg -> ((ClaimResponse.AddedItemComponent) arg).getQuantity());
+        this.putPath("quantity", ClaimResponse.AddedItemComponent::getQuantity);
         // unitPrice
-        this.paths.put("unitPrice", arg -> ((ClaimResponse.AddedItemComponent) arg).getUnitPrice());
+        this.putPath("unitPrice", ClaimResponse.AddedItemComponent::getUnitPrice);
         // factor
-        this.paths.put("factor", arg -> ((ClaimResponse.AddedItemComponent) arg).getFactorElement());
+        this.putPath("factor", ClaimResponse.AddedItemComponent::getFactorElement);
         // net
-        this.paths.put("net", arg -> ((ClaimResponse.AddedItemComponent) arg).getNet());
+        this.putPath("net", ClaimResponse.AddedItemComponent::getNet);
         // bodySite
-        this.paths.put("bodySite", arg -> ((ClaimResponse.AddedItemComponent) arg).getBodySite());
+        this.putPath("bodySite", ClaimResponse.AddedItemComponent::getBodySite);
         // subSite
-        this.paths.put("subSite", arg -> ((ClaimResponse.AddedItemComponent) arg).getSubSite());
-        this.paths.put("subSiteFirstRep", arg -> ((ClaimResponse.AddedItemComponent) arg).getSubSiteFirstRep());
+        this.putPath("subSite", ClaimResponse.AddedItemComponent::getSubSite);
+        this.putPath("subSiteFirstRep", ClaimResponse.AddedItemComponent::getSubSiteFirstRep);
         // noteNumber
-        this.paths.put("noteNumber", arg -> ((ClaimResponse.AddedItemComponent) arg).getNoteNumber());
+        this.putPath("noteNumber", ClaimResponse.AddedItemComponent::getNoteNumber);
         // adjudication
-        this.paths.put("adjudication", arg -> ((ClaimResponse.AddedItemComponent) arg).getAdjudication());
-        this.paths.put("adjudicationFirstRep", arg -> ((ClaimResponse.AddedItemComponent) arg).getAdjudicationFirstRep());
+        this.putPath("adjudication", ClaimResponse.AddedItemComponent::getAdjudication);
+        this.putPath("adjudicationFirstRep", ClaimResponse.AddedItemComponent::getAdjudicationFirstRep);
         // detail
-        this.paths.put("detail", arg -> ((ClaimResponse.AddedItemComponent) arg).getDetail());
-        this.paths.put("detailFirstRep", arg -> ((ClaimResponse.AddedItemComponent) arg).getDetailFirstRep());
+        this.putPath("detail", ClaimResponse.AddedItemComponent::getDetail);
+        this.putPath("detailFirstRep", ClaimResponse.AddedItemComponent::getDetailFirstRep);
     }
 
     @Override

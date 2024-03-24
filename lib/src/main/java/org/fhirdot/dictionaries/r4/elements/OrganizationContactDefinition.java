@@ -4,18 +4,18 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Organization;
 
-public class OrganizationContactDefinition extends AbstractDefinition<Base> {
+public class OrganizationContactDefinition extends AbstractDefinition<Base, Organization.OrganizationContactComponent> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new BackboneElementDefinition().getPaths());
+        this.putAllPaths(new BackboneElementDefinition().getPaths());
         // purpose
-        this.paths.put("purpose", arg -> ((Organization.OrganizationContactComponent) arg).getPurpose());
+        this.putPath("purpose", Organization.OrganizationContactComponent::getPurpose);
         // name
-        this.paths.put("name", arg -> ((Organization.OrganizationContactComponent) arg).getName());
+        this.putPath("name", Organization.OrganizationContactComponent::getName);
         // telecom
-        this.paths.put("telecom", arg -> ((Organization.OrganizationContactComponent) arg).getTelecom());
+        this.putPath("telecom", Organization.OrganizationContactComponent::getTelecom);
         // address
-        this.paths.put("address", arg -> ((Organization.OrganizationContactComponent) arg).getAddress());
+        this.putPath("address", Organization.OrganizationContactComponent::getAddress);
     }
 
     @Override

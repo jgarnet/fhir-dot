@@ -4,13 +4,13 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Timing;
 
-public class TimingRepeatComponentDefinition extends AbstractDefinition<Base> {
+public class TimingRepeatComponentDefinition extends AbstractDefinition<Base, Timing.TimingRepeatComponent> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new ElementDefinition().getPaths());
-        this.paths.put("boundsDuration", arg -> ((Timing.TimingRepeatComponent) arg).getBoundsDuration());
-        this.paths.put("period", arg -> ((Timing.TimingRepeatComponent) arg).getPeriodElement());
-        this.paths.put("periodUnit", arg -> ((Timing.TimingRepeatComponent) arg).getPeriodUnit());
+        this.putAllPaths(new ElementDefinition().getPaths());
+        this.putPath("boundsDuration", Timing.TimingRepeatComponent::getBoundsDuration);
+        this.putPath("period", Timing.TimingRepeatComponent::getPeriodElement);
+        this.putPath("periodUnit", Timing.TimingRepeatComponent::getPeriodUnit);
     }
 
     @Override

@@ -4,20 +4,20 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Identifier;
 
-public class IdentifierDefinition extends AbstractDefinition<Base> {
+public class IdentifierDefinition extends AbstractDefinition<Base, Identifier> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new ElementDefinition().getPaths());
+        this.putAllPaths(new ElementDefinition().getPaths());
         // use
-        this.paths.put("use", arg -> ((Identifier) arg).getUse());
+        this.putPath("use", Identifier::getUse);
         // type
-        this.paths.put("type", arg -> ((Identifier) arg).getType());
+        this.putPath("type", Identifier::getType);
         // system
-        this.paths.put("system", arg -> ((Identifier) arg).getSystemElement());
+        this.putPath("system", Identifier::getSystemElement);
         // value
-        this.paths.put("value", arg -> ((Identifier) arg).getValueElement());
+        this.putPath("value", Identifier::getValueElement);
         // period
-        this.paths.put("period", arg -> ((Identifier) arg).getPeriod());
+        this.putPath("period", Identifier::getPeriod);
     }
 
     @Override

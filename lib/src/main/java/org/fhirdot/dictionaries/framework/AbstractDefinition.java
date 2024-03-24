@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public abstract class AbstractDefinition<Base> implements Definition<Base> {
+public abstract class AbstractDefinition<Base, Structure extends Base> implements Definition<Base> {
 
-    protected final Map<String, Function<Base, Object>> paths;
+    private final Map<String, Function<Base, Object>> paths;
 
     public AbstractDefinition() {
         this.paths = new HashMap<>();
@@ -18,6 +18,15 @@ public abstract class AbstractDefinition<Base> implements Definition<Base> {
             this.initialize();
         }
         return paths;
+    }
+
+    @SuppressWarnings("unchecked")
+    protected void putPath(String path, Function<Structure, Object> pathFunction) {
+        this.paths.put(path, (Function<Base, Object>) pathFunction);
+    }
+
+    protected void putAllPaths(Map<String, Function<Base, Object>> paths) {
+        this.paths.putAll(paths);
     }
 
     protected abstract void initialize();

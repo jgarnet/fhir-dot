@@ -4,14 +4,14 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Period;
 
-public class PeriodDefinition extends AbstractDefinition<Base> {
+public class PeriodDefinition extends AbstractDefinition<Base, Period> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new ElementDefinition().getPaths());
+        this.putAllPaths(new ElementDefinition().getPaths());
         // start
-        this.paths.put("start", arg -> ((Period) arg).getStartElement());
+        this.putPath("start", Period::getStartElement);
         // end
-        this.paths.put("end", arg -> ((Period) arg).getEndElement());
+        this.putPath("end", Period::getEndElement);
     }
 
     @Override

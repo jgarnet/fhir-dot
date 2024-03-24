@@ -4,37 +4,37 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Practitioner;
 
-public class PractitionerDefinition extends AbstractDefinition<Base> {
+public class PractitionerDefinition extends AbstractDefinition<Base, Practitioner> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new DomainResourceDefinition().getPaths());
+        this.putAllPaths(new DomainResourceDefinition().getPaths());
         // identifier
-        this.paths.put("identifier", arg -> ((Practitioner) arg).getIdentifier());
-        this.paths.put("identifierFirstRep", arg -> ((Practitioner) arg).getIdentifierFirstRep());
+        this.putPath("identifier", Practitioner::getIdentifier);
+        this.putPath("identifierFirstRep", Practitioner::getIdentifierFirstRep);
         // active
-        this.paths.put("active", arg -> ((Practitioner) arg).getActiveElement());
+        this.putPath("active", Practitioner::getActiveElement);
         // name
-        this.paths.put("name", arg -> ((Practitioner) arg).getName());
-        this.paths.put("nameFirstRep", arg -> ((Practitioner) arg).getNameFirstRep());
+        this.putPath("name", Practitioner::getName);
+        this.putPath("nameFirstRep", Practitioner::getNameFirstRep);
         // telecom
-        this.paths.put("telecom", arg -> ((Practitioner) arg).getTelecom());
-        this.paths.put("telecomFirstRep", arg -> ((Practitioner) arg).getTelecomFirstRep());
+        this.putPath("telecom", Practitioner::getTelecom);
+        this.putPath("telecomFirstRep", Practitioner::getTelecomFirstRep);
         // address
-        this.paths.put("address", arg -> ((Practitioner) arg).getAddress());
-        this.paths.put("addressFirstRep", arg -> ((Practitioner) arg).getAddressFirstRep());
+        this.putPath("address", Practitioner::getAddress);
+        this.putPath("addressFirstRep", Practitioner::getAddressFirstRep);
         // gender
-        this.paths.put("gender", arg -> ((Practitioner) arg).getGender());
+        this.putPath("gender", Practitioner::getGender);
         // birthDate
-        this.paths.put("birthDate", arg -> ((Practitioner) arg).getBirthDateElement());
+        this.putPath("birthDate", Practitioner::getBirthDateElement);
         // photo
-        this.paths.put("photo", arg -> ((Practitioner) arg).getPhoto());
-        this.paths.put("photoFirstRep", arg -> ((Practitioner) arg).getPhotoFirstRep());
+        this.putPath("photo", Practitioner::getPhoto);
+        this.putPath("photoFirstRep", Practitioner::getPhotoFirstRep);
         // qualification
-        this.paths.put("qualification", arg -> ((Practitioner) arg).getQualification());
-        this.paths.put("qualificationFirstRep", arg -> ((Practitioner) arg).getQualificationFirstRep());
+        this.putPath("qualification", Practitioner::getQualification);
+        this.putPath("qualificationFirstRep", Practitioner::getQualificationFirstRep);
         // communication
-        this.paths.put("communication", arg -> ((Practitioner) arg).getCommunication());
-        this.paths.put("communicationFirstRep", arg -> ((Practitioner) arg).getCommunicationFirstRep());
+        this.putPath("communication", Practitioner::getCommunication);
+        this.putPath("communicationFirstRep", Practitioner::getCommunicationFirstRep);
     }
 
     @Override

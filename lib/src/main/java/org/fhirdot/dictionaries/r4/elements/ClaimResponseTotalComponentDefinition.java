@@ -4,14 +4,14 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 
-public class ClaimResponseTotalComponentDefinition extends AbstractDefinition<Base> {
+public class ClaimResponseTotalComponentDefinition extends AbstractDefinition<Base, ClaimResponse.TotalComponent> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new BackboneElementDefinition().getPaths());
+        this.putAllPaths(new BackboneElementDefinition().getPaths());
         // category
-        this.paths.put("category", arg -> ((ClaimResponse.TotalComponent) arg).getCategory());
+        this.putPath("category", ClaimResponse.TotalComponent::getCategory);
         // amount
-        this.paths.put("amount", arg -> ((ClaimResponse.TotalComponent) arg).getAmount());
+        this.putPath("amount", ClaimResponse.TotalComponent::getAmount);
     }
 
     @Override

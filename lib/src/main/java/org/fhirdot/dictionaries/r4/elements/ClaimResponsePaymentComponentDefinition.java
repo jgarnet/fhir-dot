@@ -4,22 +4,22 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 
-public class ClaimResponsePaymentComponentDefinition extends AbstractDefinition<Base> {
+public class ClaimResponsePaymentComponentDefinition extends AbstractDefinition<Base, ClaimResponse.PaymentComponent> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new BackboneElementDefinition().getPaths());
+        this.putAllPaths(new BackboneElementDefinition().getPaths());
         // type
-        this.paths.put("type", arg -> ((ClaimResponse.PaymentComponent) arg).getType());
+        this.putPath("type", ClaimResponse.PaymentComponent::getType);
         // adjustment
-        this.paths.put("adjustment", arg -> ((ClaimResponse.PaymentComponent) arg).getAdjustment());
+        this.putPath("adjustment", ClaimResponse.PaymentComponent::getAdjustment);
         // adjustmentReason
-        this.paths.put("adjustmentReason", arg -> ((ClaimResponse.PaymentComponent) arg).getAdjustmentReason());
+        this.putPath("adjustmentReason", ClaimResponse.PaymentComponent::getAdjustmentReason);
         // date
-        this.paths.put("date", arg -> ((ClaimResponse.PaymentComponent) arg).getDateElement());
+        this.putPath("date", ClaimResponse.PaymentComponent::getDateElement);
         // amount
-        this.paths.put("amount", arg -> ((ClaimResponse.PaymentComponent) arg).getAmount());
+        this.putPath("amount", ClaimResponse.PaymentComponent::getAmount);
         // identifier
-        this.paths.put("identifier", arg -> ((ClaimResponse.PaymentComponent) arg).getIdentifier());
+        this.putPath("identifier", ClaimResponse.PaymentComponent::getIdentifier);
     }
 
     @Override

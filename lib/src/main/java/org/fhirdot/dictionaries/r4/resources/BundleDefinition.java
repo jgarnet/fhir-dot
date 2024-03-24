@@ -4,24 +4,24 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Bundle;
 
-public class BundleDefinition extends AbstractDefinition<Base> {
+public class BundleDefinition extends AbstractDefinition<Base, Bundle> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new DomainResourceDefinition().getPaths());
+        this.putAllPaths(new DomainResourceDefinition().getPaths());
         // identifier
-        this.paths.put("identifier", arg -> ((Bundle) arg).getIdentifier());
+        this.putPath("identifier", Bundle::getIdentifier);
         // type
-        this.paths.put("type", arg -> ((Bundle) arg).getType());
+        this.putPath("type", Bundle::getType);
         // timestamp
-        this.paths.put("timestamp", arg -> ((Bundle) arg).getTimestampElement());
+        this.putPath("timestamp", Bundle::getTimestampElement);
         // total
-        this.paths.put("total", arg -> ((Bundle) arg).getTotalElement());
+        this.putPath("total", Bundle::getTotalElement);
         // link
-        this.paths.put("link", arg -> ((Bundle) arg).getLink());
+        this.putPath("link", Bundle::getLink);
         // entry
-        this.paths.put("entry", arg -> ((Bundle) arg).getEntry());
+        this.putPath("entry", Bundle::getEntry);
         // signature
-        this.paths.put("signature", arg -> ((Bundle) arg).getSignature());
+        this.putPath("signature", Bundle::getSignature);
     }
 
     @Override

@@ -4,19 +4,19 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Resource;
 
-public class ResourceDefinition extends AbstractDefinition<Base> {
+public class ResourceDefinition extends AbstractDefinition<Base, Resource> {
     @Override
     protected void initialize() {
         // id
-        this.paths.put("id", arg -> ((Resource) arg).getIdElement());
+        this.putPath("id", Resource::getIdElement);
         // meta
-        this.paths.put("meta", arg -> ((Resource) arg).getMeta());
+        this.putPath("meta", Resource::getMeta);
         // implicitRules
-        this.paths.put("implicitRules", arg -> ((Resource) arg).getImplicitRulesElement());
+        this.putPath("implicitRules", Resource::getImplicitRulesElement);
         // language
-        this.paths.put("language", arg -> ((Resource) arg).getLanguageElement());
+        this.putPath("language", Resource::getLanguageElement);
         // resourceType
-        this.paths.put("resourceType", arg -> ((Resource) arg).getResourceType());
+        this.putPath("resourceType", Resource::getResourceType);
     }
 
     @Override

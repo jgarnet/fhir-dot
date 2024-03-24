@@ -4,19 +4,19 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Practitioner;
 
-public class PractitionerQualificationComponentDefinition extends AbstractDefinition<Base> {
+public class PractitionerQualificationComponentDefinition extends AbstractDefinition<Base, Practitioner.PractitionerQualificationComponent> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new BackboneElementDefinition().getPaths());
+        this.putAllPaths(new BackboneElementDefinition().getPaths());
         // identifier
-        this.paths.put("identifier", arg -> ((Practitioner.PractitionerQualificationComponent) arg).getIdentifier());
-        this.paths.put("identifierFirstRep", arg -> ((Practitioner.PractitionerQualificationComponent) arg).getIdentifierFirstRep());
+        this.putPath("identifier", Practitioner.PractitionerQualificationComponent::getIdentifier);
+        this.putPath("identifierFirstRep", Practitioner.PractitionerQualificationComponent::getIdentifierFirstRep);
         // code
-        this.paths.put("code", arg -> ((Practitioner.PractitionerQualificationComponent) arg).getCode());
+        this.putPath("code", Practitioner.PractitionerQualificationComponent::getCode);
         // period
-        this.paths.put("period", arg -> ((Practitioner.PractitionerQualificationComponent) arg).getPeriod());
+        this.putPath("period", Practitioner.PractitionerQualificationComponent::getPeriod);
         // issuer
-        this.paths.put("issuer", arg -> ((Practitioner.PractitionerQualificationComponent) arg).getIssuer());
+        this.putPath("issuer", Practitioner.PractitionerQualificationComponent::getIssuer);
     }
 
     @Override

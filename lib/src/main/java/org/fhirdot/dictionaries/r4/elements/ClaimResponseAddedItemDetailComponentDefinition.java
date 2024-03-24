@@ -1,37 +1,38 @@
 package org.fhirdot.dictionaries.r4.elements;
 
 import org.fhirdot.dictionaries.framework.AbstractDefinition;
+import org.hl7.fhir.r4.model.BackboneElement;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 
-public class ClaimResponseAddedItemDetailComponentDefinition extends AbstractDefinition<Base> {
+public class ClaimResponseAddedItemDetailComponentDefinition extends AbstractDefinition<Base, ClaimResponse.AddedItemDetailComponent> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new BackboneElementDefinition().getPaths());
+        this.putAllPaths(new BackboneElementDefinition().getPaths());
         // productOrService
-        this.paths.put("productOrService", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getProductOrService());
+        this.putPath("productOrService", ClaimResponse.AddedItemDetailComponent::getProductOrService);
         // modifier
-        this.paths.put("modifier", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getModifier());
-        this.paths.put("modifierFirstRep", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getModifierFirstRep());
+        this.putPath("modifier", ClaimResponse.AddedItemDetailComponent::getModifier);
+        this.putPath("modifierFirstRep", ClaimResponse.AddedItemDetailComponent::getModifierFirstRep);
         // modifierExtension
-        this.paths.put("modifierExtension", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getModifierExtension());
-        this.paths.put("modifierExtensionFirstRep", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getModifierExtensionFirstRep());
+        this.putPath("modifierExtension", BackboneElement::getModifierExtension);
+        this.putPath("modifierExtensionFirstRep", BackboneElement::getModifierExtensionFirstRep);
         // quantity
-        this.paths.put("quantity", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getQuantity());
+        this.putPath("quantity", ClaimResponse.AddedItemDetailComponent::getQuantity);
         // unitPrice
-        this.paths.put("unitPrice", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getUnitPrice());
+        this.putPath("unitPrice", ClaimResponse.AddedItemDetailComponent::getUnitPrice);
         // factor
-        this.paths.put("factor", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getFactorElement());
+        this.putPath("factor", ClaimResponse.AddedItemDetailComponent::getFactorElement);
         // net
-        this.paths.put("net", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getNet());
+        this.putPath("net", ClaimResponse.AddedItemDetailComponent::getNet);
         // noteNumber
-        this.paths.put("noteNumber", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getNoteNumber());
+        this.putPath("noteNumber", ClaimResponse.AddedItemDetailComponent::getNoteNumber);
         // adjudication
-        this.paths.put("adjudication", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getAdjudication());
-        this.paths.put("adjudicationFirstRep", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getAdjudicationFirstRep());
+        this.putPath("adjudication", ClaimResponse.AddedItemDetailComponent::getAdjudication);
+        this.putPath("adjudicationFirstRep", ClaimResponse.AddedItemDetailComponent::getAdjudicationFirstRep);
         // subDetail
-        this.paths.put("subDetail", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getSubDetail());
-        this.paths.put("subDetailFirstRep", arg -> ((ClaimResponse.AddedItemDetailComponent) arg).getSubDetailFirstRep());
+        this.putPath("subDetail", ClaimResponse.AddedItemDetailComponent::getSubDetail);
+        this.putPath("subDetailFirstRep", ClaimResponse.AddedItemDetailComponent::getSubDetailFirstRep);
     }
 
     @Override

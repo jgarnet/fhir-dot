@@ -4,33 +4,33 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Coverage;
 
-public class CoverageDefinition extends AbstractDefinition<Base> {
+public class CoverageDefinition extends AbstractDefinition<Base, Coverage> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new DomainResourceDefinition().getPaths());
-        this.paths.put("identifier", arg -> ((Coverage) arg).getIdentifier());
-        this.paths.put("identifierFirstRep", arg -> ((Coverage) arg).getIdentifierFirstRep());
-        this.paths.put("status", arg -> ((Coverage) arg).getStatus());
-        this.paths.put("type", arg -> ((Coverage) arg).getType());
-        this.paths.put("policyHolder", arg -> ((Coverage) arg).getPolicyHolder());
-        this.paths.put("subscriber", arg -> ((Coverage) arg).getSubscriber());
-        this.paths.put("subscriberTarget", arg -> ((Coverage) arg).getSubscriber().getResource());
-        this.paths.put("subscriberId", arg -> ((Coverage) arg).getSubscriberIdElement());
-        this.paths.put("beneficiary", arg -> ((Coverage) arg).getBeneficiary());
-        this.paths.put("dependent", arg -> ((Coverage) arg).getDependentElement());
-        this.paths.put("relationship", arg -> ((Coverage) arg).getRelationship());
-        this.paths.put("period", arg -> ((Coverage) arg).getPeriod());
-        this.paths.put("payor", arg -> ((Coverage) arg).getPayor());
-        this.paths.put("payorFirstRep", arg -> ((Coverage) arg).getPayorFirstRep());
-        this.paths.put("class", arg -> ((Coverage) arg).getClass_());
-        this.paths.put("classFirstRep", arg -> ((Coverage) arg).getClass_FirstRep());
-        this.paths.put("order", arg -> ((Coverage) arg).getOrderElement());
-        this.paths.put("network", arg -> ((Coverage) arg).getNetworkElement());
-        this.paths.put("costToBeneficiary", arg -> ((Coverage) arg).getCostToBeneficiary());
-        this.paths.put("costToBeneficiaryFirstRep", arg -> ((Coverage) arg).getCostToBeneficiaryFirstRep());
-        this.paths.put("subrogation", arg -> ((Coverage) arg).getSubrogationElement());
-        this.paths.put("contract", arg -> ((Coverage) arg).getContract());
-        this.paths.put("contractFirstRep", arg -> ((Coverage) arg).getContractFirstRep());
+        this.putAllPaths(new DomainResourceDefinition().getPaths());
+        this.putPath("identifier", Coverage::getIdentifier);
+        this.putPath("identifierFirstRep", Coverage::getIdentifierFirstRep);
+        this.putPath("status", Coverage::getStatus);
+        this.putPath("type", Coverage::getType);
+        this.putPath("policyHolder", Coverage::getPolicyHolder);
+        this.putPath("subscriber", Coverage::getSubscriber);
+        this.putPath("subscriberTarget", arg -> arg.getSubscriber().getResource());
+        this.putPath("subscriberId", Coverage::getSubscriberIdElement);
+        this.putPath("beneficiary", Coverage::getBeneficiary);
+        this.putPath("dependent", Coverage::getDependentElement);
+        this.putPath("relationship", Coverage::getRelationship);
+        this.putPath("period", Coverage::getPeriod);
+        this.putPath("payor", Coverage::getPayor);
+        this.putPath("payorFirstRep", Coverage::getPayorFirstRep);
+        this.putPath("class", Coverage::getClass_);
+        this.putPath("classFirstRep", Coverage::getClass_FirstRep);
+        this.putPath("order", Coverage::getOrderElement);
+        this.putPath("network", Coverage::getNetworkElement);
+        this.putPath("costToBeneficiary", Coverage::getCostToBeneficiary);
+        this.putPath("costToBeneficiaryFirstRep", Coverage::getCostToBeneficiaryFirstRep);
+        this.putPath("subrogation", Coverage::getSubrogationElement);
+        this.putPath("contract", Coverage::getContract);
+        this.putPath("contractFirstRep", Coverage::getContractFirstRep);
     }
 
     @Override

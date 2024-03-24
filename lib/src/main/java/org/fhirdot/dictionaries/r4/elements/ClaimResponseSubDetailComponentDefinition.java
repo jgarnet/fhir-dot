@@ -4,17 +4,17 @@ import org.fhirdot.dictionaries.framework.AbstractDefinition;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 
-public class ClaimResponseSubDetailComponentDefinition extends AbstractDefinition<Base> {
+public class ClaimResponseSubDetailComponentDefinition extends AbstractDefinition<Base, ClaimResponse.SubDetailComponent> {
     @Override
     protected void initialize() {
-        this.paths.putAll(new BackboneElementDefinition().getPaths());
+        this.putAllPaths(new BackboneElementDefinition().getPaths());
         // subDetailSequence
-        this.paths.put("subDetailSequence", arg -> ((ClaimResponse.SubDetailComponent) arg).getSubDetailSequenceElement());
+        this.putPath("subDetailSequence", ClaimResponse.SubDetailComponent::getSubDetailSequenceElement);
         // noteNumber
-        this.paths.put("noteNumber", arg -> ((ClaimResponse.SubDetailComponent) arg).getNoteNumber());
+        this.putPath("noteNumber", ClaimResponse.SubDetailComponent::getNoteNumber);
         // adjudication
-        this.paths.put("adjudication", arg -> ((ClaimResponse.SubDetailComponent) arg).getAdjudication());
-        this.paths.put("adjudicationFirstRep", arg -> ((ClaimResponse.SubDetailComponent) arg).getAdjudicationFirstRep());
+        this.putPath("adjudication", ClaimResponse.SubDetailComponent::getAdjudication);
+        this.putPath("adjudicationFirstRep", ClaimResponse.SubDetailComponent::getAdjudicationFirstRep);
     }
 
     @Override
