@@ -23,18 +23,15 @@ public class ClaimResponseAddedItemComponentDefinition extends AbstractDefinitio
         // modifier
         this.putPath("modifier", ClaimResponse.AddedItemComponent::getModifier);
         this.putPath("modifierFirstRep", ClaimResponse.AddedItemComponent::getModifierFirstRep);
-        // modifierExtension
-        this.putPath("modifierExtension", BackboneElement::getModifierExtension);
-        this.putPath("modifierExtensionFirstRep", BackboneElement::getModifierExtensionFirstRep);
         // programCode
         this.putPath("programCode", ClaimResponse.AddedItemComponent::getProgramCode);
         this.putPath("programCodeFirstRep", ClaimResponse.AddedItemComponent::getProgramCodeFirstRep);
         // serviced
-        this.putPath("serviced", ClaimResponse.AddedItemComponent::getServiced);
+        this.putPath("serviced[x]", ClaimResponse.AddedItemComponent::getServiced);
         this.putPath("servicedDate", ClaimResponse.AddedItemComponent::getServicedDateType);
         this.putPath("servicedPeriod", ClaimResponse.AddedItemComponent::getServicedPeriod);
         // location
-        this.putPath("location", ClaimResponse.AddedItemComponent::getLocation);
+        this.putPath("location[x]", ClaimResponse.AddedItemComponent::getLocation);
         this.putPath("locationCodeableConcept", ClaimResponse.AddedItemComponent::getLocationCodeableConcept);
         this.putPath("locationAddress", ClaimResponse.AddedItemComponent::getLocationAddress);
         this.putPath("locationReference", ClaimResponse.AddedItemComponent::getLocationReference);

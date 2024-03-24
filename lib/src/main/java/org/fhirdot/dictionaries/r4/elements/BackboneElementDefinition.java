@@ -9,6 +9,7 @@ public class BackboneElementDefinition extends AbstractDefinition<Base, Backbone
     protected void initialize() {
         this.putAllPaths(new ElementDefinition().getPaths());
         this.putPath("modifierExtension", BackboneElement::getModifierExtension);
+        this.putPath("modifierExtensionFirstRep", BackboneElement::getModifierExtensionFirstRep);
     }
 
     @Override

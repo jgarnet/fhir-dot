@@ -30,6 +30,8 @@ public class BackboneElementDefinitionTest extends ElementDefinitionTest {
         ext.setUrl("test").setValue(new StringType("test"));
         List<Extension> result = this.evaluate("modifierExtension", e);
         Assertions.assertTrue(result.contains(ext));
+        Extension result2 = this.evaluate("modifierExtensionFirstRep", e);
+        Assertions.assertEquals(ext, result2);
     }
 
     @Override
