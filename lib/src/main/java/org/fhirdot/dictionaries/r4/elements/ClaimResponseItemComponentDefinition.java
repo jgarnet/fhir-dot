@@ -14,8 +14,10 @@ public class ClaimResponseItemComponentDefinition extends AbstractDefinition<Bas
         this.paths.put("noteNumber", arg -> ((ClaimResponse.ItemComponent) arg).getNoteNumber());
         // adjudication
         this.paths.put("adjudication", arg -> ((ClaimResponse.ItemComponent) arg).getAdjudication());
+        this.paths.put("adjudicationFirstRep", arg -> ((ClaimResponse.ItemComponent) arg).getAdjudicationFirstRep());
         // detail
         this.paths.put("detail", arg -> ((ClaimResponse.ItemComponent) arg).getDetail());
+        this.paths.put("detailFirstRep", arg -> ((ClaimResponse.ItemComponent) arg).getDetailFirstRep());
     }
 
     @Override

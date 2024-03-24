@@ -25,10 +25,13 @@ public class ClaimResponseDefinition extends AbstractDefinition<Base> {
         this.paths.put("created", arg -> ((ClaimResponse) arg).getCreatedElement());
         // insurer
         this.paths.put("insurer", arg -> ((ClaimResponse) arg).getInsurer());
+        this.paths.put("insurerTarget", arg -> ((ClaimResponse) arg).getInsurer().getResource());
         // requestor
         this.paths.put("requestor", arg -> ((ClaimResponse) arg).getRequestor());
+        this.paths.put("requestorTarget", arg -> ((ClaimResponse) arg).getRequestor().getResource());
         // request
         this.paths.put("request", arg -> ((ClaimResponse) arg).getRequest());
+        this.paths.put("requestTarget", arg -> ((ClaimResponse) arg).getRequest().getResource());
         // outcome
         this.paths.put("outcome", arg -> ((ClaimResponse) arg).getOutcome());
         // disposition
@@ -41,10 +44,13 @@ public class ClaimResponseDefinition extends AbstractDefinition<Base> {
         this.paths.put("payeeType", arg -> ((ClaimResponse) arg).getPayeeType());
         // item
         this.paths.put("item", arg -> ((ClaimResponse) arg).getItem());
+        this.paths.put("itemFirstRep", arg -> ((ClaimResponse) arg).getItemFirstRep());
         // addItem
         this.paths.put("addItem", arg -> ((ClaimResponse) arg).getAddItem());
+        this.paths.put("addItemFirstRep", arg -> ((ClaimResponse) arg).getAddItemFirstRep());
         // adjudication
         this.paths.put("adjudication", arg -> ((ClaimResponse) arg).getAdjudication());
+        this.paths.put("adjudicationFirstRep", arg -> ((ClaimResponse) arg).getAdjudicationFirstRep());
         // total
         this.paths.put("total", arg -> ((ClaimResponse) arg).getTotal());
         // payment
@@ -57,12 +63,16 @@ public class ClaimResponseDefinition extends AbstractDefinition<Base> {
         this.paths.put("form", arg -> ((ClaimResponse) arg).getForm());
         // processNote
         this.paths.put("processNote", arg -> ((ClaimResponse) arg).getProcessNote());
+        this.paths.put("processNoteFirstRep", arg -> ((ClaimResponse) arg).getProcessNoteFirstRep());
         // communicationRequest
         this.paths.put("communicationRequest", arg -> ((ClaimResponse) arg).getCommunicationRequest());
+        this.paths.put("communicationRequestFirstRep", arg -> ((ClaimResponse) arg).getCommunicationRequestFirstRep());
         // insurance
         this.paths.put("insurance", arg -> ((ClaimResponse) arg).getInsurance());
+        this.paths.put("insuranceFirstRep", arg -> ((ClaimResponse) arg).getInsuranceFirstRep());
         // error
         this.paths.put("error", arg -> ((ClaimResponse) arg).getError());
+        this.paths.put("errorFirstRep", arg -> ((ClaimResponse) arg).getErrorFirstRep());
     }
 
     @Override
