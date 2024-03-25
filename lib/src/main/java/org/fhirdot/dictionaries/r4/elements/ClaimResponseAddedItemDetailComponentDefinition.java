@@ -1,7 +1,6 @@
 package org.fhirdot.dictionaries.r4.elements;
 
 import org.fhirdot.dictionaries.framework.AbstractDefinition;
-import org.hl7.fhir.r4.model.BackboneElement;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.ClaimResponse;
 
@@ -14,9 +13,6 @@ public class ClaimResponseAddedItemDetailComponentDefinition extends AbstractDef
         // modifier
         this.putPath("modifier", ClaimResponse.AddedItemDetailComponent::getModifier);
         this.putPath("modifierFirstRep", ClaimResponse.AddedItemDetailComponent::getModifierFirstRep);
-        // modifierExtension
-        this.putPath("modifierExtension", BackboneElement::getModifierExtension);
-        this.putPath("modifierExtensionFirstRep", BackboneElement::getModifierExtensionFirstRep);
         // quantity
         this.putPath("quantity", ClaimResponse.AddedItemDetailComponent::getQuantity);
         // unitPrice
