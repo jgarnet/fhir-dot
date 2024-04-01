@@ -79,7 +79,7 @@ public class ConditionNode extends AbstractNode {
      * Evaluates all Conditions against a target Object.
      * Condition operations (AND, OR) are executed from left-to-right.
      * @param target The Base Object which Conditions are being evaluated against
-     * @param conditionIterator Collection of Conditions which target will be evaluated against
+     * @param conditionIterator Iterator which provides Conditions to be evaluated
      * @return Boolean value indicating whether all Conditions apply to the target Object
      * @param <Base> The generic Base FHIR structure
      */
