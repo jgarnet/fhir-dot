@@ -2,18 +2,21 @@ package org.fhirdot.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class ConditionBuilder {
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class ConditionsParser {
     private final String conditionsString;
     private final StringBuilder currentNode;
-    private Condition rootCondition;
-    private Condition currentCondition;
+    private final ArrayList<Condition> conditions;
 
-    public ConditionBuilder(String conditionsString) {
+    public ConditionsParser(String conditionsString) {
         this.conditionsString = conditionsString;
         this.currentNode = new StringBuilder();
+        this.conditions = new ArrayList<>();
     }
 
-    public Condition build() {
+    public Collection<Condition> build() {
         if (StringUtils.isEmpty(this.conditionsString)) {
             return null;
         }
@@ -33,19 +36,14 @@ public class ConditionBuilder {
         if (!this.currentNode.isEmpty()) {
             this.addCondition(null);
         }
-        return rootCondition;
+        return this.conditions;
     }
 
     private void addCondition(String operator) {
         Condition newCondition = new Condition()
                 .setOperator(operator)
                 .setOperation(this.currentNode.toString());
-        if (this.currentCondition == null) {
-            this.rootCondition = newCondition;
-        } else {
-            this.currentCondition.setChild(newCondition);
-        }
-        this.currentCondition = newCondition;
+        this.conditions.add(newCondition);
         this.currentNode.setLength(0);
     }
 

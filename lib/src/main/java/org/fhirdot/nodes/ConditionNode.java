@@ -7,10 +7,12 @@ import org.fhirdot.framework.Rules;
 import org.fhirdot.nodes.framework.AbstractNode;
 import org.fhirdot.nodes.framework.Node;
 import org.fhirdot.utils.Condition;
-import org.fhirdot.utils.ConditionBuilder;
+import org.fhirdot.utils.ConditionsParser;
 import org.fhirdot.utils.FhirDotUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -42,16 +44,16 @@ public class ConditionNode extends AbstractNode {
     public <Base, Result> Result evaluate(Base base, String path) throws FhirDotException {
         String field = path.substring(0, path.indexOf("{"));
         String conditionsString = path.substring(path.indexOf("{") + 1, path.length() - 1);
-        Condition condition = new ConditionBuilder(conditionsString).build();
+        Collection<Condition> conditions = new ConditionsParser(conditionsString).build();
         if (base instanceof List) {
             List<Base> parents = (List<Base>) base;
             List<Result> results = new ArrayList<>(parents.size());
             for (Base current : parents) {
-                results.addAll(this.extractTargets(current, field, condition));
+                results.addAll(this.extractTargets(current, field, conditions));
             }
             return (Result) results;
         }
-        return (Result) this.extractTargets(base, field, condition);
+        return (Result) this.extractTargets(base, field, conditions);
     }
 
     /**
@@ -59,41 +61,41 @@ public class ConditionNode extends AbstractNode {
      * For each Object in the target Collection, the supplied Conditions are applied to filter only the applicable items.
      * @param base The Base Object which the target Collection resides on
      * @param field The field path to the target Collection on the Base object
-     * @param condition The Condition Node which holds all Conditions to apply to each item in the target Collection
+     * @param conditions Collection of Conditions used to evaluate each item in the target Collection
      * @return The filtered Collection items which all Conditions apply to
      * @param <Base> The generic Base FHIR structure
      * @param <Result> Generic return type
      * @throws FhirDotException If errors occur during execution
      */
-    private <Base, Result> List<Result> extractTargets(Base base, String field, Condition condition) throws FhirDotException {
+    private <Base, Result> List<Result> extractTargets(Base base, String field, Collection<Condition> conditions) throws FhirDotException {
         List<Base> targets = this.evaluatePath(base, field);
         return (List<Result>) targets
                 .stream()
-                .filter(target -> this.evaluateCondition(target, condition))
+                .filter(target -> this.evaluateCondition(target, conditions.iterator()))
                 .collect(Collectors.toList());
     }
 
     /**
-     * Recursively evaluates all Conditions against a target Object.
+     * Evaluates all Conditions against a target Object.
      * Condition operations (AND, OR) are executed from left-to-right.
      * @param target The Base Object which Conditions are being evaluated against
-     * @param condition A linked-Node structure holding all Conditions and their relationships
+     * @param conditionIterator Collection of Conditions which target will be evaluated against
      * @return Boolean value indicating whether all Conditions apply to the target Object
      * @param <Base> The generic Base FHIR structure
      */
-    private <Base> boolean evaluateCondition(Base target, Condition condition) {
+    private <Base> boolean evaluateCondition(Base target, Iterator<Condition> conditionIterator) {
         try {
+            Condition condition = conditionIterator.next();
             // determine if the current Condition resolves to true or false
             boolean result = this.evaluateOperation(target, condition.getOperation());
-            Condition child = condition.getChild();
             if (result) {
-                if (child != null && "AND".equalsIgnoreCase(condition.getOperator())) {
+                if (conditionIterator.hasNext() && "AND".equalsIgnoreCase(condition.getOperator())) {
                     // if result is true, and there is an AND child relationship, ensure child condition is also true
-                    result = this.evaluateCondition(target, child);
+                    result = this.evaluateCondition(target, conditionIterator);
                 }
-            } else if (child != null && "OR".equalsIgnoreCase(condition.getOperator())) {
+            } else if (conditionIterator.hasNext() && "OR".equalsIgnoreCase(condition.getOperator())) {
                 // if result is false, and there is an OR child relationship, check if child condition is true
-                result = this.evaluateCondition(target, child);
+                result = this.evaluateCondition(target, conditionIterator);
             }
             return result;
         } catch (Exception e) {
@@ -104,7 +106,6 @@ public class ConditionNode extends AbstractNode {
 
     /**
      * Evaluates whether a Condition operation is applicable for a target Object.
-     * Extracts the operation from the Condition, and determines the appropriate Evaluator to evaluate the operation.
      * @param target The target Base Object which the Condition is being evaluated against
      * @param operation The operation being evaluated
      * @return Boolean value indicating whether the Condition applies to the target
