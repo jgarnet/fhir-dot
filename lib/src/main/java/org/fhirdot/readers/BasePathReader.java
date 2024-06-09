@@ -9,9 +9,10 @@ import org.fhirdot.exceptions.FhirDotException;
 import org.fhirdot.framework.Rules;
 import org.fhirdot.nodes.Nodes;
 import org.fhirdot.nodes.framework.Node;
+import org.fhirdot.parsers.BaseNodeParser;
+import org.fhirdot.parsers.NodeParser;
 import org.fhirdot.readers.framework.PathReader;
 import org.fhirdot.utils.FhirDotUtils;
-import org.fhirdot.utils.NodeParser;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -24,6 +25,7 @@ public class BasePathReader implements PathReader {
     private PathAliases pathAliases;
     private FhirDotUtils utils;
     private Rules rules;
+    private NodeParser nodeParser;
 
     public BasePathReader() {
         DictionaryFactory factory = new DictionaryFactory();
@@ -32,14 +34,16 @@ public class BasePathReader implements PathReader {
         this.utils = new FhirDotUtils();
         this.nodes = new Nodes(rules, utils, factory);
         this.pathAliases = new PathAliases();
+        this.nodeParser = new BaseNodeParser();
     }
 
-    public BasePathReader(Nodes nodes, NodeCache cache, PathAliases pathAliases, FhirDotUtils utils, Rules rules) {
+    public BasePathReader(Nodes nodes, NodeCache cache, PathAliases pathAliases, FhirDotUtils utils, Rules rules, NodeParser nodeParser) {
         this.nodes = nodes;
         this.cache = cache;
         this.pathAliases = pathAliases;
         this.utils = utils;
         this.rules = rules;
+        this.nodeParser = nodeParser;
     }
 
     @Override
@@ -58,7 +62,7 @@ public class BasePathReader implements PathReader {
             }
         }
         // extract nodes
-        List<String> _nodes = new NodeParser().parse(mutatedPath);
+        List<String> _nodes = this.nodeParser.parse(mutatedPath);
         // retrieve target
         Base target = base;
         for (String node : _nodes) {
@@ -102,5 +106,9 @@ public class BasePathReader implements PathReader {
 
     public void setRules(Rules rules) {
         this.rules = rules;
+    }
+
+    public void setNodeParser(NodeParser nodeParser) {
+        this.nodeParser = nodeParser;
     }
 }
